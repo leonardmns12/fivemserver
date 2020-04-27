@@ -10,4 +10,4 @@ server_scripts {
 	'server/main.lua'
 }
 
-dependency 'es_extended'
+dependency 'es_extendedS'
