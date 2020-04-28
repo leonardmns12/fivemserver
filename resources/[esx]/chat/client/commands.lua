@@ -92,6 +92,7 @@ RegisterCommand('911r', function(target, args, rawCommand)
     end
 end, false)
 
+
 RegisterCommand('311r', function(target, args, rawCommand)
     if PlayerData.job.name == 'police' or PlayerData.job.name == 'ambulance' then 
         local source = GetPlayerServerId(PlayerId())

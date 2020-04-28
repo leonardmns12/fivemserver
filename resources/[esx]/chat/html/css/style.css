@@ -153,7 +153,7 @@ input:focus {
   margin: 0.1vw;
   margin-left: 0.4vw;
   border-radius: 10px;
-  background-color: rgba(73, 147, 221, 0.75);
+  background-color: rgba(73, 79, 85, 0.767);
   width: fit-content;
   max-width: 100%;
   overflow: hidden;
@@ -186,4 +186,8 @@ input:focus {
 
 .chat-message.success {
   background-color: rgba(77, 189, 77, 0.705);
+}
+
+.chat-message.twitter {
+  background-color: rgba(73, 147, 221, 0.75);
 }

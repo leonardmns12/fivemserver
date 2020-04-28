@@ -37,5 +37,25 @@ RegisterCommand('ooc', function(source, args, rawCommand)
     })
 end, false)
 
+RegisterCommand('twt', function(source, args, rawCommand)
+	local msg = rawCommand:sub(4)
+	local name = getIdentity(source)
+	fal = name.firstname .. "  " .. name.lastname
+        TriggerClientEvent('chat:addMessage', -1, {
+        template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> Twitter @{0}:</b> {1}</div>',
+        args = { fal, msg }
+    })
+end, false)
+
+RegisterCommand('ads', function(source, args, rawCommand)
+	local msg = rawCommand:sub(4)
+	local name = getIdentity(source)
+	fal = name.firstname .. "  " .. name.lastname
+        TriggerClientEvent('chat:addMessage', -1, {
+        template = '<div class="chat-message advert"><i class="fas fa-ad"></i><b> Advertisement {0}:</b> {1}</div>',
+        args = { fal, msg }
+    })
+end, false)
+
 
 
