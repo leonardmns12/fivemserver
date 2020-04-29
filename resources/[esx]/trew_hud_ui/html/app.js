@@ -265,18 +265,10 @@ window.onload = function () {
 
 					}
 
-
-
-
 					var previousGear = document.querySelector('#vehicle-gear span').innerHTML;
 					var currentGear = data.gear;
 					if (previousGear != currentGear) { document.querySelector('#vehicle-gear').classList.add('pulse') }
 					saferInnerHTML(document.querySelector('#vehicle-gear span'), data.gear);
-
-
-
-
-
 
 					var speedometerCircle = document.querySelector('#progress-speed svg circle.speed');
 					var speedPercentage = Math.floor(Math.floor(data.speed*100)/data.config.maxSpeed);
