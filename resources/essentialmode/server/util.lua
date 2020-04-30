@@ -18,8 +18,7 @@ settings.defaultSettings = {
 	['enableCustomData'] = GetConvar('es_enableCustomData', 'false'),
 	['defaultDatabase'] = GetConvar('es_defaultDatabase', '1'),
 	['disableCommandHandler'] = GetConvar('es_disableCommandHandler', 'false'),
-	['identifierUsed'] = GetConvar('es_identifierUsed', 'steam'),
-	['sendPosition'] = GetConvar('es_send_position', '1')
+	['identifierUsed'] = GetConvar('es_identifierUsed', 'steam')
 }
 settings.sessionSettings = {}
 commandSuggestions = {}

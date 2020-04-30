@@ -2,16 +2,16 @@
 --  GNU AFFERO GENERAL PUBLIC LICENSE  --
 --     Version 3, 19 November 2007     --
 
-_VERSION = '6.4.0'
+_VERSION = '6.3.0'
 _FirstCheckPerformed = false
 _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
-_Prefix = GetConvar("es_prefix", '^2[EssentialMode]^0')
-_PrefixError = GetConvar("es_errorprefix", '^1[EssentialMode]^0')
+_Prefix = '^2[EssentialMode]^0'
+_PrefixError = '^1[EssentialMode]^0'
 
 -- Server
 
 -- Version check
-local VersionAPIRequest = "https://api.kanersps.pw/em/version?version=" .. _VERSION .. "&uuid=" .. _UUID
+local VersionAPIRequest = "https://pastebin.com/raw/KGDJ7H13"
 
 function performVersionCheck()
 	print("Performing version check against: " .. VersionAPIRequest .. "\n")
@@ -27,14 +27,14 @@ function performVersionCheck()
 					print(decoded.startupmessage)
 				end
 			end
-			
+
 			if(decoded.uuid)then
 				SaveResourceFile(GetCurrentResourceName(), "uuid", decoded.uuid, -1)
 
 				_UUID = decoded.uuid
 				if(not _FirstCheckPerformed)then
-					ExecuteCommand("sets EssentialModeUUID " .. _UUID)
-					ExecuteCommand("sets EssentialModeVersion " .. _VERSION)
+					ExecuteCommand("sets Desenvolvedor " .. _UUID)
+					ExecuteCommand("sets VErsão EssentialMode " .. _VERSION)
 					_FirstCheckPerformed = true
 				end
 			end
@@ -51,21 +51,15 @@ function performVersionCheck()
 			end
 
 			if decoded.extra then
-				if(show_zap ~= "1")then
-					print(decoded.extra)
-				else
-					if(decoded.extra ~= "^1Advertisement: ^7Want to have EssentialMode pre-installed on a good and affordable server host? Go to the following link: https://zap-hosting.com/EssentialMode")then
-						print(decoded.extra)
-					end
-				end
+				print(decoded.extra)
 			end
 		else
 			print(_Prefix .. " Updater version: UPDATER UNAVAILABLE")
 			print(_Prefix .. " This could be your internet connection or that the update server is not running. This won't impact the server\n\n")
-		
+
 			if(not _FirstCheckPerformed)then
-				ExecuteCommand("sets EssentialModeUUID " .. _UUID)
-				ExecuteCommand("sets EssentialModeVersion " .. _VERSION)
+				ExecuteCommand("sets Desenvolvedor " .. _UUID)
+				ExecuteCommand("sets VErsão EssentialMode " .. _VERSION)
 				_FirstCheckPerformed = true
 			end
 		end
@@ -126,7 +120,7 @@ AddEventHandler('es:firstJoinProper', function()
 		else
 			registerUser(id, Source)
 			justJoined[Source] = true
-	
+
 		end
 
 		return
@@ -212,7 +206,7 @@ AddEventHandler('chatMessage', function(source, n, message)
 					TriggerEvent("es:userCommandRan", source, command_args)
 				end
 			end
-			
+
 			TriggerEvent("es:commandRan", source, command_args, Users[source])
 		else
 			TriggerEvent('es:invalidCommandHandler', source, command_args, Users[source])
@@ -365,12 +359,8 @@ end)
 
 RegisterServerEvent('es:updatePositions')
 AddEventHandler('es:updatePositions', function(x, y, z)
-	if(settings.defaultSettings.sendPosition == "0")then
-		TriggerClientEvent("es:disableClientPosition", source)
-	else
-		if(Users[source])then
-			Users[source].setCoords(x, y, z)
-		end
+	if(Users[source])then
+		Users[source].setCoords(x, y, z)
 	end
 end)
 

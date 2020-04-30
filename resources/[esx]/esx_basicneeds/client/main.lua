@@ -16,9 +16,10 @@ end)
 
 RegisterNetEvent('esx_basicneeds:healPlayer')
 AddEventHandler('esx_basicneeds:healPlayer', function()
-	-- restore hunger & thirst
+	-- restore hunger & thirst & stress 
 	TriggerEvent('esx_status:set', 'hunger', 1000000)
 	TriggerEvent('esx_status:set', 'thirst', 1000000)
+	TriggerEvent('esx_status:set', 'stress', 0)
 
 	-- restore hp
 	local playerPed = PlayerPedId()
@@ -39,23 +40,17 @@ end)
 
 AddEventHandler('esx_status:loaded', function(status)
 
-	-- TriggerEvent('esx_status:registerStatus', 'hunger', 1000000, '#FFFF00', -- amarelo
-	TriggerEvent('esx_status:registerStatus', 'hunger', 1000000, '#CFAD0F', -- GOLD
-		function(status)
-			return false -- Change to true to show hunger bar | false to hide hunger bar
-		end, function(status)
-			status.remove(100)
-		end
-	)
+	TriggerEvent('esx_status:registerStatus', 'hunger', 1000000, '#CFAD0F', function(status)
+		return true
+	end, function(status)
+		status.remove(100)
+	end)
 
-	-- TriggerEvent('esx_status:registerStatus', 'thirst', 1000000, '#0099FF', -- azul
-	TriggerEvent('esx_status:registerStatus', 'thirst', 1000000, '#0C98F1', -- CYAN
-		function(status)
-			return false -- Change to true to show thirst bar | false to hide thirst bar
-		end, function(status)
-			status.remove(75)
-		end
-	)
+	TriggerEvent('esx_status:registerStatus', 'thirst', 1000000, '#0C98F1', function(status)
+		return true
+	end, function(status)
+		status.remove(75)
+	end)
 
 	Citizen.CreateThread(function()
 		while true do
@@ -111,10 +106,8 @@ AddEventHandler('esx_basicneeds:onEat', function(prop_name)
 
 			ESX.Streaming.RequestAnimDict('mp_player_inteat@burger', function()
 				TaskPlayAnim(playerPed, 'mp_player_inteat@burger', 'mp_player_int_eat_burger_fp', 8.0, -8, -1, 49, 0, 0, 0, 0)
-				exports['progressBars']:startUI(3000, "Makan")
+
 				Citizen.Wait(3000)
-				exports.XNLRankBar:Exp_XNL_AddPlayerXP(100) 
-				TriggerServerEvent('AddXp', 100)		
 				IsAnimated = false
 				ClearPedSecondaryTask(playerPed)
 				DeleteObject(prop)
@@ -139,10 +132,15 @@ AddEventHandler('esx_basicneeds:onDrink', function(prop_name)
 
 			ESX.Streaming.RequestAnimDict('mp_player_intdrink', function()
 				TaskPlayAnim(playerPed, 'mp_player_intdrink', 'loop_bottle', 1.0, -1.0, 2000, 0, 1, true, true, true)
-				exports['progressBars']:startUI(3000, "Minum")
+				EnableControlAction(0, 32, true) -- w
+				EnableControlAction(0, 34, true) -- a
+				EnableControlAction(0, 8, true) -- s
+				EnableControlAction(0, 9, true) -- d
+				EnableControlAction(0, 22, true) -- space
+				EnableControlAction(0, 36, true) -- ctrl
+				EnableControlAction(0, 21, true) -- SHIFT
+
 				Citizen.Wait(3000)
-				exports.XNLRankBar:Exp_XNL_AddPlayerXP(100) 
-				TriggerServerEvent('AddXp', 100)
 				IsAnimated = false
 				ClearPedSecondaryTask(playerPed)
 				DeleteObject(prop)

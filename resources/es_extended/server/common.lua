@@ -1,14 +1,14 @@
-ESX                      = {}
-ESX.Players              = {}
+ESX = {}
+ESX.Players = {}
 ESX.UsableItemsCallbacks = {}
-ESX.Items                = {}
-ESX.ServerCallbacks      = {}
-ESX.TimeoutCount         = -1
-ESX.CancelledTimeouts    = {}
-ESX.LastPlayerData       = {}
-ESX.Pickups              = {}
-ESX.PickupId             = 0
-ESX.Jobs                 = {}
+ESX.Items = {}
+ESX.ServerCallbacks = {}
+ESX.TimeoutCount = -1
+ESX.CancelledTimeouts = {}
+ESX.Pickups = {}
+ESX.PickupId = 0
+ESX.Jobs = {}
+ESX.RegisteredCommands = {}
 
 AddEventHandler('esx:getSharedObject', function(cb)
 	cb(ESX)
@@ -20,72 +20,55 @@ end
 
 MySQL.ready(function()
 	MySQL.Async.fetchAll('SELECT * FROM items', {}, function(result)
-		for i=1, #result, 1 do
-			ESX.Items[result[i].name] = {
-				label     = result[i].label,
-				limit     = result[i].limit,
-				rare      = (result[i].rare       == 1 and true or false),
-				canRemove = (result[i].can_remove == 1 and true or false),
+		for k,v in ipairs(result) do
+			ESX.Items[v.name] = {
+				label = v.label,
+				weight = v.weight,
+				rare = v.rare,
+				canRemove = v.can_remove
 			}
 		end
 	end)
 
-	local result = MySQL.Sync.fetchAll('SELECT * FROM jobs', {})
-
-	for i=1, #result do
-		ESX.Jobs[result[i].name] = result[i]
-		ESX.Jobs[result[i].name].grades = {}
-	end
-
-	local result2 = MySQL.Sync.fetchAll('SELECT * FROM job_grades', {})
-
-	for i=1, #result2 do
-		if ESX.Jobs[result2[i].job_name] then
-			ESX.Jobs[result2[i].job_name].grades[tostring(result2[i].grade)] = result2[i]
-		else
-			print(('es_extended: invalid job "%s" from table job_grades ignored!'):format(result2[i].job_name))
+	MySQL.Async.fetchAll('SELECT * FROM jobs', {}, function(jobs)
+		for k,v in ipairs(jobs) do
+			ESX.Jobs[v.name] = v
+			ESX.Jobs[v.name].grades = {}
 		end
-	end
 
-	for k,v in pairs(ESX.Jobs) do
-		if next(v.grades) == nil then
-			ESX.Jobs[v.name] = nil
-			print(('es_extended: ignoring job "%s" due to missing job grades!'):format(v.name))
-		end
-	end
-end)
+		MySQL.Async.fetchAll('SELECT * FROM job_grades', {}, function(jobGrades)
+			for k,v in ipairs(jobGrades) do
+				if ESX.Jobs[v.job_name] then
+					ESX.Jobs[v.job_name].grades[tostring(v.grade)] = v
+				else
+					print(('[es_extended] [^3WARNING^7] Ignoring job grades for "%s" due to missing job'):format(v.job_name))
+				end
+			end
 
-AddEventHandler('esx:playerLoaded', function(source)
-	local xPlayer         = ESX.GetPlayerFromId(source)
-	local accounts        = {}
-	local items           = {}
-	local xPlayerAccounts = xPlayer.getAccounts()
-	local xPlayerItems    = xPlayer.getInventory()
+			for k2,v2 in pairs(ESX.Jobs) do
+				if ESX.Table.SizeOf(v2.grades) == 0 then
+					ESX.Jobs[v2.name] = nil
+					print(('[es_extended] [^3WARNING^7] Ignoring job "%s" due to no job grades found'):format(v2.name))
+				end
+			end
+		end)
+	end)
 
-	for i=1, #xPlayerAccounts, 1 do
-		accounts[xPlayerAccounts[i].name] = xPlayerAccounts[i].money
-	end
-
-	for i=1, #xPlayerItems, 1 do
-		items[xPlayerItems[i].name] = xPlayerItems[i].count
-	end
-
-	ESX.LastPlayerData[source] = {
-		accounts = accounts,
-		items    = items
-	}
+	print('[es_extended] [^2INFO^7] ESX developed by ESX-Org has been initialized')
 end)
 
 RegisterServerEvent('esx:clientLog')
 AddEventHandler('esx:clientLog', function(msg)
-	RconPrint(msg .. "\n")
+	if Config.EnableDebug then
+		print(('[es_extended] [^2TRACE^7] %s^7'):format(msg))
+	end
 end)
 
 RegisterServerEvent('esx:triggerServerCallback')
 AddEventHandler('esx:triggerServerCallback', function(name, requestId, ...)
-	local _source = source
+	local playerId = source
 
-	ESX.TriggerServerCallback(name, requestID, _source, function(...)
-		TriggerClientEvent('esx:serverCallback', _source, requestId, ...)
+	ESX.TriggerServerCallback(name, requestId, playerId, function(...)
+		TriggerClientEvent('esx:serverCallback', playerId, requestId, ...)
 	end, ...)
 end)

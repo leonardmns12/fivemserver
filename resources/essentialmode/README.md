@@ -1,23 +1,16 @@
 # EssentialMode
 
-## Support development
-Hey, thank you very much for trying out my software. If you'd like to support continued development I'd very much appreciate if you'd pledge any amount to: https://www.patreon.com/gdevelopment
+## Descrição
+O EssentialMode é um recurso do FiveM que é usado para trazer uma interface de gerenciamento central para outros recursos.
+Ele lida com os dados do jogador salvando como seu dinheiro, grupos e funções e os torna facilmente utilizáveis por outros recursos.
 
-## Description
-EssentialMode is a FiveM resource which is used to bring a central management interface for other resources. It handles player data saving like their money, groups and roles and makes these easily usable by other resources.
+## Características
+- sistema de permissão avançada
+- Crie facilmente novos comandos que podem interagir com o EssentialMode
+- Registrando todas as ações se ativado
+- código legível limpo
+- Tentativa de OOP para uso fácil
 
-## Features
-- Advanced permission system
-- Easily create new commands which can interface with EssentialMode
-- Logging for every action if enabled
-- Clean readable code
-- Attempt at OOP for easy usage
+# Discord
 
-## Installation
-Please follow this guide: https://wiki.kanersps.pw/display/FIV/Installation
-
-## Documentation
-Documentation for EssentialMode can be found at: https://wiki.kanersps.pw/display/FIV/Documentation
-
-# Rent a server with EssentialMode pre-installed!
-Go to https://zap-hosting.com/EssentialMode and use code `kanersps-a-2529` for 10% off on all products for life! They will even install EssentialMode for you!
+[![Join ESX Brasil](https://discordapp.com/api/guilds/693468263161659402/embed.png?style=banner2)](https://discord.gg/ZGXTsdN)

@@ -487,7 +487,7 @@ function loadPlayerInventory()
 			local texts =  _U("player_info", GetPlayerName(PlayerId()), (weight / 1000), (Config.Limit / 1000))
 			
             if weight > Config.Limit then
-                exports['mythic_notify']:SendAlert('error', 'Inventário Cheio! Não Consegues Andar')
+                exports['mythic_notify']:SendAlert('error', 'Invetori anda penuh!')
 				--[[TriggerEvent("pNotify:SendNotification",  {
 					text =  'Inventário Cheio! Não Consegues Andar',
 					type = "error",

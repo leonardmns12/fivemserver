@@ -1,6 +1,6 @@
 -- English
 Locales['en'] = {
-	['you_are_on_location'] = 'Kamu berada di <strong>%s</strong>',
+	['you_are_on_location'] = 'You are on <strong>%s</strong>',
 
 	['date_format'] = {
 		default = 'Today is <strong>%s of %s, %s</strong>',

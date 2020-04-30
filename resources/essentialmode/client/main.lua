@@ -2,8 +2,6 @@
 --  GNU AFFERO GENERAL PUBLIC LICENSE  --
 --     Version 3, 19 November 2007     --
 
-local enablePositionSending = true
-
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -16,12 +14,10 @@ Citizen.CreateThread(function()
 	end
 end)
 
-TriggerServerEvent('es:firstJoinProper')
-
 local oldPos
 
 Citizen.CreateThread(function()
-	while enablePositionSending do
+	while true do
 		Citizen.Wait(1000)
 		local pos = GetEntityCoords(PlayerPedId())
 
@@ -50,9 +46,4 @@ AddEventHandler("playerSpawned", function()
 	end
 
 	TriggerServerEvent('playerSpawn')
-end)
-
-RegisterNetEvent("es:disableClientPosition")
-AddEventHandler("es:disableClientPosition", function()
-	enablePositionSending = false
 end)

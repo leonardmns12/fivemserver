@@ -269,7 +269,7 @@ function setCount(item) {
     count = item.count
 
     if (item.limit > 0) {
-        count = item.count + " / " + item.limit
+        count = item.count + " / " + "(" + item.limit + " kg)"
     }
 
     if (item.type === "item_weapon") {

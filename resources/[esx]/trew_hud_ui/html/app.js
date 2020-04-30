@@ -229,18 +229,18 @@ window.onload = function () {
 
 						if (vehiclesCars.indexOf(data.type) > -1) {
 							document.querySelector('#vehicle-others').style.display = 'none';
-							document.querySelector('#vehicle-gear').style.display = 'block';
+							document.querySelector('#vehicle-gear').style.display = 'none';
 
-							vehicleSeatbelt.style.display = 'block';
-							vehicleLights.style.display = 'block';
-							vehicleSignals.style.display = 'block';
-							vehicleFuel.style.display = 'block';
+							vehicleSeatbelt.style.display = 'none';
+							vehicleLights.style.display = 'none';
+							vehicleSignals.style.display = 'none';
+							vehicleFuel.style.display = 'none';
 							
-							document.querySelector('#vehicle-gear').style.display = 'block';
+							document.querySelector('#vehicle-gear').style.display = 'none';
 						}
 
 						else {
-							document.querySelector('#vehicle-others').style.display = 'block';
+							document.querySelector('#vehicle-others').style.display = 'none';
 							document.querySelector('#vehicle-gear').style.display = 'none';
 							document.querySelector('#vehicle-others i').classList.remove('fa-biking', 'fa-helicopter', 'fa-ship');
 
@@ -265,10 +265,18 @@ window.onload = function () {
 
 					}
 
+
+
+
 					var previousGear = document.querySelector('#vehicle-gear span').innerHTML;
 					var currentGear = data.gear;
 					if (previousGear != currentGear) { document.querySelector('#vehicle-gear').classList.add('pulse') }
 					saferInnerHTML(document.querySelector('#vehicle-gear span'), data.gear);
+
+
+
+
+
 
 					var speedometerCircle = document.querySelector('#progress-speed svg circle.speed');
 					var speedPercentage = Math.floor(Math.floor(data.speed*100)/data.config.maxSpeed);

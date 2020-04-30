@@ -1,481 +1,527 @@
-AddEventHandler('es:playerLoaded', function(source, _player)
-	local _source = source
-	local tasks   = {}
+Citizen.CreateThread(function()
+	SetMapName('San Andreas')
+	SetGameType('Roleplay')
+	local resourcesStopped = {}
+	ExecuteCommand('add_ace resource.es_extended command.stop allow')
+
+	for resourceName,reason in pairs(Config.IncompatibleResourcesToStop) do
+		local status = GetResourceState(resourceName)
+
+		if status == 'started' or status == 'starting' then
+			while GetResourceState(resourceName) == 'starting' do
+				Citizen.Wait(100)
+			end
+
+			ExecuteCommand(('stop %s'):format(resourceName))
+			resourcesStopped[resourceName] = reason
+		end
+	end
+
+	if ESX.Table.SizeOf(resourcesStopped) > 0 then
+		local allStoppedResources = ''
+
+		for resourceName,reason in pairs(resourcesStopped) do
+			allStoppedResources = ('%s\n- ^3%s^7, %s'):format(allStoppedResources, resourceName, reason)
+		end
+
+		print(('[es_extended] [^3WARNING^7] Stopped %s incompatible resource(s) that can cause issues when used with ESX. They are not needed and can safely be removed from your server, remove these resource(s) from your resource directory and your configuration file:%s'):format(ESX.Table.SizeOf(resourcesStopped), allStoppedResources))
+	end
+end)
+
+RegisterNetEvent('esx:onPlayerJoined')
+AddEventHandler('esx:onPlayerJoined', function()
+	if not ESX.Players[source] then
+		onPlayerJoined(source)
+	end
+end)
+
+function onPlayerJoined(playerId)
+	local identifier
+
+	for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
+		if string.match(v, 'license:') then
+			identifier = string.sub(v, 9)
+			break
+		end
+	end
+
+	if identifier then
+		if ESX.GetPlayerFromIdentifier(identifier) then
+			DropPlayer(playerId, ('there was an error loading your character!\nError code: identifier-active-ingame\n\nThis error is caused by a player on this server who has the same identifier as you have. Make sure you are not playing on the same Rockstar account.\n\nYour Rockstar identifier: %s'):format(identifier))
+		else
+			MySQL.Async.fetchScalar('SELECT 1 FROM users WHERE identifier = @identifier', {
+				['@identifier'] = identifier
+			}, function(result)
+				if result then
+					loadESXPlayer(identifier, playerId)
+				else
+					local accounts = {}
+
+					for account,money in pairs(Config.StartingAccountMoney) do
+						accounts[account] = money
+					end
+
+					MySQL.Async.execute('INSERT INTO users (accounts, identifier) VALUES (@accounts, @identifier)', {
+						['@accounts'] = json.encode(accounts),
+						['@identifier'] = identifier
+					}, function(rowsChanged)
+						loadESXPlayer(identifier, playerId)
+					end)
+				end
+			end)
+		end
+	else
+		DropPlayer(playerId, 'there was an error loading your character!\nError code: identifier-missing-ingame\n\nThe cause of this error is not known, your identifier could not be found. Please come back later or report this problem to the server administration team.')
+	end
+end
+
+AddEventHandler('playerConnecting', function(name, setCallback, deferrals)
+	deferrals.defer()
+	local playerId, identifier = source
+	Citizen.Wait(100)
+
+	for k,v in ipairs(GetPlayerIdentifiers(playerId)) do
+		if string.match(v, 'license:') then
+			identifier = string.sub(v, 9)
+			break
+		end
+	end
+
+	if identifier then
+		if ESX.GetPlayerFromIdentifier(identifier) then
+			deferrals.done(('There was an error loading your character!\nError code: identifier-active\n\nThis error is caused by a player on this server who has the same identifier as you have. Make sure you are not playing on the same Rockstar account.\n\nYour Rockstar identifier: %s'):format(identifier))
+		else
+			deferrals.done()
+		end
+	else
+		deferrals.done('There was an error loading your character!\nError code: identifier-missing\n\nThe cause of this error is not known, your identifier could not be found. Please come back later or report this problem to the server administration team.')
+	end
+end)
+
+
+function loadESXPlayer(identifier, playerId)
+	local tasks = {}
 
 	local userData = {
-		accounts     = {},
-		inventory    = {},
-		job          = {},
-		loadout      = {},
-		playerName   = GetPlayerName(_source),
-		lastPosition = nil
+		accounts = {},
+		inventory = {},
+		job = {},
+		loadout = {},
+		playerName = GetPlayerName(playerId),
+		weight = 0
 	}
 
-	TriggerEvent('es:getPlayerFromId', _source, function(player)
-		-- Update user name in DB
-		table.insert(tasks, function(cb)
-			MySQL.Async.execute('UPDATE users SET name = @name WHERE identifier = @identifier', {
-				['@identifier'] = player.getIdentifier(),
-				['@name'] = userData.playerName
-			}, function(rowsChanged)
-				cb()
-			end)
-		end)
+	table.insert(tasks, function(cb)
+		MySQL.Async.fetchAll('SELECT accounts, job, job_grade, `group`, loadout, position, inventory FROM users WHERE identifier = @identifier', {
+			['@identifier'] = identifier
+		}, function(result)
+			local job, grade, jobObject, gradeObject = result[1].job, tostring(result[1].job_grade)
+			local foundAccounts, foundItems = {}, {}
 
-		-- Get accounts
-		table.insert(tasks, function(cb)
-			MySQL.Async.fetchAll('SELECT * FROM user_accounts WHERE identifier = @identifier', {
-				['@identifier'] = player.getIdentifier()
-			}, function(accounts)
-				for i=1, #Config.Accounts, 1 do
-					for j=1, #accounts, 1 do
-						if accounts[j].name == Config.Accounts[i] then
-							table.insert(userData.accounts, {
-								name  = accounts[j].name,
-								money = accounts[j].money,
-								label = Config.AccountLabels[accounts[j].name]
-							})
-							break
-						end
-					end
+			-- Accounts
+			if result[1].accounts and result[1].accounts ~= '' then
+				local accounts = json.decode(result[1].accounts)
+
+				for account,money in pairs(accounts) do
+					foundAccounts[account] = money
 				end
+			end
 
-				cb()
-			end)
-		end)
+			for account,label in pairs(Config.Accounts) do
+				table.insert(userData.accounts, {
+					name = account,
+					money = foundAccounts[account] or Config.StartingAccountMoney[account] or 0,
+					label = label
+				})
+			end
 
-		-- Get inventory
-		table.insert(tasks, function(cb)
+			-- Job
+			if ESX.DoesJobExist(job, grade) then
+				jobObject, gradeObject = ESX.Jobs[job], ESX.Jobs[job].grades[grade]
+			else
+				print(('[es_extended] [^3WARNING^7] Ignoring invalid job for %s [job: %s, grade: %s]'):format(identifier, job, grade))
+				job, grade = 'unemployed', '0'
+				jobObject, gradeObject = ESX.Jobs[job], ESX.Jobs[job].grades[grade]
+			end
 
-			MySQL.Async.fetchAll('SELECT * FROM user_inventory WHERE identifier = @identifier', {
-				['@identifier'] = player.getIdentifier()
-			}, function(inventory)
-				local tasks2 = {}
+			userData.job.id = jobObject.id
+			userData.job.name = jobObject.name
+			userData.job.label = jobObject.label
 
-				for i=1, #inventory do
-					local item = ESX.Items[inventory[i].item]
+			userData.job.grade = tonumber(grade)
+			userData.job.grade_name = gradeObject.name
+			userData.job.grade_label = gradeObject.label
+			userData.job.grade_salary = gradeObject.salary
+
+			userData.job.skin_male = {}
+			userData.job.skin_female = {}
+
+			if gradeObject.skin_male then userData.job.skin_male = json.decode(gradeObject.skin_male) end
+			if gradeObject.skin_female then userData.job.skin_female = json.decode(gradeObject.skin_female) end
+
+			-- Inventory
+			if result[1].inventory and result[1].inventory ~= '' then
+				local inventory = json.decode(result[1].inventory)
+
+				for name,count in pairs(inventory) do
+					local item = ESX.Items[name]
 
 					if item then
-						table.insert(userData.inventory, {
-							name = inventory[i].item,
-							count = inventory[i].count,
-							label = item.label,
-							limit = item.limit,
-							usable = ESX.UsableItemsCallbacks[inventory[i].item] ~= nil,
-							rare = item.rare,
-							canRemove = item.canRemove
-						})
+						foundItems[name] = count
 					else
-						print(('es_extended: invalid item "%s" ignored!'):format(inventory[i].item))
+						print(('[es_extended] [^3WARNING^7] Ignoring invalid item "%s" for "%s"'):format(name, identifier))
 					end
 				end
+			end
 
-				for k,v in pairs(ESX.Items) do
-					local found = false
+			for name,item in pairs(ESX.Items) do
+				local count = foundItems[name] or 0
+				if count > 0 then userData.weight = userData.weight + (item.weight * count) end
 
-					for j=1, #userData.inventory do
-						if userData.inventory[j].name == k then
-							found = true
-							break
-						end
-					end
-
-					if not found then
-						table.insert(userData.inventory, {
-							name = k,
-							count = 0,
-							label = ESX.Items[k].label,
-							limit = ESX.Items[k].limit,
-							usable = ESX.UsableItemsCallbacks[k] ~= nil,
-							rare = ESX.Items[k].rare,
-							canRemove = ESX.Items[k].canRemove
-						})
-
-						local scope = function(item, identifier)
-							table.insert(tasks2, function(cb2)
-								MySQL.Async.execute('INSERT INTO user_inventory (identifier, item, count) VALUES (@identifier, @item, @count)', {
-									['@identifier'] = identifier,
-									['@item'] = item,
-									['@count'] = 0
-								}, function(rowsChanged)
-									cb2()
-								end)
-							end)
-						end
-
-						scope(k, player.getIdentifier())
-					end
-
-				end
-
-				Async.parallelLimit(tasks2, 5, function(results) end)
-
-				table.sort(userData.inventory, function(a,b)
-					return a.label < b.label
-				end)
-
-				cb()
-			end)
-
-		end)
-
-		-- Get job and loadout
-		table.insert(tasks, function(cb)
-
-			local tasks2 = {}
-
-			-- Get job name, grade and last position
-			table.insert(tasks2, function(cb2)
-
-				MySQL.Async.fetchAll('SELECT job, job_grade, loadout, position FROM users WHERE identifier = @identifier', {
-					['@identifier'] = player.getIdentifier()
-				}, function(result)
-					local job, grade = result[1].job, tostring(result[1].job_grade)
-
-					if ESX.DoesJobExist(job, grade) then
-						local jobObject, gradeObject = ESX.Jobs[job], ESX.Jobs[job].grades[grade]
-
-						userData.job = {}
-
-						userData.job.id    = jobObject.id
-						userData.job.name  = jobObject.name
-						userData.job.label = jobObject.label
-
-						userData.job.grade        = tonumber(grade)
-						userData.job.grade_name   = gradeObject.name
-						userData.job.grade_label  = gradeObject.label
-						userData.job.grade_salary = gradeObject.salary
-
-						userData.job.skin_male    = {}
-						userData.job.skin_female  = {}
-
-						if gradeObject.skin_male ~= nil then
-							userData.job.skin_male = json.decode(gradeObject.skin_male)
-						end
-			
-						if gradeObject.skin_female ~= nil then
-							userData.job.skin_female = json.decode(gradeObject.skin_female)
-						end
-					else
-						print(('es_extended: %s had an unknown job [job: %s, grade: %s], setting as unemployed!'):format(player.getIdentifier(), job, grade))
-
-						local job, grade = 'unemployed', '0'
-						local jobObject, gradeObject = ESX.Jobs[job], ESX.Jobs[job].grades[grade]
-
-						userData.job = {}
-
-						userData.job.id    = jobObject.id
-						userData.job.name  = jobObject.name
-						userData.job.label = jobObject.label
-			
-						userData.job.grade        = tonumber(grade)
-						userData.job.grade_name   = gradeObject.name
-						userData.job.grade_label  = gradeObject.label
-						userData.job.grade_salary = gradeObject.salary
-			
-						userData.job.skin_male    = {}
-						userData.job.skin_female  = {}
-					end
-
-					if result[1].loadout ~= nil then
-						userData.loadout = json.decode(result[1].loadout)
-
-						-- Compatibility with old loadouts prior to components update
-						for k,v in ipairs(userData.loadout) do
-							if v.components == nil then
-								v.components = {}
-							end
-						end
-					end
-
-					if result[1].position ~= nil then
-						userData.lastPosition = json.decode(result[1].position)
-					end
-
-					cb2()
-				end)
-
-			end)
-
-			Async.series(tasks2, cb)
-
-		end)
-
-		-- Run Tasks
-		Async.parallel(tasks, function(results)
-			local xPlayer = CreateExtendedPlayer(player, userData.accounts, userData.inventory, userData.job, userData.loadout, userData.playerName, userData.lastPosition)
-
-			xPlayer.getMissingAccounts(function(missingAccounts)
-				if #missingAccounts > 0 then
-
-					for i=1, #missingAccounts, 1 do
-						table.insert(xPlayer.accounts, {
-							name  = missingAccounts[i],
-							money = 0,
-							label = Config.AccountLabels[missingAccounts[i]]
-						})
-					end
-
-					xPlayer.createAccounts(missingAccounts)
-				end
-
-				ESX.Players[_source] = xPlayer
-
-				TriggerEvent('esx:playerLoaded', _source, xPlayer)
-
-				TriggerClientEvent('esx:playerLoaded', _source, {
-					identifier   = xPlayer.identifier,
-					accounts     = xPlayer.getAccounts(),
-					inventory    = xPlayer.getInventory(),
-					job          = xPlayer.getJob(),
-					loadout      = xPlayer.getLoadout(),
-					lastPosition = xPlayer.getLastPosition(),
-					money        = xPlayer.getMoney()
+				table.insert(userData.inventory, {
+					name = name,
+					count = count,
+					label = item.label,
+					weight = item.weight,
+					usable = ESX.UsableItemsCallbacks[name] ~= nil,
+					rare = item.rare,
+					canRemove = item.canRemove
 				})
+			end
 
-				xPlayer.displayMoney(xPlayer.getMoney())
+			table.sort(userData.inventory, function(a, b)
+				return a.label < b.label
 			end)
-		end)
 
+			-- Group
+			if result[1].group then
+				userData.group = result[1].group
+			else
+				userData.group = 'user'
+			end
+
+			-- Loadout
+			if result[1].loadout and result[1].loadout ~= '' then
+				local loadout = json.decode(result[1].loadout)
+
+				for name,weapon in pairs(loadout) do
+					local label = ESX.GetWeaponLabel(name)
+
+					if label then
+						if not weapon.components then weapon.components = {} end
+						if not weapon.tintIndex then weapon.tintIndex = 0 end
+
+						table.insert(userData.loadout, {
+							name = name,
+							ammo = weapon.ammo,
+							label = label,
+							components = weapon.components,
+							tintIndex = weapon.tintIndex
+						})
+					end
+				end
+			end
+
+			-- Position
+			if result[1].position and result[1].position ~= '' then
+				userData.coords = json.decode(result[1].position)
+			else
+				print('[es_extended] [^3WARNING^7] Column "position" in "users" table is missing required default value. Using backup coords, fix your database.')
+				userData.coords = {x = -269.4, y = -955.3, z = 31.2, heading = 205.8}
+			end
+
+			cb()
+		end)
 	end)
+
+	Async.parallel(tasks, function(results)
+		local xPlayer = CreateExtendedPlayer(playerId, identifier, userData.group, userData.accounts, userData.inventory, userData.weight, userData.job, userData.loadout, userData.playerName, userData.coords)
+		ESX.Players[playerId] = xPlayer
+		TriggerEvent('esx:playerLoaded', playerId, xPlayer)
+
+		xPlayer.triggerEvent('esx:playerLoaded', {
+			accounts = xPlayer.getAccounts(),
+			coords = xPlayer.getCoords(),
+			identifier = xPlayer.getIdentifier(),
+			inventory = xPlayer.getInventory(),
+			job = xPlayer.getJob(),
+			loadout = xPlayer.getLoadout(),
+			maxWeight = xPlayer.getMaxWeight(),
+			money = xPlayer.getMoney()
+		})
+
+		xPlayer.triggerEvent('esx:createMissingPickups', ESX.Pickups)
+		xPlayer.triggerEvent('esx:registerSuggestions', ESX.RegisteredCommands)
+	end)
+end
+
+AddEventHandler('chatMessage', function(playerId, author, message)
+	if message:sub(1, 1) == '/' and playerId > 0 then
+		CancelEvent()
+		local commandName = message:sub(1):gmatch("%w+")()
+		TriggerClientEvent('chat:addMessage', playerId, {args = {'^1SYSTEM', _U('commanderror_invalidcommand', commandName)}})
+	end
 end)
 
 AddEventHandler('playerDropped', function(reason)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
+	local playerId = source
+	local xPlayer = ESX.GetPlayerFromId(playerId)
 
 	if xPlayer then
-		TriggerEvent('esx:playerDropped', _source, reason)
+		TriggerEvent('esx:playerDropped', playerId, reason)
 
 		ESX.SavePlayer(xPlayer, function()
-			ESX.Players[_source] = nil
-			ESX.LastPlayerData[_source] = nil
+			ESX.Players[playerId] = nil
 		end)
 	end
 end)
 
-RegisterServerEvent('esx:updateLoadout')
-AddEventHandler('esx:updateLoadout', function(loadout)
+RegisterNetEvent('esx:updateCoords')
+AddEventHandler('esx:updateCoords', function(coords)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	xPlayer.loadout = loadout
+
+	if xPlayer then
+		xPlayer.updateCoords(coords)
+	end
 end)
 
-RegisterServerEvent('esx:updateLastPosition')
-AddEventHandler('esx:updateLastPosition', function(position)
+RegisterNetEvent('esx:updateWeaponAmmo')
+AddEventHandler('esx:updateWeaponAmmo', function(weaponName, ammoCount)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	xPlayer.setLastPosition(position)
+
+	if xPlayer then
+		xPlayer.updateWeaponAmmo(weaponName, ammoCount)
+	end
 end)
 
-RegisterServerEvent('esx:giveInventoryItem')
+RegisterNetEvent('esx:giveInventoryItem')
 AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCount)
-	local _source = source
-
-	local sourceXPlayer = ESX.GetPlayerFromId(_source)
+	local playerId = source
+	local sourceXPlayer = ESX.GetPlayerFromId(playerId)
 	local targetXPlayer = ESX.GetPlayerFromId(target)
 
 	if type == 'item_standard' then
-
 		local sourceItem = sourceXPlayer.getInventoryItem(itemName)
 		local targetItem = targetXPlayer.getInventoryItem(itemName)
 
 		if itemCount > 0 and sourceItem.count >= itemCount then
-
-			if targetItem.limit ~= -1 and (targetItem.count + itemCount) > targetItem.limit then
-				TriggerClientEvent('esx:showNotification', _source, _U('ex_inv_lim', targetXPlayer.name))
-			else
+			if targetXPlayer.canCarryItem(itemName, itemCount) then
 				sourceXPlayer.removeInventoryItem(itemName, itemCount)
 				targetXPlayer.addInventoryItem   (itemName, itemCount)
-				
-				TriggerClientEvent('esx:showNotification', _source, _U('gave_item', itemCount, ESX.Items[itemName].label, targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target,  _U('received_item', itemCount, ESX.Items[itemName].label, sourceXPlayer.name))
+
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+				-- sourceXPlayer.showNotification(_U('gave_item', itemCount, sourceItem.label, targetXPlayer.name))
+				-- targetXPlayer.showNotification(_U('received_item', itemCount, sourceItem.label, sourceXPlayer.name))
+			else
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak dapat memberikan ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '. Karena inventory ' ..targetXPlayer.name.. ' sudah penuh.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+				-- sourceXPlayer.showNotification(_U('ex_inv_lim', targetXPlayer.name))
 			end
-
 		else
-			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_quantity'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah tidak valid.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			-- sourceXPlayer.showNotification(_U('imp_invalid_quantity'))
 		end
-
-	elseif type == 'item_money' then
-
-		if itemCount > 0 and sourceXPlayer.getMoney() >= itemCount then
-			sourceXPlayer.removeMoney(itemCount)
-			targetXPlayer.addMoney   (itemCount)
-
-			TriggerClientEvent('esx:showNotification', _source, _U('gave_money', ESX.Math.GroupDigits(itemCount), targetXPlayer.name))
-			TriggerClientEvent('esx:showNotification', target,  _U('received_money', ESX.Math.GroupDigits(itemCount), sourceXPlayer.name))
-		else
-			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
-		end
-
 	elseif type == 'item_account' then
-
 		if itemCount > 0 and sourceXPlayer.getAccount(itemName).money >= itemCount then
 			sourceXPlayer.removeAccountMoney(itemName, itemCount)
 			targetXPlayer.addAccountMoney   (itemName, itemCount)
 
-			TriggerClientEvent('esx:showNotification', _source, _U('gave_account_money', ESX.Math.GroupDigits(itemCount), Config.AccountLabels[itemName], targetXPlayer.name))
-			TriggerClientEvent('esx:showNotification', target,  _U('received_account_money', ESX.Math.GroupDigits(itemCount), Config.AccountLabels[itemName], sourceXPlayer.name))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..Config.Accounts[itemName].. ' sebanyak ' ..ESX.Math.GroupDigits(itemCount).. 'x kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..Config.Accounts[itemName].. ' sebanyak ' ..ESX.Math.GroupDigits(itemCount).. 'x dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+			-- sourceXPlayer.showNotification(_U('gave_account_money', ESX.Math.GroupDigits(itemCount), Config.Accounts[itemName], targetXPlayer.name))
+			-- targetXPlayer.showNotification(_U('received_account_money', ESX.Math.GroupDigits(itemCount), Config.Accounts[itemName], sourceXPlayer.name))
 		else
-			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah tidak valid.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			-- sourceXPlayer.showNotification(_U('imp_invalid_amount'))
 		end
-
 	elseif type == 'item_weapon' then
-
-		if not targetXPlayer.hasWeapon(itemName) then
-			sourceXPlayer.removeWeapon(itemName)
-			targetXPlayer.addWeapon(itemName, itemCount)
-
+		if sourceXPlayer.hasWeapon(itemName) then
 			local weaponLabel = ESX.GetWeaponLabel(itemName)
 
-			if itemCount > 0 then
-				TriggerClientEvent('esx:showNotification', _source, _U('gave_weapon_ammo', weaponLabel, itemCount, targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target,  _U('received_weapon_ammo', weaponLabel, itemCount, sourceXPlayer.name))
-			else
-				TriggerClientEvent('esx:showNotification', _source, _U('gave_weapon', weaponLabel, targetXPlayer.name))
-				TriggerClientEvent('esx:showNotification', target,  _U('received_weapon', weaponLabel, sourceXPlayer.name))
-			end
-		else
-			TriggerClientEvent('esx:showNotification', _source, _U('gave_weapon_hasalready', targetXPlayer.name, weaponLabel))
-			TriggerClientEvent('esx:showNotification', target, _U('received_weapon_hasalready', sourceXPlayer.name, weaponLabel))
-		end
+			if not targetXPlayer.hasWeapon(itemName) then
+				local _, weapon = sourceXPlayer.getWeapon(itemName)
+				local _, weaponObject = ESX.GetWeapon(itemName)
+				itemCount = weapon.ammo
 
+				sourceXPlayer.removeWeapon(itemName)
+				targetXPlayer.addWeapon(itemName, itemCount)
+
+				if weaponObject.ammo and itemCount > 0 then
+					local ammoLabel = weaponObject.ammo.label
+
+					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan '..weaponLabel.. ' dengan amunisi '..ammoLabel.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima '..weaponLabel.. ' dengan amunisi '..ammoLabel.. ' sebanyak ' ..itemCount.. 'x dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+					-- sourceXPlayer.showNotification(_U('gave_weapon_withammo', weaponLabel, itemCount, ammoLabel, targetXPlayer.name))
+					-- targetXPlayer.showNotification(_U('received_weapon_withammo', weaponLabel, itemCount, ammoLabel, sourceXPlayer.name))
+				else
+
+					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan '..weaponLabel.. ' kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima '..weaponLabel.. ' dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+					-- sourceXPlayer.showNotification(_U('gave_weapon', weaponLabel, targetXPlayer.name))
+					-- targetXPlayer.showNotification(_U('received_weapon', weaponLabel, sourceXPlayer.name))
+				end
+			else
+
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = ''..targetXPlayer.name.. ' sudah memiliki ' ..weaponLabel.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'error', text = 'Kamu sudah memiliki '..weaponLabel.. '.' ..sourceXPlayer.name.. ' mencoba memberikanmu '..weaponLabel..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+				-- sourceXPlayer.showNotification(_U('gave_weapon_hasalready', targetXPlayer.name, weaponLabel))
+				-- targetXPlayer.showNotification(_U('received_weapon_hasalready', sourceXPlayer.name, weaponLabel))
+			end
+		end
+	elseif type == 'item_ammo' then
+		if sourceXPlayer.hasWeapon(itemName) then
+			local weaponNum, weapon = sourceXPlayer.getWeapon(itemName)
+
+			if targetXPlayer.hasWeapon(itemName) then
+				local _, weaponObject = ESX.GetWeapon(itemName)
+
+				if weaponObject.ammo then
+					local ammoLabel = weaponObject.ammo.label
+
+					if weapon.ammo >= itemCount then
+						sourceXPlayer.removeWeaponAmmo(itemName, itemCount)
+						targetXPlayer.addWeaponAmmo(itemName, itemCount)
+
+						TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..ammoLabel.. ' sebanyak ' ..itemCount.. 'x untuk ' ..weapon.label.. ' kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..ammoLabel.. ' sebanyak ' ..itemCount.. 'x untuk ' ..weapon.label.. ' dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+						-- sourceXPlayer.showNotification(_U('gave_weapon_ammo', itemCount, ammoLabel, weapon.label, targetXPlayer.name))
+						-- targetXPlayer.showNotification(_U('received_weapon_ammo', itemCount, ammoLabel, weapon.label, sourceXPlayer.name))
+					end
+				end
+			else
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = ''..targetXPlayer.name.. ' tidak memiliki senjata tersebut.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'success', text = 'Kamu menerima '..weapon.label.. ' yang kamu tidak miliki sebelumnya. Kamu menerimanya dari '..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+
+				-- sourceXPlayer.showNotification(_U('gave_weapon_noweapon', targetXPlayer.name))
+				-- targetXPlayer.showNotification(_U('received_weapon_noweapon', sourceXPlayer.name, weapon.label))
+			end
+		end
 	end
 end)
 
-RegisterServerEvent('esx:removeInventoryItem')
+RegisterNetEvent('esx:removeInventoryItem')
 AddEventHandler('esx:removeInventoryItem', function(type, itemName, itemCount)
-	local _source = source
+	local playerId = source
+	local xPlayer = ESX.GetPlayerFromId(source)
 
 	if type == 'item_standard' then
-
 		if itemCount == nil or itemCount < 1 then
-			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_quantity'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah tidak valid.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			-- xPlayer.showNotification(_U('imp_invalid_quantity'))
 		else
-			local xPlayer = ESX.GetPlayerFromId(source)
 			local xItem = xPlayer.getInventoryItem(itemName)
 
 			if (itemCount > xItem.count or xItem.count < 1) then
-				TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_quantity'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah tidak valid.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('imp_invalid_quantity'))
 			else
 				xPlayer.removeInventoryItem(itemName, itemCount)
-
 				local pickupLabel = ('~y~%s~s~ [~b~%s~s~]'):format(xItem.label, itemCount)
-				ESX.CreatePickup('item_standard', itemName, itemCount, pickupLabel, _source)
-				TriggerClientEvent('esx:showNotification', _source, _U('threw_standard', itemCount, xItem.label))
+				ESX.CreatePickup('item_standard', itemName, itemCount, pickupLabel, playerId)
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..xItem.label.. ' sebanyak '..itemCount..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('threw_standard', itemCount, xItem.label))
 			end
 		end
-
-	elseif type == 'item_money' then
-
-		if itemCount == nil or itemCount < 1 then
-			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
-		else
-			local xPlayer = ESX.GetPlayerFromId(source)
-			local playerCash = xPlayer.getMoney()
-
-			if (itemCount > playerCash or playerCash < 1) then
-				TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
-			else
-				xPlayer.removeMoney(itemCount)
-
-				local pickupLabel = ('~y~%s~s~ [~g~%s~s~]'):format(_U('cash'), _U('locale_currency', ESX.Math.GroupDigits(itemCount)))
-				ESX.CreatePickup('item_money', 'money', itemCount, pickupLabel, _source)
-				TriggerClientEvent('esx:showNotification', _source, _U('threw_money', ESX.Math.GroupDigits(itemCount)))
-			end
-		end
-
 	elseif type == 'item_account' then
-
 		if itemCount == nil or itemCount < 1 then
-			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah tidak valid.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			-- xPlayer.showNotification(_U('imp_invalid_amount'))
 		else
-			local xPlayer = ESX.GetPlayerFromId(source)
 			local account = xPlayer.getAccount(itemName)
 
 			if (itemCount > account.money or account.money < 1) then
-				TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah tidak valid.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('imp_invalid_amount'))
 			else
 				xPlayer.removeAccountMoney(itemName, itemCount)
-
 				local pickupLabel = ('~y~%s~s~ [~g~%s~s~]'):format(account.label, _U('locale_currency', ESX.Math.GroupDigits(itemCount)))
-				ESX.CreatePickup('item_account', itemName, itemCount, pickupLabel, _source)
-				TriggerClientEvent('esx:showNotification', _source, _U('threw_account', ESX.Math.GroupDigits(itemCount), string.lower(account.label)))
+				ESX.CreatePickup('item_account', itemName, itemCount, pickupLabel, playerId)
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..string.lower(account.label).. ' sebanyak '..ESX.Math.GroupDigits(itemCount).. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('threw_account', ESX.Math.GroupDigits(itemCount), string.lower(account.label)))
 			end
 		end
-
 	elseif type == 'item_weapon' then
-
-		local xPlayer = ESX.GetPlayerFromId(source)
-		local loadout = xPlayer.getLoadout()
-
-		for i=1, #loadout, 1 do
-			if loadout[i].name == itemName then
-				itemCount = loadout[i].ammo
-				break
-			end
-		end
+		itemName = string.upper(itemName)
 
 		if xPlayer.hasWeapon(itemName) then
-			local weaponLabel, weaponPickup = ESX.GetWeaponLabel(itemName), 'PICKUP_' .. string.upper(itemName)
+			local _, weapon = xPlayer.getWeapon(itemName)
+			local _, weaponObject = ESX.GetWeapon(itemName)
+			local pickupLabel
 
 			xPlayer.removeWeapon(itemName)
 
-			if itemCount > 0 then
-				TriggerClientEvent('esx:pickupWeapon', _source, weaponPickup, itemName, itemCount)
-				TriggerClientEvent('esx:showNotification', _source, _U('threw_weapon_ammo', weaponLabel, itemCount))
+			if weaponObject.ammo and weapon.ammo > 0 then
+				local ammoLabel = weaponObject.ammo.label
+				pickupLabel = ('~y~%s~s~ [~g~%s~s~ %s]'):format(weapon.label, weapon.ammo, ammoLabel)
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..weapon.label.. ', '..weapon.ammo..', dan '..ammoLabel.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('threw_weapon_ammo', weapon.label, weapon.ammo, ammoLabel))
 			else
-				-- workaround for CreateAmbientPickup() giving 30 rounds of ammo when you drop the weapon with 0 ammo
-				TriggerClientEvent('esx:pickupWeapon', _source, weaponPickup, itemName, 1)
-				TriggerClientEvent('esx:showNotification', _source, _U('threw_weapon', weaponLabel))
+				pickupLabel = ('~y~%s~s~'):format(weapon.label)
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..weapon.label..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('threw_weapon', weapon.label))
 			end
-		end
 
+			ESX.CreatePickup('item_weapon', itemName, weapon.ammo, pickupLabel, playerId, weapon.components, weapon.tintIndex)
+		end
 	end
 end)
 
-RegisterServerEvent('esx:useItem')
+RegisterNetEvent('esx:useItem')
 AddEventHandler('esx:useItem', function(itemName)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local count   = xPlayer.getInventoryItem(itemName).count
+	local count = xPlayer.getInventoryItem(itemName).count
 
 	if count > 0 then
 		ESX.UseItem(source, itemName)
 	else
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('act_imp'))
+		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Tidak dapat menggunakan item.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+		-- xPlayer.showNotification(_U('act_imp'))
 	end
 end)
 
-RegisterServerEvent('esx:onPickup')
-AddEventHandler('esx:onPickup', function(id)
-	local _source = source
-	local pickup  = ESX.Pickups[id]
-	local xPlayer = ESX.GetPlayerFromId(_source)
+RegisterNetEvent('esx:onPickup')
+AddEventHandler('esx:onPickup', function(pickupId)
+	local pickup, xPlayer, success = ESX.Pickups[pickupId], ESX.GetPlayerFromId(source)
 
-	if pickup.type == 'item_standard' then
+	if pickup then
+		if pickup.type == 'item_standard' then
+			if xPlayer.canCarryItem(pickup.name, pickup.count) then
+				xPlayer.addInventoryItem(pickup.name, pickup.count)
+				success = true
+			else
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Inventory anda penuh!.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('threw_cannot_pickup'))
+			end
+		elseif pickup.type == 'item_account' then
+			success = true
+			xPlayer.addAccountMoney(pickup.name, pickup.count)
+		elseif pickup.type == 'item_weapon' then
+			if xPlayer.hasWeapon(pickup.name) then
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu sudah memiliki senjata tersebut.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				-- xPlayer.showNotification(_U('threw_weapon_already'))
+			else
+				success = true
+				xPlayer.addWeapon(pickup.name, pickup.count)
+				xPlayer.setWeaponTint(pickup.name, pickup.tintIndex)
 
-		local item      = xPlayer.getInventoryItem(pickup.name)
-		local canTake   = ((item.limit == -1) and (pickup.count)) or ((item.limit - item.count > 0) and (item.limit - item.count)) or 0
-		local total     = pickup.count < canTake and pickup.count or canTake
-		local remaining = pickup.count - total
-
-		TriggerClientEvent('esx:removePickup', -1, id)
-
-		if total > 0 then
-			xPlayer.addInventoryItem(pickup.name, total)
+				for k,v in ipairs(pickup.components) do
+					xPlayer.addWeaponComponent(pickup.name, v)
+				end
+			end
 		end
 
-		if remaining > 0 then
-			TriggerClientEvent('esx:showNotification', _source, _U('cannot_pickup_room', item.label))
-
-			local pickupLabel = ('~y~%s~s~ [~b~%s~s~]'):format(item.label, remaining)
-			ESX.CreatePickup('item_standard', pickup.name, remaining, pickupLabel, _source)
+		if success then
+			ESX.Pickups[pickupId] = nil
+			TriggerClientEvent('esx:removePickup', -1, pickupId)
 		end
-
-	elseif pickup.type == 'item_money' then
-		TriggerClientEvent('esx:removePickup', -1, id)
-		xPlayer.addMoney(pickup.count)
-	elseif pickup.type == 'item_account' then
-		TriggerClientEvent('esx:removePickup', -1, id)
-		xPlayer.addAccountMoney(pickup.name, pickup.count)
 	end
 end)
 
@@ -488,7 +534,6 @@ ESX.RegisterServerCallback('esx:getPlayerData', function(source, cb)
 		inventory    = xPlayer.getInventory(),
 		job          = xPlayer.getJob(),
 		loadout      = xPlayer.getLoadout(),
-		lastPosition = xPlayer.getLastPosition(),
 		money        = xPlayer.getMoney()
 	})
 end)
@@ -502,12 +547,25 @@ ESX.RegisterServerCallback('esx:getOtherPlayerData', function(source, cb, target
 		inventory    = xPlayer.getInventory(),
 		job          = xPlayer.getJob(),
 		loadout      = xPlayer.getLoadout(),
-		lastPosition = xPlayer.getLastPosition(),
 		money        = xPlayer.getMoney()
 	})
 end)
 
-TriggerEvent("es:addGroup", "jobmaster", "user", function(group) end)
+ESX.RegisterServerCallback('esx:getPlayerNames', function(source, cb, players)
+	players[source] = nil
+
+	for playerId,v in pairs(players) do
+		local xPlayer = ESX.GetPlayerFromId(playerId)
+
+		if xPlayer then
+			players[playerId] = xPlayer.getName()
+		else
+			players[playerId] = nil
+		end
+	end
+
+	cb(players)
+end)
 
 ESX.StartDBSync()
 ESX.StartPayCheck()
