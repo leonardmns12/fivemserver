@@ -4,7 +4,10 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 
 function getIdentity(source)
-	local identifier = GetPlayerIdentifiers(source)[1]
+ -- Fix identifier
+    -- local identifier = GetPlayerIdentifiers(source)[1]
+    local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
 	local result = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
 	if result[1] ~= nil then
 		local identity = result[1]

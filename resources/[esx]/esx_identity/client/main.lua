@@ -1,8 +1,5 @@
-local guiEnabled = false
-local myIdentity = {}
-local myIdentifiers = {}
-local hasIdentity = false
-local isDead = false
+local guiEnabled, hasIdentity, isDead = false, false, false
+local myIdentity, myIdentifiers = {}, {}
 
 ESX = nil
 
@@ -52,7 +49,7 @@ RegisterNUICallback('escape', function(data, cb)
 	if hasIdentity then
 		EnableGui(false)
 	else
-		TriggerEvent('chat:addMessage', { args = { '^1[IDENTITY]', '^1You must create your first character in order to play' } })
+		ESX.ShowNotification(_U('create_a_character'))
 	end
 end)
 
@@ -97,6 +94,8 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
+		Citizen.Wait(0)
+
 		if guiEnabled then
 			DisableControlAction(0, 1,   true) -- LookLeftRight
 			DisableControlAction(0, 2,   true) -- LookUpDown
@@ -117,8 +116,9 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 143, true) -- disable melee
 			DisableControlAction(0, 75,  true) -- disable exit vehicle
 			DisableControlAction(27, 75, true) -- disable exit vehicle
+		else
+			Citizen.Wait(500)
 		end
-		Citizen.Wait(10)
 	end
 end)
 

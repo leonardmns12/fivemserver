@@ -32,7 +32,9 @@ AddEventHandler("esx_inventoryhud:tradePlayerItem", function(from, target, type,
 			local targetItem = targetXPlayer.getInventoryItem(itemName)
 
 			if itemCount > 0 and sourceItem.count >= itemCount then
-				if targetItem.limit == -1 or xPlayer.canCarryItem then
+				if targetItem.limit == -1 or sourceXPlayer.canCarryItem then
+					sourceXPlayer.removeInventoryItem(itemName, itemCount)
+					targetXPlayer.addInventoryItem(itemName, itemCount)
 				else
 					sourceXPlayer.removeInventoryItem(itemName, itemCount)
 					targetXPlayer.addInventoryItem(itemName, itemCount)
