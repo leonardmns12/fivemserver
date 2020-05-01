@@ -1,13 +1,13 @@
 -- StarBlazt Chat
-
+local ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 
-function getIdentity(source)
+function getIdentity(source , identifier)
  -- Fix identifier
     -- local identifier = GetPlayerIdentifiers(source)[1]
-    local xplayer = ESX.GetPlayerFromId(source)
-    local identifier = xplayer.identifier
+    -- local xplayer = ESX.GetPlayerFromId(source)
+    -- local identifier = xplayer.identifier
 	local result = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
 	if result[1] ~= nil then
 		local identity = result[1]
@@ -52,14 +52,18 @@ end)
 
 RegisterServerEvent('911')
 AddEventHandler('911', function(source, caller, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
     fal = name.firstname  .. '  ' .. name.lastname
     TriggerClientEvent('chat:EmergencySend911', -1, source, fal, msg)
 end)
 
 RegisterServerEvent('311')
 AddEventHandler('311', function(source, caller, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
     fal = name.firstname  .. '  ' .. name.lastname
     TriggerClientEvent('chat:EmergencySend311', -1, source, fal, msg)
 end)
@@ -67,21 +71,27 @@ end)
 
 RegisterServerEvent('911r')
 AddEventHandler('911r', function(target, source, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
     fal = name.firstname  .. '  ' .. name.lastname
     TriggerClientEvent('chat:EmergencySend911r', -1, source, fal, msg)
 end)
 
 RegisterServerEvent('311r')
 AddEventHandler('311r', function(target, source, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
     fal = name.firstname  .. '  ' .. name.lastname
     TriggerClientEvent('chat:EmergencySend311r', -1, source, fal, msg)
 end)
 
 RegisterServerEvent('chat:server:911source')
 AddEventHandler('chat:server:911source', function(source, caller, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
 	fal = name.firstname .. "  " .. name.lastname
     TriggerClientEvent('chat:addMessage', source, {
         template = '<div class="chat-message emergency">911 {0} ({1}): {2} </div>',
@@ -92,7 +102,9 @@ end)
 
 RegisterServerEvent('chat:server:911r')
 AddEventHandler('chat:server:911r', function(target, caller, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
 	fal = name.firstname .. "  " .. name.lastname
     TriggerClientEvent('chat:addMessage', target, {
         template = '<div class="chat-message emergency">911r {0} : {1} </div>',
@@ -104,7 +116,9 @@ end)
 
 RegisterServerEvent('chat:server:311r')
 AddEventHandler('chat:server:311r', function(target, caller, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
 	fal = name.firstname .. "  " .. name.lastname
     TriggerClientEvent('chat:addMessage', target, {
         template = '<div class="chat-message nonemergency">311r {0}: {1} </div>',
@@ -116,7 +130,9 @@ end)
 
 RegisterServerEvent('chat:server:311source')
 AddEventHandler('chat:server:311source', function(source, caller, msg)
-    local name = getIdentity(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
 	fal = name.firstname .. "  " .. name.lastname
     TriggerClientEvent('chat:addMessage', source, {
         template = '<div class="chat-message nonemergency">311 {0} ({1}): {2} </div>',

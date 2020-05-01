@@ -278,21 +278,21 @@ window.onload = function () {
 
 
 
-					var speedometerCircle = document.querySelector('#progress-speed svg circle.speed');
-					var speedPercentage = Math.floor(Math.floor(data.speed*100)/data.config.maxSpeed);
+					// var speedometerCircle = document.querySelector('#progress-speed svg circle.speed');
+					// var speedPercentage = Math.floor(Math.floor(data.speed*100)/data.config.maxSpeed);
 					
-					speedometerCircle.classList.remove('zero');
-					speedometerCircle.classList.remove('twentyfive');
-					speedometerCircle.classList.remove('fifty');
-					speedometerCircle.classList.remove('seventyfive');
+					// speedometerCircle.classList.remove('zero');
+					// speedometerCircle.classList.remove('twentyfive');
+					// speedometerCircle.classList.remove('fifty');
+					// speedometerCircle.classList.remove('seventyfive');
 
-					if (speedPercentage >= 0 && speedPercentage <= 25) { speedometerCircle.classList.add('zero'); }
-					else if (speedPercentage > 25 && speedPercentage <= 50) { speedometerCircle.classList.add('twentyfive'); }
-					else if (speedPercentage > 50 && speedPercentage <= 75) { speedometerCircle.classList.add('fifty'); }
-					else if (speedPercentage > 75) { speedometerCircle.classList.add('seventyfive'); }
+					// if (speedPercentage >= 0 && speedPercentage <= 25) { speedometerCircle.classList.add('zero'); }
+					// else if (speedPercentage > 25 && speedPercentage <= 50) { speedometerCircle.classList.add('twentyfive'); }
+					// else if (speedPercentage > 50 && speedPercentage <= 75) { speedometerCircle.classList.add('fifty'); }
+					// else if (speedPercentage > 75) { speedometerCircle.classList.add('seventyfive'); }
 
-					document.querySelector('#progress-speed svg circle.speed').style.strokeDashoffset = data.nail;
-					saferInnerHTML(document.querySelector('#vehicle-speed span'), data.speed);
+					// document.querySelector('#progress-speed svg circle.speed').style.strokeDashoffset = data.nail;
+					// saferInnerHTML(document.querySelector('#vehicle-speed span'), data.speed);
 
 
 
@@ -323,10 +323,10 @@ window.onload = function () {
 
 
 
-					if (vehicleCruiser.classList.contains(data.cruiser) == false) {
-						vehicleCruiser.classList.remove('on','off');
-						vehicleCruiser.classList.add(data.cruiser);
-					}
+					// if (vehicleCruiser.classList.contains(data.cruiser) == false) {
+					// 	vehicleCruiser.classList.remove('on','off');
+					// 	vehicleCruiser.classList.add(data.cruiser);
+					// }
 
 
 
@@ -339,13 +339,13 @@ window.onload = function () {
 
 
 
-					if (vehicleLights.classList.contains(data.lights) == false) {
-						vehicleLights.classList.remove('normal','high','off');
-						vehicleLights.classList.add(data.lights);
+					// if (vehicleLights.classList.contains(data.lights) == false) {
+					// 	vehicleLights.classList.remove('normal','high','off');
+					// 	vehicleLights.classList.add(data.lights);
 
-						if (data.lights == 'high') { vehicleLights.querySelector('i img').src = 'img/vehicle-lights-high.png'; }
-						else { vehicleLights.querySelector('i img').src = 'img/vehicle-lights.png'; }
-					}
+					// 	if (data.lights == 'high') { vehicleLights.querySelector('i img').src = 'img/vehicle-lights-high.png'; }
+					// 	else { vehicleLights.querySelector('i img').src = 'img/vehicle-lights.png'; }
+					// }
 
 
 

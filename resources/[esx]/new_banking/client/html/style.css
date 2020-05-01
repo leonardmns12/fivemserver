@@ -74,7 +74,8 @@ button{
 	overflow: hidden;
 	text-align: left;
 	display: flex;
-	padding-left: 20px;
+    padding: 10px;
+    border-radius : 7px;
 }
 .btn .icon{
 	line-height: 38px;
@@ -132,7 +133,7 @@ button{
 /* ###############        TOP BAR        ###############*/
 /*######################################################*/
 .topbar{
-	background: linear-gradient(to right, #c8db2b , #268f3a);
+    background: linear-gradient(to right, #c8faf1 , #303a69);
     height: 59px;
     width: 100%;
     display: flex;
@@ -235,13 +236,13 @@ nav{
 }
 .balance .name{
 	font-size: 25px;
-	color: #a9cc2e;
+	color: #4fb5c9;
 	margin-bottom: 5px;
     display: block;
 }
 .balance .money{
 	font-size: 60px;
-	color: #28903a;
+	color: #303a69; /*to right, #c8faf1 , #303a69*/
 	font-family: "vision-heavy", sans-serif;
 }
 .balance .money .dollars{
@@ -269,7 +270,7 @@ nav{
 	width: 235px;
 	color: #7e7e7e;
 	font-size: 16px;
-	margin: 25px 0 0 20px;
+	margin: 20px 0 0 20px;
 }
 .confiance p span{
 	text-transform: uppercase;
@@ -333,11 +334,11 @@ label{
     text-align: center;
     border: 0;
     font-size: 60px;
-    color: #28903a;
+    color: #303a69;
     font-family: "vision-heavy",sans-serif;
 }
 .input-cont input::-webkit-input-placeholder {
-  color: #7cb732;
+  color: #4fb5c9;
 }
 .double-input{
 	display: flex;
@@ -355,7 +356,7 @@ label{
 .bg-waiting{
 	width: 1000px;
     height: 450px;
-    background: linear-gradient(to right, #d8ed2e, #268f3a);
+    background: linear-gradient(to right, #c8faf1 , #303a69);
     position: relative;
     transform: rotate(-8deg);
     top: -70px;
@@ -386,7 +387,7 @@ label{
 	color: white;
 }
 .content-waiting span{
-	color: #414141;
+	color: #303a69;
 }
 #fingerprint-content{
 	position: relative;
@@ -401,7 +402,7 @@ label{
 	transition-duration: 0.2s;
 }
 #fingerprint-content:hover{
-	border:4px solid #7cb732;
+	border:4px solid #4fb5c9;
 }
 .fingerprint-default{
 	position: absolute;

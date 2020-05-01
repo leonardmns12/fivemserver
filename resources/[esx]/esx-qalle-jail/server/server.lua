@@ -24,7 +24,7 @@ RegisterCommand("jail", function(src, args, raw)
 				-- 		TriggerClientEvent('chat:addMessage', -1, { args = { "JUDGE",  Firstname .. " " .. Lastname .. " Is now in jail for the reason: " .. args[3] }, color = { 249, 166, 0 } })
 						TriggerClientEvent('chat:addMessage', -1, {
 							template = '<div class="chat-message twitter"><b> {0}</b> {1}</div>',
-							args = { "PIDANA",  Firstname .. " " .. Lastname .. " Is now in jail for the reason: " .. args[3] } 
+							args = { firstname , args[3] } 
 							})
 					end)
 				end
