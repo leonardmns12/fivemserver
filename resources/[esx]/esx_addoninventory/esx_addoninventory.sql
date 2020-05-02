@@ -1,4 +1,4 @@
-USE `essentialmode`;
+USE `es_extended`;
 
 CREATE TABLE `addon_inventory` (
 	`name` VARCHAR(60) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE `addon_inventory_items` (
 	`inventory_name` VARCHAR(100) NOT NULL,
 	`name` VARCHAR(100) NOT NULL,
 	`count` INT(11) NOT NULL,
-	`owner` VARCHAR(60) DEFAULT NULL,
+	`owner` VARCHAR(40) DEFAULT NULL,
 
 	PRIMARY KEY (`id`),
 	INDEX `index_addon_inventory_items_inventory_name_name` (`inventory_name`, `name`),

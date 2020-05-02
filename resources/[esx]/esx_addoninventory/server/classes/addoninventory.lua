@@ -36,7 +36,7 @@ function CreateAddonInventory(name, owner, items)
 		item = {
 			name  = name,
 			count = 0,
-			label = items[name]
+			label = Items[name]
 		}
 
 		table.insert(self.items, item)

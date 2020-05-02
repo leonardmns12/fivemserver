@@ -103,6 +103,7 @@ AddEventHandler('bank:transfer', function(to, amountt)
                  TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu tidak punya cukup uang!', length = 2500, style = { ['background-color'] = '#E03232', ['color'] = '#ffffff' } })
             else
                 xPlayer.removeAccountMoney('bank', tonumber(amountt))
+  
                 zPlayer.addAccountMoney('bank', tonumber(amountt))
                 -- advanced notification with bank icon
                	local steamhex = GetPlayerIdentifier(source);

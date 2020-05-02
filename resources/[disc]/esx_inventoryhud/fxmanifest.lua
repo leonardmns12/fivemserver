@@ -193,6 +193,7 @@ files {
   "html/img/items/hqscale.png",
   "html/img/items/nitro.png",
   "html/img/items/zetony.png",
+  "html/img/items/raspberry.png",
 }
 
 dependencies {

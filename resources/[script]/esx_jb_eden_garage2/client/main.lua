@@ -146,9 +146,11 @@ function ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 								end
 							end
 							if (doesVehicleExist) or DoesAPlayerDrivesCar(data.current.plate) then
-								ESX.ShowNotification(_U('cannot_take_out'))
+								--ESX.ShowNotification(_U('cannot_take_out'))
+								exports['mythic_notify']:DoHudText('error', 'Kendaraan anda sudah diluar!')
 							elseif (data.current.fourrieremecano) then
-								ESX.ShowNotification(_U('vehicle_in_pound'))
+								--ESX.ShowNotification(_U('vehicle_in_pound'))
+								exports['mythic_notify']:DoHudText('success', 'Kendaraan sudah masuk ke dalam garasi sitaan')
 							elseif garage_name ~= data.current.garage_name then
 								local elem = {}
 								table.insert(elem, {label = _U('yes').." $"..tostring(Config.SwitchGaragePrice) , value = 'transfer_yes'})
@@ -168,7 +170,8 @@ function ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 													SpawnVehicle(CarProps, garage, KindOfVehicle)
 													ESX.UI.Menu.CloseAll()
 												else
-													ESX.ShowNotification(_U('not_enough_money'))
+													--ESX.ShowNotification(_U('not_enough_money'))
+													exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup uang')
 												end
 											end, Config.SwitchGaragePrice)
 										else
@@ -184,7 +187,8 @@ function ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 								SpawnVehicle(CarProps, garage, KindOfVehicle)
 								ESX.UI.Menu.CloseAll()
 							else
-								ESX.ShowNotification(_U('vehicle_already_out'))
+								--ESX.ShowNotification(_U('vehicle_already_out'))
+								exports['mythic_notify']:DoHudText('error', 'Kendaraan kamu sudah diluar!')
 							end
 						elseif data2.current.value == "rename_vehicle" then
 							ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'rename_vehicle', {
@@ -195,7 +199,8 @@ function ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 									ESX.UI.Menu.CloseAll()
 									ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 								else
-									ESX.ShowNotification(_U('cannot_be_empty'))
+									--ESX.ShowNotification(_U('cannot_be_empty'))
+									exports['mythic_notify']:DoHudText('error', 'Nama kendaraan tidak boleh kosong!')
 									menu3.close()
 								end
 
@@ -280,13 +285,17 @@ function StockVehicleMenu(KindOfVehicle, garage_name, vehicle_type)
 							DeleteEntity(TrailerHandle)
 							TriggerServerEvent('eden_garage:modifystate', trailerProps.plate, true)
 							TriggerServerEvent("esx_eden_garage:MoveGarage", trailerProps.plate, garage_name)
-							ESX.ShowNotification(_U('trailer_in_garage'))
+							--ESX.ShowNotification(_U('trailer_in_garage'))
+							exports['mythic_notify']:DoHudText('success', 'Trailer sudah masuk ke dalam garasi')
 						else
-							ESX.ShowNotification(_U('cannot_store_vehicle'))
+							--ESX.ShowNotification(_U('cannot_store_vehicle'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu tidak bisa memasukkan kendaraan ini!')
+
 						end
 					end,trailerProps, KindOfVehicle, garage_name, vehicle_type)
 				else
-					ESX.ShowNotification(_U('vehicle_error'))
+					--ESX.ShowNotification(_U('vehicle_error'))
+					exports['mythic_notify']:DoHudText('error', 'Kendaraan tidak ditemukan')
 				end
 			else
 				local vehicleProps  = GetVehicleProperties(vehicle)
@@ -301,20 +310,25 @@ function StockVehicleMenu(KindOfVehicle, garage_name, vehicle_type)
 							DeleteEntity(vehicle)
 							TriggerServerEvent('eden_garage:modifystate', vehicleProps.plate, true)
 							TriggerServerEvent("esx_eden_garage:MoveGarage", vehicleProps.plate, garage_name)
-							ESX.ShowNotification(_U('vehicle_in_garage'))
+							--ESX.ShowNotification(_U('vehicle_in_garage'))
+							exports['mythic_notify']:DoHudText('success', 'Kendaraan berhasil masuk ke dalam garasi')
 						else
-							ESX.ShowNotification(_U('cannot_store_vehicle'))
+							--ESX.ShowNotification(_U('cannot_store_vehicle'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu tidak bisa memasukkan kendaraan ini!')
 						end
 					end,vehicleProps, KindOfVehicle, garage_name, vehicle_type)
 				else
-					ESX.ShowNotification(_U('vehicle_error'))
+					--ESX.ShowNotification(_U('vehicle_error'))
+					exports['mythic_notify']:DoHudText('error', 'Terjadi kesalahan pada data kendaraan')
 				end
 			end
 		else
-			ESX.ShowNotification(_U('not_driver'))
+			--ESX.ShowNotification(_U('not_driver'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu bukan driver dari kendaraan ini!')
 		end
 	else
-		ESX.ShowNotification(_U('no_vehicle_to_enter'))
+		--ESX.ShowNotification(_U('no_vehicle_to_enter'))
+		exports['mythic_notify']:DoHudText('error', 'Tidak ada kendaraan untuk masuk')
 	end
 end
 -- Fin fonction qui permet de rentrer un vehicule 
@@ -333,13 +347,16 @@ function StockVehicleFourriereMenu()
 						if(valid) then
 							DeleteVehicle(TrailerHandle)
 							TriggerServerEvent('eden_garage:ChangeStateFrompound', trailerProps, true)
-							ESX.ShowNotification(_U('trailer_in_pound'))
+							--ESX.ShowNotification(_U('trailer_in_pound'))
+							exports['mythic_notify']:DoHudText('success', 'Trailer sudah masuk ke dalam garasi sitaan')
 						else
-							ESX.ShowNotification(_U('cannot_store_pound'))
+							--ESX.ShowNotification(_U('cannot_store_pound'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu tidak bisa memasukkan kendaraan ini!')
 						end
 					end,trailerProps)
 				else
-					ESX.ShowNotification(_U('vehicle_error'))
+					--ESX.ShowNotification(_U('vehicle_error'))
+					exports['mythic_notify']:DoHudText('error', 'Terjadi kesalahan pada data kendaraan')
 				end
 			else
 				local vehicleProps  = GetVehicleProperties(vehicle)
@@ -348,20 +365,25 @@ function StockVehicleFourriereMenu()
 						if(valid) then
 							DeleteVehicle(vehicle)
 							TriggerServerEvent('eden_garage:ChangeStateFrompound', vehicleProps, true)
-							ESX.ShowNotification(_U('vehicle_in_pound'))
+							--ESX.ShowNotification(_U('vehicle_in_pound'))
+							exports['mythic_notify']:DoHudText('success', 'Kendaraan sudah masuk ke dalam garasi sitaan')
 						else
-							ESX.ShowNotification(_U('cannot_store_pound'))
+							--ESX.ShowNotification(_U('cannot_store_pound'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu tidak bisa memasukkan kendaraan ini!')
 						end
 					end,vehicleProps)
 				else
-					ESX.ShowNotification(_U('vehicle_error'))
+					--ESX.ShowNotification(_U('vehicle_error'))
+					exports['mythic_notify']:DoHudText('error', 'Terjadi kesalahan pada data kendaraan')
 				end
 			end
 		else
-			ESX.ShowNotification(_U('not_driver'))
+			--ESX.ShowNotification(_U('not_driver'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu bukan driver dari kendaraan ini!')
 		end
 	else
-		ESX.ShowNotification(_U('no_vehicle_to_enter'))
+		--ESX.ShowNotification(_U('no_vehicle_to_enter'))
+		exports['mythic_notify']:DoHudText('error', 'Tidak ada kendaraan untuk masuk!')
 	end
 end
 -- Fin fonction qui permet de rentrer un vehicule dans fourriere
@@ -445,7 +467,8 @@ function ReturnVehicleMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 		function(data, menu)
 			local vehicleProps = vehiclePropsList[data.current.plate]
 			if data.current.action == 'fourrieremecano' then
-				ESX.ShowNotification(_U('see_police_mechanic'))
+				--ESX.ShowNotification(_U('see_police_mechanic'))
+				exports['mythic_notify']:DoHudText('error', 'Silahkan cek kendaraan anda di garasi sitaan polisi/mekanik!')
 			elseif data.current.action ~= nil then
 				local doesVehicleExist = false
 				for k,v in pairs (carInstance) do
@@ -464,11 +487,13 @@ function ReturnVehicleMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 							menu.close()
 							SpawnVehicle(vehicleProps, garage, KindOfVehicle)
 						else
-							ESX.ShowNotification(_U('not_enough_money'))						
+							--ESX.ShowNotification(_U('not_enough_money'))	
+							exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup uang')
 						end
 					end, Config.Price)
 				else
-					ESX.ShowNotification(_U('cannot_take_out'))
+					--ESX.ShowNotification(_U('cannot_take_out'))
+					exports['mythic_notify']:DoHudText('error', 'Kendaraan sudah diluar!')
 				end				
 			end
 		end,
@@ -751,200 +776,200 @@ AddEventHandler('ft_libs:OnClientReady', function()
 		})
 	end
 	
-	for k,v in pairs (Config.BoatGarages) do
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_garage_BoatGarages", {
-			-- marker = {
-			-- 	weight = v.Marker.w,
-			-- 	height = v.Marker.h,
-			-- 	red = v.Marker.r,
-			-- 	green = v.Marker.g,
-			-- 	blue = v.Marker.b,
-			-- 	type = 1,
-			-- },
-			trigger = {
-				weight = v.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
-							OpenMenuGarage(v, "personal", k, "boat")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			blip = {
-				text = v.Name,
-				colorId = Config.BoatBlip.color,
-				imageId = Config.BoatBlip.sprite,
-			},
-			locations = {
-				v.Pos				
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_spawnpoint_BoatGarages", {
-			-- marker = {
-			-- 	weight = v.SpawnPoint.Marker.w,
-			-- 	height = v.SpawnPoint.Marker.h,
-			-- 	red = v.SpawnPoint.Marker.r,
-			-- 	green = v.SpawnPoint.Marker.g,
-			-- 	blue = v.SpawnPoint.Marker.b,
-			-- 	type = 1,
-			-- },
-			trigger = {
-				weight = v.SpawnPoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.SpawnPoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
-							ListVehiclesMenu(v, "personal", k, "boat")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.SpawnPoint.MarkerPos.x,
-					y = v.SpawnPoint.MarkerPos.y,
-					z = v.SpawnPoint.MarkerPos.z,
-				},
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_deletepoint_BoatGarages", {
-			-- marker = {
-			-- 	weight = v.DeletePoint.Marker.w,
-			-- 	height = v.DeletePoint.Marker.h,
-			-- 	red = v.DeletePoint.Marker.r,
-			-- 	green = v.DeletePoint.Marker.g,
-			-- 	blue = v.DeletePoint.Marker.b,
-			-- 	type = 1,
-			-- },
-			trigger = {
-				weight = v.DeletePoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.DeletePoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) then
-							StockVehicleMenu("personal", k, "boat")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.DeletePoint.Pos.x,
-					y = v.DeletePoint.Pos.y,
-					z = v.DeletePoint.Pos.z,
-				},
-			},
-		})
-	end
+	-- for k,v in pairs (Config.BoatGarages) do
+	-- 	exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_garage_BoatGarages", {
+	-- 		-- marker = {
+	-- 		-- 	weight = v.Marker.w,
+	-- 		-- 	height = v.Marker.h,
+	-- 		-- 	red = v.Marker.r,
+	-- 		-- 	green = v.Marker.g,
+	-- 		-- 	blue = v.Marker.b,
+	-- 		-- 	type = 1,
+	-- 		-- },
+	-- 		trigger = {
+	-- 			weight = v.Marker.w,
+	-- 			active = {
+	-- 				callback = function()
+	-- 					exports.ft_libs:HelpPromt(v.HelpPrompt)
+	-- 					if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
+	-- 						OpenMenuGarage(v, "personal", k, "boat")
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			exit = {
+	-- 				callback = exitmarker
+	-- 			},
+	-- 		},
+	-- 		blip = {
+	-- 			text = v.Name,
+	-- 			colorId = Config.BoatBlip.color,
+	-- 			imageId = Config.BoatBlip.sprite,
+	-- 		},
+	-- 		locations = {
+	-- 			v.Pos				
+	-- 		},
+	-- 	})
+	-- 	exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_spawnpoint_BoatGarages", {
+	-- 		-- marker = {
+	-- 		-- 	weight = v.SpawnPoint.Marker.w,
+	-- 		-- 	height = v.SpawnPoint.Marker.h,
+	-- 		-- 	red = v.SpawnPoint.Marker.r,
+	-- 		-- 	green = v.SpawnPoint.Marker.g,
+	-- 		-- 	blue = v.SpawnPoint.Marker.b,
+	-- 		-- 	type = 1,
+	-- 		-- },
+	-- 		trigger = {
+	-- 			weight = v.SpawnPoint.Marker.w,
+	-- 			active = {
+	-- 				callback = function()
+	-- 					exports.ft_libs:HelpPromt(v.SpawnPoint.HelpPrompt)
+	-- 					if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
+	-- 						ListVehiclesMenu(v, "personal", k, "boat")
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			exit = {
+	-- 				callback = exitmarker
+	-- 			},
+	-- 		},
+	-- 		locations = {
+	-- 			{
+	-- 				x = v.SpawnPoint.MarkerPos.x,
+	-- 				y = v.SpawnPoint.MarkerPos.y,
+	-- 				z = v.SpawnPoint.MarkerPos.z,
+	-- 			},
+	-- 		},
+	-- 	})
+	-- 	exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_deletepoint_BoatGarages", {
+	-- 		-- marker = {
+	-- 		-- 	weight = v.DeletePoint.Marker.w,
+	-- 		-- 	height = v.DeletePoint.Marker.h,
+	-- 		-- 	red = v.DeletePoint.Marker.r,
+	-- 		-- 	green = v.DeletePoint.Marker.g,
+	-- 		-- 	blue = v.DeletePoint.Marker.b,
+	-- 		-- 	type = 1,
+	-- 		-- },
+	-- 		trigger = {
+	-- 			weight = v.DeletePoint.Marker.w,
+	-- 			active = {
+	-- 				callback = function()
+	-- 					exports.ft_libs:HelpPromt(v.DeletePoint.HelpPrompt)
+	-- 					if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) then
+	-- 						StockVehicleMenu("personal", k, "boat")
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			exit = {
+	-- 				callback = exitmarker
+	-- 			},
+	-- 		},
+	-- 		locations = {
+	-- 			{
+	-- 				x = v.DeletePoint.Pos.x,
+	-- 				y = v.DeletePoint.Pos.y,
+	-- 				z = v.DeletePoint.Pos.z,
+	-- 			},
+	-- 		},
+	-- 	})
+	-- end
 	
 	
-	for k,v in pairs (Config.AirplaneGarages) do
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_garage_AirplaneGarages", {
-			-- marker = {
-			-- 	weight = v.Marker.w,
-			-- 	height = v.Marker.h,
-			-- 	red = v.Marker.r,
-			-- 	green = v.Marker.g,
-			-- 	blue = v.Marker.b,
-			-- 	type = 27,
-			-- },
-			trigger = {
-				weight = v.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
-							OpenMenuGarage(v, "personal", k, "airplane")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			blip = {
-				text = v.Name,
-				colorId = Config.AirplaneBlip.color,
-				imageId = Config.AirplaneBlip.sprite,
-			},
-			locations = {
-				v.Pos				
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_spawnpoint_AirplaneGarages", {
-			-- marker = {
-			-- 	weight = v.SpawnPoint.Marker.w,
-			-- 	height = v.SpawnPoint.Marker.h,
-			-- 	red = v.SpawnPoint.Marker.r,
-			-- 	green = v.SpawnPoint.Marker.g,
-			-- 	blue = v.SpawnPoint.Marker.b,
-			-- 	type = 27,
-			-- },
-			trigger = {
-				weight = v.SpawnPoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.SpawnPoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
-							ListVehiclesMenu(v, "personal", k, "airplane")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.SpawnPoint.Pos.x,
-					y = v.SpawnPoint.Pos.y,
-					z = v.SpawnPoint.Pos.z,
-				},
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_deletepoint_AirplaneGarages", {
-			-- marker = {
-			-- 	weight = v.DeletePoint.Marker.w,
-			-- 	height = v.DeletePoint.Marker.h,
-			-- 	red = v.DeletePoint.Marker.r,
-			-- 	green = v.DeletePoint.Marker.g,
-			-- 	blue = v.DeletePoint.Marker.b,
-			-- 	type = 27,
-			-- },
-			trigger = {
-				weight = v.DeletePoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.DeletePoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) then
-							StockVehicleMenu("personal", k, "airplane")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.DeletePoint.Pos.x,
-					y = v.DeletePoint.Pos.y,
-					z = v.DeletePoint.Pos.z,
-				},
-			},
-		})
-	end
+	-- for k,v in pairs (Config.AirplaneGarages) do
+	-- 	exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_garage_AirplaneGarages", {
+	-- 		-- marker = {
+	-- 		-- 	weight = v.Marker.w,
+	-- 		-- 	height = v.Marker.h,
+	-- 		-- 	red = v.Marker.r,
+	-- 		-- 	green = v.Marker.g,
+	-- 		-- 	blue = v.Marker.b,
+	-- 		-- 	type = 27,
+	-- 		-- },
+	-- 		trigger = {
+	-- 			weight = v.Marker.w,
+	-- 			active = {
+	-- 				callback = function()
+	-- 					exports.ft_libs:HelpPromt(v.HelpPrompt)
+	-- 					if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
+	-- 						OpenMenuGarage(v, "personal", k, "airplane")
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			exit = {
+	-- 				callback = exitmarker
+	-- 			},
+	-- 		},
+	-- 		blip = {
+	-- 			text = v.Name,
+	-- 			colorId = Config.AirplaneBlip.color,
+	-- 			imageId = Config.AirplaneBlip.sprite,
+	-- 		},
+	-- 		locations = {
+	-- 			v.Pos				
+	-- 		},
+	-- 	})
+	-- 	exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_spawnpoint_AirplaneGarages", {
+	-- 		-- marker = {
+	-- 		-- 	weight = v.SpawnPoint.Marker.w,
+	-- 		-- 	height = v.SpawnPoint.Marker.h,
+	-- 		-- 	red = v.SpawnPoint.Marker.r,
+	-- 		-- 	green = v.SpawnPoint.Marker.g,
+	-- 		-- 	blue = v.SpawnPoint.Marker.b,
+	-- 		-- 	type = 27,
+	-- 		-- },
+	-- 		trigger = {
+	-- 			weight = v.SpawnPoint.Marker.w,
+	-- 			active = {
+	-- 				callback = function()
+	-- 					exports.ft_libs:HelpPromt(v.SpawnPoint.HelpPrompt)
+	-- 					if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) and not IsPedInAnyVehicle(PlayerPedId()) then
+	-- 						ListVehiclesMenu(v, "personal", k, "airplane")
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			exit = {
+	-- 				callback = exitmarker
+	-- 			},
+	-- 		},
+	-- 		locations = {
+	-- 			{
+	-- 				x = v.SpawnPoint.Pos.x,
+	-- 				y = v.SpawnPoint.Pos.y,
+	-- 				z = v.SpawnPoint.Pos.z,
+	-- 			},
+	-- 		},
+	-- 	})
+	-- 	exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_deletepoint_AirplaneGarages", {
+	-- 		-- marker = {
+	-- 		-- 	weight = v.DeletePoint.Marker.w,
+	-- 		-- 	height = v.DeletePoint.Marker.h,
+	-- 		-- 	red = v.DeletePoint.Marker.r,
+	-- 		-- 	green = v.DeletePoint.Marker.g,
+	-- 		-- 	blue = v.DeletePoint.Marker.b,
+	-- 		-- 	type = 27,
+	-- 		-- },
+	-- 		trigger = {
+	-- 			weight = v.DeletePoint.Marker.w,
+	-- 			active = {
+	-- 				callback = function()
+	-- 					exports.ft_libs:HelpPromt(v.DeletePoint.HelpPrompt)
+	-- 					if IsControlJustReleased(0, 38) and IsInputDisabled(0) and GetLastInputMethod(2) then
+	-- 						StockVehicleMenu("personal", k, "airplane")
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			exit = {
+	-- 				callback = exitmarker
+	-- 			},
+	-- 		},
+	-- 		locations = {
+	-- 			{
+	-- 				x = v.DeletePoint.Pos.x,
+	-- 				y = v.DeletePoint.Pos.y,
+	-- 				z = v.DeletePoint.Pos.z,
+	-- 			},
+	-- 		},
+	-- 	})
+	-- end
 	for k,v in pairs (Config.SocietyGarages) do
 		for key, value in pairs (v) do
 			exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_garage_society_"..key, {

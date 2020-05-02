@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Locale = 'br'
+Config.Locale = 'en'
 
 Config.serverLogo = 'https://i.imgur.com/AcgDL9f.png'
 
@@ -54,7 +54,7 @@ Config.ui = {
 
 	showDate 			= true,
 	showLocation 		= true,
-	showVoice	 		= true,
+	showVoice	 		= false,
 
 	showHealth			= false,
 	showArmor	 		= false,
