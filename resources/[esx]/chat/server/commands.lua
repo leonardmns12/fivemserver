@@ -71,13 +71,13 @@ RegisterCommand('ads', function(source, args, rawCommand)
     if xplayer.getAccount('bank').money >= 10000 then
         xplayer.removeAccountMoney('bank', 10000)
         fal = name.firstname .. "  " .. name.lastname    
-            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Dana kamu di atm ditarik sebesar 10000 untuk melakukan Advertisement.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Dana kamu di atm ditarik sebesar 10000 untuk melakukan Advertisement.', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
             TriggerClientEvent('chat:addMessage', -1, {
             template = '<div class="chat-message advert"><i class="fas fa-ad"></i><b> Advertisement {0}:</b> {1}</div>',
             args = { fal, msg }
         })
     else 
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Dana di atm tidak mencukupi. Tidak dapat melakukan Advertisement.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Dana di atm tidak mencukupi. Tidak dapat melakukan Advertisement.', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
     end
 end, false)
 

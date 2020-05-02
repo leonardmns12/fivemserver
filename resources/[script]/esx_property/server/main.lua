@@ -23,10 +23,10 @@ function SetPropertyOwned(name, price, rented, owner)
 			TriggerClientEvent('esx_property:setPropertyOwned', xPlayer.source, name, true, rented)
 
 			if rented then
-				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Kamu menyewa properti dengan harga '..ESX.Math.GroupDigits(price)..'/minggu. Pembayaran dilakukan secara otomatis.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Kamu menyewa properti dengan harga '..ESX.Math.GroupDigits(price)..'/minggu. Pembayaran dilakukan secara otomatis.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				-- xPlayer.showNotification(_U('rent_for', ESX.Math.GroupDigits(price)))
 			else
-				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Kamu membeli properti ini dengan harga '..ESX.Math.GroupDigits(price)..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Kamu membeli properti ini dengan harga '..ESX.Math.GroupDigits(price)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				-- xPlayer.showNotification(_U('buy_for', ESX.Math.GroupDigits(price)))
 			end
 		end
@@ -49,12 +49,12 @@ function RemoveOwnedProperty(name, owner, noPay)
 
 					if not noPay then
 						if result[1].rented == 1 then
-							TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Kamu telah pindah dan tidak menyewa properti ini.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+							TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Kamu telah pindah dan tidak menyewa properti ini.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 							-- xPlayer.showNotification(_U('moved_out'))
 						else
 							local sellPrice = ESX.Math.Round(result[1].price / Config.SellModifier)
 
-							TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Menjual properti dengan harga '..ESX.Math.GroupDigits(sellPrice)..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+							TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Menjual properti dengan harga '..ESX.Math.GroupDigits(sellPrice)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 							-- xPlayer.showNotification(_U('moved_out_sold', ESX.Math.GroupDigits(sellPrice)))
 							xPlayer.addAccountMoney('bank', sellPrice)
 						end
@@ -188,7 +188,7 @@ AddEventHandler('esx_property:buyProperty', function(propertyName)
 		xPlayer.removeMoney(property.price)
 		SetPropertyOwned(propertyName, property.price, false, xPlayer.identifier)
 	else
-		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak memiliki cukup uang.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak memiliki cukup uang.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		-- xPlayer.showNotification(_U('not_enough'))
 	end
 end)
@@ -238,7 +238,7 @@ AddEventHandler('esx_property:getItem', function(owner, type, item, count)
 				if xPlayer.canCarryItem(item, count) then
 					inventory.removeItem(item, count)
 					xPlayer.addInventoryItem(item, count)
-					TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Kamu mengambil '..inventoryItem.label..' sebanyak '..count..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Kamu mengambil '..inventoryItem.label..' sebanyak '..count..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 					-- xPlayer.showNotification(_U('have_withdrawn', count, inventoryItem.label))
 				else
 					TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'error', text = 'Inventori anda penuh.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
@@ -288,7 +288,7 @@ AddEventHandler('esx_property:putItem', function(owner, type, item, count)
 			TriggerEvent('esx_addoninventory:getInventory', 'property', xPlayerOwner.identifier, function(inventory)
 				xPlayer.removeInventoryItem(item, count)
 				inventory.addItem(item, count)
-				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Kamu menaruh '..inventory.getItem(item).label..' sebanyak '..count..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Kamu menaruh '..inventory.getItem(item).label..' sebanyak '..count..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				-- xPlayer.showNotification(_U('have_deposited', count, inventory.getItem(item).label))
 			end)
 		else
@@ -430,10 +430,10 @@ function payRent(d, h, m)
 				if xPlayer then
 					if xPlayer.getAccount('bank').money >= v.price then
 						xPlayer.removeAccountMoney('bank', v.price)
-						TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Pembayaran berhasil dilakukan untuk properti '..GetProperty(v.name).label..' dengan harga '..ESX.Math.GroupDigits(v.price)..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Pembayaran berhasil dilakukan untuk properti '..GetProperty(v.name).label..' dengan harga '..ESX.Math.GroupDigits(v.price)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 						-- xPlayer.showNotification(_U('paid_rent', ESX.Math.GroupDigits(v.price), GetProperty(v.name).label))
 					else
-						TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'error', text = 'Kamu telah dikeluarkan dari '..GetProperty(v.name).label..' karena tidak membayar uang sewa sebesar '..ESX.Math.GroupDigits(v.price)..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'error', text = 'Kamu telah dikeluarkan dari '..GetProperty(v.name).label..' karena tidak membayar uang sewa sebesar '..ESX.Math.GroupDigits(v.price)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 						-- xPlayer.showNotification(_U('paid_rent_evicted', GetProperty(v.name).label, ESX.Math.GroupDigits(v.price)))
 						RemoveOwnedProperty(v.name, v.owner, true)
 					end

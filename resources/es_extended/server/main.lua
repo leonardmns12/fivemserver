@@ -309,14 +309,14 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 				sourceXPlayer.removeInventoryItem(itemName, itemCount)
 				targetXPlayer.addInventoryItem   (itemName, itemCount)
 
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
-				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x dari ' ..sourceXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 				-- sourceXPlayer.showNotification(_U('gave_item', itemCount, sourceItem.label, targetXPlayer.name))
 				-- targetXPlayer.showNotification(_U('received_item', itemCount, sourceItem.label, sourceXPlayer.name))
 			else
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak dapat memberikan ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '. Karena inventory ' ..targetXPlayer.name.. ' sudah penuh.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak dapat memberikan ' ..sourceItem.label.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '. Karena inventory ' ..targetXPlayer.name.. ' sudah penuh.', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 				-- sourceXPlayer.showNotification(_U('ex_inv_lim', targetXPlayer.name))
 			end
@@ -329,8 +329,8 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 			sourceXPlayer.removeAccountMoney(itemName, itemCount)
 			targetXPlayer.addAccountMoney   (itemName, itemCount)
 
-			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..Config.Accounts[itemName].. ' sebanyak ' ..ESX.Math.GroupDigits(itemCount).. 'x kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-			TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..Config.Accounts[itemName].. ' sebanyak ' ..ESX.Math.GroupDigits(itemCount).. 'x dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..Config.Accounts[itemName].. ' sebanyak ' ..ESX.Math.GroupDigits(itemCount).. 'x kepada ' ..targetXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+			TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..Config.Accounts[itemName].. ' sebanyak ' ..ESX.Math.GroupDigits(itemCount).. 'x dari ' ..sourceXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 			-- sourceXPlayer.showNotification(_U('gave_account_money', ESX.Math.GroupDigits(itemCount), Config.Accounts[itemName], targetXPlayer.name))
 			-- targetXPlayer.showNotification(_U('received_account_money', ESX.Math.GroupDigits(itemCount), Config.Accounts[itemName], sourceXPlayer.name))
@@ -352,23 +352,23 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 				if weaponObject.ammo and itemCount > 0 then
 					local ammoLabel = weaponObject.ammo.label
 
-					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan '..weaponLabel.. ' dengan amunisi '..ammoLabel.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-					TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima '..weaponLabel.. ' dengan amunisi '..ammoLabel.. ' sebanyak ' ..itemCount.. 'x dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan '..weaponLabel.. ' dengan amunisi '..ammoLabel.. ' sebanyak ' ..itemCount.. 'x kepada ' ..targetXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima '..weaponLabel.. ' dengan amunisi '..ammoLabel.. ' sebanyak ' ..itemCount.. 'x dari ' ..sourceXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 					-- sourceXPlayer.showNotification(_U('gave_weapon_withammo', weaponLabel, itemCount, ammoLabel, targetXPlayer.name))
 					-- targetXPlayer.showNotification(_U('received_weapon_withammo', weaponLabel, itemCount, ammoLabel, sourceXPlayer.name))
 				else
 
-					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan '..weaponLabel.. ' kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-					TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima '..weaponLabel.. ' dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan '..weaponLabel.. ' kepada ' ..targetXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima '..weaponLabel.. ' dari ' ..sourceXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 					-- sourceXPlayer.showNotification(_U('gave_weapon', weaponLabel, targetXPlayer.name))
 					-- targetXPlayer.showNotification(_U('received_weapon', weaponLabel, sourceXPlayer.name))
 				end
 			else
 
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = ''..targetXPlayer.name.. ' sudah memiliki ' ..weaponLabel.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'error', text = 'Kamu sudah memiliki '..weaponLabel.. '.' ..sourceXPlayer.name.. ' mencoba memberikanmu '..weaponLabel..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = ''..targetXPlayer.name.. ' sudah memiliki ' ..weaponLabel.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'error', text = 'Kamu sudah memiliki '..weaponLabel.. '.' ..sourceXPlayer.name.. ' mencoba memberikanmu '..weaponLabel..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 				-- sourceXPlayer.showNotification(_U('gave_weapon_hasalready', targetXPlayer.name, weaponLabel))
 				-- targetXPlayer.showNotification(_U('received_weapon_hasalready', sourceXPlayer.name, weaponLabel))
@@ -388,16 +388,16 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 						sourceXPlayer.removeWeaponAmmo(itemName, itemCount)
 						targetXPlayer.addWeaponAmmo(itemName, itemCount)
 
-						TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..ammoLabel.. ' sebanyak ' ..itemCount.. 'x untuk ' ..weapon.label.. ' kepada ' ..targetXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-						TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..ammoLabel.. ' sebanyak ' ..itemCount.. 'x untuk ' ..weapon.label.. ' dari ' ..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu memberikan ' ..ammoLabel.. ' sebanyak ' ..itemCount.. 'x untuk ' ..weapon.label.. ' kepada ' ..targetXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'inform', text = 'Kamu menerima ' ..ammoLabel.. ' sebanyak ' ..itemCount.. 'x untuk ' ..weapon.label.. ' dari ' ..sourceXPlayer.name.. '.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 						-- sourceXPlayer.showNotification(_U('gave_weapon_ammo', itemCount, ammoLabel, weapon.label, targetXPlayer.name))
 						-- targetXPlayer.showNotification(_U('received_weapon_ammo', itemCount, ammoLabel, weapon.label, sourceXPlayer.name))
 					end
 				end
 			else
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = ''..targetXPlayer.name.. ' tidak memiliki senjata tersebut.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'success', text = 'Kamu menerima '..weapon.label.. ' yang kamu tidak miliki sebelumnya. Kamu menerimanya dari '..sourceXPlayer.name.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = ''..targetXPlayer.name.. ' tidak memiliki senjata tersebut.', length = 3500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', target, { type = 'success', text = 'Kamu menerima '..weapon.label.. ' yang kamu tidak miliki sebelumnya. Kamu menerimanya dari '..sourceXPlayer.name.. '.', length = 3500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 				-- sourceXPlayer.showNotification(_U('gave_weapon_noweapon', targetXPlayer.name))
 				-- targetXPlayer.showNotification(_U('received_weapon_noweapon', sourceXPlayer.name, weapon.label))
@@ -425,7 +425,7 @@ AddEventHandler('esx:removeInventoryItem', function(type, itemName, itemCount)
 				xPlayer.removeInventoryItem(itemName, itemCount)
 				local pickupLabel = ('~y~%s~s~ [~b~%s~s~]'):format(xItem.label, itemCount)
 				ESX.CreatePickup('item_standard', itemName, itemCount, pickupLabel, playerId)
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..xItem.label.. ' sebanyak '..itemCount..'.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..xItem.label.. ' sebanyak '..itemCount..'.', length = 3500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				-- xPlayer.showNotification(_U('threw_standard', itemCount, xItem.label))
 			end
 		end
@@ -443,7 +443,7 @@ AddEventHandler('esx:removeInventoryItem', function(type, itemName, itemCount)
 				xPlayer.removeAccountMoney(itemName, itemCount)
 				local pickupLabel = ('~y~%s~s~ [~g~%s~s~]'):format(account.label, _U('locale_currency', ESX.Math.GroupDigits(itemCount)))
 				ESX.CreatePickup('item_account', itemName, itemCount, pickupLabel, playerId)
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..string.lower(account.label).. ' sebanyak '..ESX.Math.GroupDigits(itemCount).. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..string.lower(account.label).. ' sebanyak '..ESX.Math.GroupDigits(itemCount).. '.', length = 3500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				-- xPlayer.showNotification(_U('threw_account', ESX.Math.GroupDigits(itemCount), string.lower(account.label)))
 			end
 		end
@@ -460,7 +460,7 @@ AddEventHandler('esx:removeInventoryItem', function(type, itemName, itemCount)
 			if weaponObject.ammo and weapon.ammo > 0 then
 				local ammoLabel = weaponObject.ammo.label
 				pickupLabel = ('~y~%s~s~ [~g~%s~s~ %s]'):format(weapon.label, weapon.ammo, ammoLabel)
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..weapon.label.. ', '..weapon.ammo..', dan '..ammoLabel.. '.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu membuang '..weapon.label.. ', '..weapon.ammo..', dan '..ammoLabel.. '.', length = 3500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				-- xPlayer.showNotification(_U('threw_weapon_ammo', weapon.label, weapon.ammo, ammoLabel))
 			else
 				pickupLabel = ('~y~%s~s~'):format(weapon.label)
