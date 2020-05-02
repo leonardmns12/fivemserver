@@ -356,19 +356,31 @@ input[type=number] {
     .inventory {
         width: 1000px;
         margin-left: 160px;
+        /* left: 48%; */
     }
 
     #playerInventory {
-        width: 425px;
+        width: 735px;
     }
 
     #controls {
-        width: 800px;
-        margin-left: -560px;
+        width: 65px;
+        left: 68%;
+        top: 50%;
+    }
+
+    .info-div {
+        text-align: left;
+        left: 408%;
+        top: -315%;
+        width: 174px;
     }
 
     #otherInventory {
-        width: 325px;
+        width: 382px;
+        /* margin-left: -430px; */
+        top: 6%;
+        left: 85%;
     }
 
     #noSecondInventoryMessage {
