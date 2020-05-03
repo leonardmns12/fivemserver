@@ -21,7 +21,8 @@ RegisterCommand("jail", function(src, args, raw)
 				TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = GetPlayerName(jailPlayer) .. ' Dipenjara selama '..jailTime.. ' Menit!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				if args[3] ~= nil then
 					GetRPName(jailPlayer, function(Firstname, Lastname)
-				-- 		TriggerClientEvent('chat:addMessage', -1, { args = { "JUDGE",  Firstname .. " " .. Lastname .. " Is now in jail for the reason: " .. args[3] }, color = { 249, 166, 0 } })
+						-- TriggerClientEvent('chat:addMessage', -1, { args = { "JUDGE",  Firstname .. " " .. Lastname .. " Is now in jail for the reason: " .. args[3] }, color = { 249, 166, 0 } })
+
 						TriggerClientEvent('chat:addMessage', -1, {
 							template = '<div class="chat-message twitter"><b> {0}</b> {1}</div>',
 							args = { firstname , args[3] } 
@@ -65,7 +66,11 @@ AddEventHandler("esx-qalle-jail:jailPlayer", function(targetSrc, jailTime, jailR
 	JailPlayer(targetSrc, jailTime)
 
 	GetRPName(targetSrc, function(Firstname, Lastname)
-		TriggerClientEvent('chat:addMessage', -1, { args = { "JUDGE",  Firstname .. " " .. Lastname .. " Is now in jail for the reason: " .. jailReason }, color = { 249, 166, 0 } })
+		TriggerClientEvent('chat:addMessage', -1, {
+							template = '<div class="chat-message jail"><b> [NEWS]  {0} Telah dipenjara selama {2} tahun karena :  </b> {1}</div>',
+							args = { Firstname , jailReason , jailTime } 
+							})
+		-- TriggerClientEvent('chat:addMessage', -1, { args = { "JUDGE",  Firstname .. " " .. Lastname .. " Is now in jail for the reason: " .. jailReason }, color = { 249, 166, 0 } })
 	end)
 
 	TriggerClientEvent('mythic_notify:client:SendAlert', src, { type = 'inform', text = GetPlayerName(jailPlayer) .. ' Dipenjara selama '..jailTime.. ' Menit!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })

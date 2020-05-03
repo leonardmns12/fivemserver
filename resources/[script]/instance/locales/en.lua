@@ -1,8 +1,8 @@
 Locales['en'] = {
-  ['left_instance'] = 'you have left the instance',
-  ['invite_expired'] = 'invite expired',
-  ['press_to_enter'] = 'press ~INPUT_CONTEXT~ to enter the instance',
-  ['entered_instance'] = 'you entered the instance',
-  ['entered_into'] = '%s entered the instance',
-  ['left_out'] = '%s left the instance',
+  ['left_instance'] = 'Kamu telah keluar dari properti',
+  ['invite_expired'] = 'Undangan expired.',
+  ['press_to_enter'] = 'Tekan ~INPUT_CONTEXT~ untuk masuk ke properti',
+  ['entered_instance'] = 'Kamu telah masuk ke properti',
+  ['entered_into'] = '%s telah masuk ke properti',
+  ['left_out'] = '%s telah keluar dari properti',
 }

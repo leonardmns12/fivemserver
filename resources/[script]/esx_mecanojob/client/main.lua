@@ -108,8 +108,25 @@ function OpenMobileMecanoActionsMenu()
           if DoesEntityExist(vehicle) then
             TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_WELDING", 0, true)
             Citizen.CreateThread(function()
-              exports['progressBars']:startUI(10000, "Unlocking Vehicle")
-              Citizen.Wait(10000)
+         --      TriggerEvent("mythic_progbar:client:progress", {
+     		  -- nilame = "hijacking vehicle...",
+     		  -- duration = 7000,
+     		  -- label = "hijacking vehicle...",
+     		  -- useWhileDead = false,
+      		 --  canCancel = false,
+      		 --  controlDisables = {
+         --      disableMovement = true,
+         --      disableCarMovement = true,
+         --      disableMouse = false,
+         --      disableCombat = true,
+         --  	},
+          						--     },
+      		  -- animation = {
+          --     animDict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@",
+          --     anim = "machinic_loop_mechandplayer",
+          --     flags = 49,
+          --     },
+          	  Citizen.Wait(7000)
               SetVehicleDoorsLocked(vehicle, 1)
               SetVehicleDoorsLockedForAllPlayers(vehicle, false)
               ClearPedTasksImmediately(playerPed)
@@ -142,8 +159,8 @@ function OpenMobileMecanoActionsMenu()
             TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_BUM_BIN", 0, true)
 
             Citizen.CreateThread(function()
-              exports['progressBars']:startUI(15000, "Repairing Vehicle")
-              Citizen.Wait(15000)
+              -- exports['progressBars']:startUI(15000, "Repairing Vehicle")
+              Citizen.Wait(12000)
               SetVehicleFixed(vehicle)
               SetVehicleDeformationFixed(vehicle)
               SetVehicleUndriveable(vehicle, false)
@@ -175,7 +192,7 @@ function OpenMobileMecanoActionsMenu()
           if DoesEntityExist(vehicle) then
             TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_MAID_CLEAN", 0, true)
             Citizen.CreateThread(function()
-              exports['progressBars']:startUI(10000, "Cleaning Vehicle")
+              -- exports['progressBars']:startUI(10000, "Cleaning Vehicle")
               Citizen.Wait(10000)
               SetVehicleDirtLevel(vehicle, 0)
               ClearPedTasksImmediately(playerPed)

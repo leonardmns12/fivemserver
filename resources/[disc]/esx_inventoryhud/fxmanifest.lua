@@ -194,6 +194,10 @@ files {
   "html/img/items/nitro.png",
   "html/img/items/zetony.png",
   "html/img/items/raspberry.png",
+  "html/img/items/keycard_black.png",
+  "html/img/items/keycard_blue.png",
+  "html/img/items/keycard_green.png",
+  "html/img/items/keycard_red.png",
 }
 
 dependencies {

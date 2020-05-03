@@ -435,7 +435,8 @@ function OpenRoomMenu(property, owner)
 				elements = elements,
 			}, function(data2, menu2)
 				TriggerEvent('instance:invite', 'property', GetPlayerServerId(data2.current.value), {property = property.name, owner = owner})
-				ESX.ShowNotification(_U('you_invited', GetPlayerName(data2.current.value)))
+				--ESX.ShowNotification(_U('you_invited', GetPlayerName(data2.current.value)))
+				exports['mythic_notify']:DoHudText('success', 'Kamu telah mengundang ' ..GetPlayerName(data2.current.value).. 'kedalam properti')
 			end, function(data2, menu2)
 				menu2.close()
 			end)
@@ -491,7 +492,8 @@ function OpenRoomMenu(property, owner)
 				}, function(data2, menu2)
 					menu2.close()
 					TriggerServerEvent('esx_property:removeOutfit', data2.current.value)
-					ESX.ShowNotification(_U('removed_cloth'))
+					--ESX.ShowNotification(_U('removed_cloth'))
+					exports['mythic_notify']:DoHudText('success', 'Baju telah dihapus dari lemari baju!')
 				end, function(data2, menu2)
 					menu2.close()
 				end)
@@ -573,7 +575,8 @@ function OpenRoomInventoryMenu(property, owner)
 
 					local quantity = tonumber(data2.value)
 					if quantity == nil then
-						ESX.ShowNotification(_U('amount_invalid'))
+						--ESX.ShowNotification(_U('amount_invalid'))
+						exports['mythic_notify']:DoHudText('error', 'Jumlah invalid!')
 					else
 						menu.close()
 
@@ -647,7 +650,8 @@ function OpenPlayerInventoryMenu(property, owner)
 					local quantity = tonumber(data2.value)
 
 					if quantity == nil then
-						ESX.ShowNotification(_U('amount_invalid'))
+						--ESX.ShowNotification(_U('amount_invalid'))
+						exports['mythic_notify']:DoHudText('error', 'Jumlah invalid!')
 					else
 						menu2.close()
 
@@ -800,7 +804,7 @@ Citizen.CreateThread(function()
 				local distance = GetDistanceBetweenCoords(coords, property.entering.x, property.entering.y, property.entering.z, true)
 
 				if distance < Config.DrawDistance then
-					DrawMarker(Config.MarkerType, property.entering.x, property.entering.y, property.entering.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+					DrawMarker(22, property.entering.x, property.entering.y, property.entering.z + 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 2.1, 0.5, 255, 255, 255, 200, false, true, 2, false, nil, nil, false)
 					ESX.Game.Utils.DrawText3D(property.entering, property.name, 2)
 					letSleep = false
 				end
@@ -817,7 +821,7 @@ Citizen.CreateThread(function()
 				local distance = GetDistanceBetweenCoords(coords, property.exit.x, property.exit.y, property.exit.z, true)
 
 				if distance < Config.DrawDistance then
-					DrawMarker(Config.MarkerType, property.exit.x, property.exit.y, property.exit.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+					DrawMarker(22, property.exit.x, property.exit.y, property.exit.z + 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 2.1, 0.5, 255, 255, 255, 200, false, true, 2, false, nil, nil, false)
 					letSleep = false
 				end
 
@@ -833,7 +837,7 @@ Citizen.CreateThread(function()
 				local distance = GetDistanceBetweenCoords(coords, property.roomMenu.x, property.roomMenu.y, property.roomMenu.z, true)
 
 				if distance < Config.DrawDistance then
-					DrawMarker(Config.MarkerType, property.roomMenu.x, property.roomMenu.y, property.roomMenu.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.RoomMenuMarkerColor.r, Config.RoomMenuMarkerColor.g, Config.RoomMenuMarkerColor.b, 100, false, true, 2, false, nil, nil, false)
+					DrawMarker(22, property.roomMenu.x, property.roomMenu.y, property.roomMenu.z + 1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 2.1, 0.5, 0, 255, 255, 200, false, true, 2, false, nil, nil, false)
 					letSleep = false
 				end
 

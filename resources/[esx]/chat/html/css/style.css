@@ -191,3 +191,7 @@ input:focus {
 .chat-message.twitter {
   background-color: rgba(73, 147, 221, 0.75);
 }
+
+.chat-message.jail {
+  background-color: rgba(246, 184, 49, 1);
+}
