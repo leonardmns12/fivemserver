@@ -41,7 +41,7 @@ AddEventHandler("esx_advancedbankrobberym:startRobbery", function(bankId)
 							-- TriggerClientEvent('chatMessage', -1, '[NEWS] ', {255, 0, 0}, "- Heist in progress at: ^2" .. Bank["bankName"])
 
 							TriggerClientEvent('chat:addMessage', -1, {
-								template = '<div class="chat-message jail"><b> [POLISI] Perampokan terjadi di: {0} </b></div>',
+								template = '<div class="chat-message heist"><b> [POLISI] Perampokan terjadi di: {0} </b></div>',
 								args = { Bank["bankName"] } 
 								})
 

@@ -195,3 +195,9 @@ input:focus {
 .chat-message.jail {
   background-color: rgba(246, 184, 49, 1);
 }
+
+.chat-message.heist {
+  background-color: rgba(221, 39, 66, 1);
+}
+
+
