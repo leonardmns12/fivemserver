@@ -855,15 +855,15 @@ Config.DoorList = {
 	},
 	
 	-- Principal
-{
-	objName = 'hei_v_ilev_bk_gate2_pris',
-	objCoords  = vector3(261.99899291992, 221.50576782227, 106.68346405029),
-	textCoords = vector3(261.99899291992, 221.50576782227, 107.68346405029),
-	authorizedJobs = { 'police' },
-	locked = true,
-	distance = 12,
-	size = 2
-},
+-- {
+-- 	objName = 'hei_v_ilev_bk_gate2_pris',
+-- 	objCoords  = vector3(261.99899291992, 221.50576782227, 106.68346405029),
+-- 	textCoords = vector3(261.99899291992, 221.50576782227, 107.68346405029),
+-- 	authorizedJobs = { 'police' },
+-- 	locked = true,
+-- 	distance = 12,
+-- 	size = 2
+-- },
 	--[[]
 	{
 		objName = 'prop_bhhotel_door_l',

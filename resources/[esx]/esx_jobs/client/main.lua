@@ -67,7 +67,8 @@ AddEventHandler('esx_jobs:action', function(job, zone, zoneIndex)
 		if IsPedOnFoot(playerPed) then
 			TriggerServerEvent('esx_jobs:startWork', zoneIndex)
 		else
-			ESX.ShowNotification(_U('foot_work'))
+			--ESX.ShowNotification(_U('foot_work'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu harus turun dari kendaraan untuk bekerja!')
 		end
 	elseif zone.Type == 'vehspawner' then
 		local jobObject, spawnPoint, vehicle = Config.Jobs[PlayerData.job.name]
@@ -92,7 +93,8 @@ AddEventHandler('esx_jobs:action', function(job, zone, zoneIndex)
 		if jobObject and spawnPoint and vehicle and ESX.Game.IsSpawnPointClear(spawnPoint.Pos, 5.0) then
 			spawnVehicle(spawnPoint, vehicle, zone.Caution)
 		else
-			ESX.ShowNotification(_U('spawn_blocked'))
+			--ESX.ShowNotification(_U('spawn_blocked'))
+			exports['mythic_notify']:DoHudText('error', 'Pastikan tidak ada kendaraan/objek yang menghalangi!')
 		end
 
 	elseif zone.Type == 'vehdelete' then
@@ -133,7 +135,8 @@ AddEventHandler('esx_jobs:action', function(job, zone, zoneIndex)
 								end
 							end
 						else
-							ESX.ShowNotification(_U('not_your_vehicle'))
+							--ESX.ShowNotification(_U('not_your_vehicle'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu bukan driver dari kendaraan ini!')
 						end
 
 					end
@@ -165,7 +168,8 @@ function nextStep(gps)
 
 		Blips.delivery = AddBlipForCoord(gps.x, gps.y, gps.z)
 		SetBlipRoute(Blips.delivery, true)
-		ESX.ShowNotification(_U('next_point'))
+		--ESX.ShowNotification(_U('next_point'))
+		exports['mythic_notify']:DoHudText('inform', 'Pergi ke tahap selanjutnya setelah ini selesai')
 	end
 end
 
