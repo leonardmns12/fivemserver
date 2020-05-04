@@ -9,7 +9,7 @@ function getIdentity(source , identifier)
     -- local xplayer = ESX.GetPlayerFromId(source)
     -- local identifier = xplayer.identifier
 	local result = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
-	if result[1] ~= nil then
+    if result[1] ~= nil then
 		local identity = result[1]
 
 		return {

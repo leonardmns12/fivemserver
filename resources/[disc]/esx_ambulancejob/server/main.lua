@@ -306,7 +306,8 @@ end)
 
 ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, cb)
 	local identifier = GetPlayerIdentifiers(source)[1]
-
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
 	MySQL.Async.fetchScalar('SELECT is_dead FROM users WHERE identifier = @identifier', {
 		['@identifier'] = identifier
 	}, function(isDead)
@@ -320,8 +321,8 @@ end)
 
 RegisterServerEvent('esx_ambulancejob:setDeathStatus')
 AddEventHandler('esx_ambulancejob:setDeathStatus', function(isDead)
-	local identifier = GetPlayerIdentifiers(source)[1]
-
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
 	MySQL.Sync.execute('UPDATE users SET is_dead = @isDead WHERE identifier = @identifier', {
 		['@identifier'] = identifier,
 		['@isDead']     = isDead
