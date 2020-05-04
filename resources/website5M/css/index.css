@@ -1,0 +1,170 @@
+body{
+    background-repeat: no-repeat;
+    background-size: 96%;
+    background-color: rgba(33, 33, 33, 1);
+    background-image: url('image/IFR.png');
+    background-position-x: center;
+    background-position-y: -5%;
+  }
+
+  .navbar{
+    background-color: #871111!important;
+  }
+
+  .navbar-button{
+    justify-content: center;
+    align-items : center;
+    margin-top: 8px;
+    background-color : #5E1717;
+    color: #FFFFFF!important;
+    font-family:'Kristen ITC';
+    width : 100px;
+    height : 40px;
+    margin-bottom : 10px;
+    font-size : 14px;
+    border-radius : 40px;
+    text-transform : uppercase;
+  } 
+  .search-input-position{
+    
+    width : 120px;
+    
+    /* padding-left: 27px; */
+    /* border : 1px solid #707070; */
+    position : absolute;
+    top: 17px;
+    right: 175px;
+    
+  }
+
+  .search-input {
+    border-radius: 16px 0px 0px 16px;
+    font-size: 12px;
+    text-transform : uppercase; 
+  }
+
+  .btn-input {
+    border-radius: 0px 16px 16px 0px;
+    height: 40px;
+    background-color: #FFFFFF;
+  }
+
+    .container-fluid{
+        background-color: rgba(33, 33, 33, 0.6);
+        height: 680px;
+    }
+
+    .modal-dialog {
+        background-color: rgba(0,0,0,.0001) !important;
+   }
+
+   .text {
+     font-size: 28px;
+     height: 46px;
+     width: 300px;
+     position: absolute;
+     top: 15px;
+     left: 130px;
+     color: #FFFFFF;
+     font-weight: bold;
+   }
+
+   .logo{
+     position: absolute;
+     top: -10px;
+     left: 20px;
+   }
+
+   .download_launcher{
+     position: absolute;
+     top: 350px;
+     left: 500px;
+     text-align: center;
+   }
+   .download{
+     background-color: rgba(200, 61, 61, 0.75);
+     border-radius: 100px;
+     color: #FFFFFF;
+     height: 140px;
+     width: 530px;
+     font-size: 40px;
+     text-transform : uppercase;  
+   }
+   .download_launcher:hover{
+     /* top: 340px; */
+     transition: 0.8;
+   }
+   .download:hover{
+    background-color: rgba(200, 61, 61, 1);
+    color: #FFFFFF;
+   }
+
+   .wallet{
+     position: absolute;
+     bottom: 20px;
+     text-align: center;
+     
+   }
+   .wallets{
+     border-radius: 100px;
+     display: flex !important;
+     background-color: #67A081;
+     width: 150px;
+   }
+   .money{
+     color: #FFFFFF;
+     font-size: 18px;
+     text-align: center !important;
+     /* margin-top: 10px; */
+     
+   }
+
+   .money p{
+     margin: auto;
+     padding-left: 10px;
+   }
+
+   .power {
+     position: absolute;
+     bottom: 20px;
+     right: 30px;
+   }
+
+   .connect p{
+     position: absolute;
+     right: 50px;
+     top: 100px;
+     color: #FFFFFF;
+     font-size: 30px;
+     display: inline;
+   }
+
+   #a {
+     margin-right: 300px;
+   }
+   
+   #a1 {
+     margin-right: 150px;
+   }
+
+   #to {
+     margin-right: 25px;
+   }
+
+  @media (min-width: 1200px) { 
+    .navbar-button{
+      margin-left : 36px;
+    }
+
+    .search-input{
+      top: 18px;
+      width : 275px;
+      height : 40px;
+      font-size: 18px;
+      /* padding-left: 37px; */
+    }
+
+    .navbar{
+    background-color: #212121!important;
+    }
+  }
