@@ -1,8 +1,8 @@
 Config = {}
 Config.Locale = 'en'
 Config.Cops = 1
-Config.HeistCooldown = 900               -- Bank lockdown after robbery in seconds
-Config.dyeTime = 1800                        -- Time from bank to dye pack deactivation in seconds
+Config.HeistCooldown = 1800               -- Bank lockdown after robbery in seconds
+Config.dyeTime = 900                        -- Time from bank to dye pack deactivation in seconds
 Config.itemsPct = 20                      -- This is percent the script will add items
 Config.itemsMax = 2                       -- This is the max number of items you can receive
 Config.cardTime = {100,240,420,600,780}   -- Keycard time in seconds, (gold,black,red,green,blue)
@@ -57,7 +57,7 @@ BankHeists = {
       { x = 146.88, y = -1049.18, z = 29.35, h = 69.83 },
       { x = 147.33, y = -1048.01, z = 29.35, h = 69.83 },
     },
-		["reward"] = math.random(1000,1500),
+		["reward"] = math.random(3500,4500),
 		["bankName"] = "The Fleeca Bank (Downtown)",
 	},
 
@@ -84,7 +84,7 @@ BankHeists = {
       { x = -2953.65, y = 482.59, z = 15.68, h = 180.85},
       { x = -2954.72, y = 482.59, z = 15.68, h = 180.85},
     },
-		["reward"] = math.random(1000,1500),
+		["reward"] = math.random(2000,3000),
 		["bankName"] = "The Fleeca Bank (Highway)",
 	},
 
@@ -111,7 +111,7 @@ BankHeists = {
       { x = 1175.07, y = 2715.76, z = 38.07, h = 272.37},
       { x = 1175.07, y = 2714.61, z = 38.07, h = 272.37},
     },
-		["reward"] = math.random(1000,1500),
+		["reward"] = math.random(2000,3000),
 		["bankName"] = "The Fleeca Bank (Senora Desert)",
 	},
 
@@ -125,7 +125,7 @@ BankHeists = {
 		["Hack_Pos"] = { ["x"] = -105.49, ["y"] = 6471.79, ["z"] = 31.63 },
     cashPickup = { x =  0, y = 0, z = 0, h = 0 },
     vault = { x = 1, y = 1, z = 1, h = 160.3 },
-		["reward"] = math.random(1000,1500),
+		["reward"] = math.random(3000,3000),
 		["bankName"] = "The Blaine County Savings",
 	},
 	["PrincipalBank"] = {
@@ -154,7 +154,7 @@ BankHeists = {
       { x = 258.34, y = 214.33, z = 101.68, h = 161.3 },
       { x = 257.1, y = 214.73, z = 101.68, h = 161.3 },
     },
-  	["reward"] = math.random(1000,1500),
+  	["reward"] = math.random(3000,4000),
 		["bankName"] = "The Principal Bank",
   },
 }

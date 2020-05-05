@@ -56,6 +56,7 @@ function OpenMobileAmbulanceActionsMenu()
 					{label = _U('ems_menu_putincar'), value = 'put_in_vehicle'},
 					{label = ('Mengeluarkan korban dari kendaraan'), value = 'out_the_vehicle'},
 					{label = ('Billing'),    value = 'billing'},
+					{label = ('Pick up'), value = 'drag'},
 				}
 			}, function(data, menu)
 				if IsBusy then return end
@@ -92,6 +93,10 @@ function OpenMobileAmbulanceActionsMenu()
 						end
 						)
 					end
+
+					if data.current.value == 'drag' then
+						TriggerEvent('esx_barbie_lyftupp')
+						end
 
 					if data.current.value == 'revive' then
 

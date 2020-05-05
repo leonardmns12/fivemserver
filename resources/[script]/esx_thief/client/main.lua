@@ -413,17 +413,24 @@ function OpenStealMenu(target, target_id)
 
 end
 
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
+-- Citizen.CreateThread(function()
+--     while true do
+--         Citizen.Wait(0)
 
-            local ped = PlayerPedId()
+--             local ped = PlayerPedId()
 
-            if IsControlJustPressed(1, Keys['K']) and not IsEntityDead(ped) and not IsPedInAnyVehicle(ped, true) then -- OPEN CUFF MENU
+--             if IsControlJustPressed(1, Keys['K']) and not IsEntityDead(ped) and not IsPedInAnyVehicle(ped, true) then -- OPEN CUFF MENU
+--                 OpenCuffMenu()
+--             end
+--     end
+-- end)
+
+RegisterCommand("rob", function(source)
+	local ped = PlayerPedId()
+    if not IsEntityDead(ped) and not IsPedInAnyVehicle(ped, true) then -- OPEN CUFF MENU
                 OpenCuffMenu()
-            end
     end
-end)
+end, false)
 
 
 --[[

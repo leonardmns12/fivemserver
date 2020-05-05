@@ -198,6 +198,12 @@ files {
   "html/img/items/keycard_blue.png",
   "html/img/items/keycard_green.png",
   "html/img/items/keycard_red.png",
+  "html/img/items/ring.png",
+  "html/img/items/goldNecklace.png",
+  "html/img/items/laptop.png",
+  "html/img/items/samsungS10.png",
+  "html/img/items/rolex.png",
+  "html/img/items/camera.png",
 }
 
 dependencies {

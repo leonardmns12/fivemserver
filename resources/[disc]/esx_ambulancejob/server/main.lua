@@ -264,7 +264,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
 	end
 end)
 
-TriggerEvent('es:addGroupCommand', 'revive', 'admin', function(source, args, user)
+TriggerEvent('esx:addGroupCommand', 'revive', 'admin', function(source, args, user)
 	if args[1] ~= nil then
 		if GetPlayerName(tonumber(args[1])) ~= nil then
 			print(('esx_ambulancejob: %s used admin revive'):format(GetPlayerIdentifiers(source)[1]))
@@ -306,8 +306,7 @@ end)
 
 ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, cb)
 	local identifier = GetPlayerIdentifiers(source)[1]
-	local xplayer = ESX.GetPlayerFromId(source)
-    local identifier = xplayer.identifier
+	print(identifier)
 	MySQL.Async.fetchScalar('SELECT is_dead FROM users WHERE identifier = @identifier', {
 		['@identifier'] = identifier
 	}, function(isDead)
@@ -321,8 +320,8 @@ end)
 
 RegisterServerEvent('esx_ambulancejob:setDeathStatus')
 AddEventHandler('esx_ambulancejob:setDeathStatus', function(isDead)
-	local xplayer = ESX.GetPlayerFromId(source)
-    local identifier = xplayer.identifier
+	local identifier = GetPlayerIdentifiers(source)[1]
+	
 	MySQL.Sync.execute('UPDATE users SET is_dead = @isDead WHERE identifier = @identifier', {
 		['@identifier'] = identifier,
 		['@isDead']     = isDead

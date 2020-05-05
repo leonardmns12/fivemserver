@@ -56,8 +56,8 @@ function openMenu()
 			  {label = 'Show your ID', value = 'showID'},
 			  -- {label = 'Check your driver license', value = 'checkDriver'},
 			  -- {label = 'Show your driver license', value = 'showDriver'},
-			  -- {label = 'Check your firearms license', value = 'checkFirearms'},
-			  -- {label = 'Show your firearms license', value = 'showFirearms'},
+			  {label = 'Check your firearms license', value = 'checkFirearms'},
+			  {label = 'Show your firearms license', value = 'showFirearms'},
 		  }
 	  },
 	  function(data, menu)

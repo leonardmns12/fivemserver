@@ -34,7 +34,7 @@ $(function() {
 			}
 
 			$('#wrapper').append(
-				` <h6 class = "h4" style = "right: 47.125%; position: absolute;" bottom = ${id - 5}>Made by KRILLE</h6>`
+				` <h6 class = "h4" style = "right: 47.125%; position: absolute;" bottom = ${id - 5}></h6>`
 			)
 
 			if (event.data.owner == true) {

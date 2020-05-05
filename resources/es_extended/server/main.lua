@@ -305,7 +305,8 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 		local targetItem = targetXPlayer.getInventoryItem(itemName)
 
 		if itemCount > 0 and sourceItem.count >= itemCount then
-			if targetXPlayer.canCarryItem(itemName, itemCount) then
+			-- if targetXPlayer.canCarryItem(itemName, itemCount) then
+			if targetXPlayer ~= nil then
 				sourceXPlayer.removeInventoryItem(itemName, itemCount)
 				targetXPlayer.addInventoryItem   (itemName, itemCount)
 
