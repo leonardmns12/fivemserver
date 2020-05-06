@@ -1,3 +1,24 @@
+<?php
+  session_start();
+  require 'connection.php';
+  if(!isset($_SESSION["login"])){
+    // $result1 = mysqli_query($conn, "SELECT * FROM loginlauncher_users WHERE username = '$username' AND password = '$password1'");
+    header("Location: index.php");
+  }else{
+    $username = $_SESSION["username"];
+    $result1 = mysqli_query($conn, "SELECT * FROM loginlauncher_users WHERE username = '$username'");
+    $row = mysqli_fetch_assoc($result1);
+    $identifier = $row["identifier"];
+    $cash = $row["cash"];
+  }
+
+  
+
+
+?>
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,9 +30,17 @@
   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/4696d6047b.js" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <style>
-      <?php include 'css/index.css'; ?>
+   
+      body{
+    background-repeat: no-repeat;
+    background-size: 96%;
+    background-color: rgba(33, 33, 33, 1);
+    background-image: url('image/IFR.png');
+    background-position-x: center;
+    background-position-y: -5%;
+    }
     </style>
 
 
@@ -60,30 +89,36 @@
         <div class="download_launcher">
             <button class="btn btn-default download">
                 Download Launcher
-                <img src="image/interface.png" alt="interface" style="height:40px; width:40px; margin-bottom:10px">
+                <img src="image/interface.png" alt="interface" style="height:140px; width:40px; margin-bottom:10px">
             </button>
         </div>
+
+        
         <div class="wallet">
             <button class="btn btn-default wallets">
                 <img src="image/wallet.png" alt="wallet" style="height:30px; width:30px">
                 <span class="money">
                     <p>
-                        150000
+                        <?php echo($cash); ?>
                     </p>
                 </span>
             </button>
         </div>
         <div class="power">
-            <a href="#"><img src="image/logout.png" alt="Logout" style="height:40px; width:40px"></a>
+            <a href="logout.php"><img src="image/logout.png" alt="Logout" style="height:40px; width:40px"></a>
         </div>
         <div class="connect">
             <span class="hai">
                 <p id="a">
                     You are  
                 </p>
-                <p style="color: #36A86B;" id="a1">
-                    connected
-                </p>
+                <?php
+                  if(strlen($identifier) > 0){
+                    echo "<p style='color: #36A86B;' id='a1'>connected</p>";
+                  }else{
+                    echo "<p style='color: red; font-size:24px; padding-top:6px;' id='a1'>disconnected</p>";
+                  }
+                ?>
                 <p id="to">
                     to FiveM
                 </p>
@@ -91,7 +126,7 @@
         </div>
       </div>
       <!-- Button trigger modal -->
-
+                  
     
     <!-- Modal Login -->
       <div class="modal fade" id="Loginmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

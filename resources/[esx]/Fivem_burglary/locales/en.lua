@@ -1,8 +1,8 @@
 Locales ['en'] = {
-	['used_kit']					= 'You used x1 lockpick',
-	['must_be_outside']				= 'You must be outside of the vehicle!',
-	['no_vehicle_nearby']			= 'There is no vehicle nearby',
-	['vehicle_unlocked']			= 'You lockpicked the vehicle!',
-	['abort_hint']					= 'Press ~INPUT_VEH_DUCK~ to cancel',
-	['aborted_lockpicking']		    = 'You aborted the lockpicking',
+	['used_kit']					= 'Kamu menggunakan x1 lockpick',
+	['must_be_outside']				= 'Kamu harus keluar dari kendaraan!',
+	['no_vehicle_nearby']			= 'Tidak ada kendaraan terdekat',
+	['vehicle_unlocked']			= 'Kamu berhasil membuka kendaraan ini!',
+	['abort_hint']					= 'Tekan ~INPUT_VEH_DUCK~ untuk membatalkan',
+	['aborted_lockpicking']		    = 'Lockpicking dibatalkan',
 }

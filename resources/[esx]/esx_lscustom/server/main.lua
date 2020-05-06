@@ -17,7 +17,7 @@ AddEventHandler('esx_lscustom:buyMod', function(price)
   		local ping = GetPlayerPing(source)
   		local steamhex = GetPlayerIdentifier(source)	
 		local societyAccount = nil
-		TriggerEvent('esx_addonaccount:getSharedAccount', 'society_mechanic', function(account)
+		TriggerEvent('esx_addonaccount:getSharedAccount', 'society_mecano', function(account)
 			societyAccount = account
 		end)
 		if price < societyAccount.money then

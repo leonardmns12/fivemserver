@@ -161,7 +161,7 @@ Config.Jobs.fueler = {
 					time = 0.5,
 					remove = 1,
 					max = 100, -- if not present, probably an error at itemQtty >= item.max in esx_jobs_sv.lua
-					price = 61,
+					price = 60,
 					requires = 'essence',
 					requires_name = _U('f_gas'),
 					drop = 100

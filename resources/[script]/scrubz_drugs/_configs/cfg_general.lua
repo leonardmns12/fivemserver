@@ -15,7 +15,7 @@ Config.UseLocationExtras = true
 ---------------------------
 -- Weed --
 ---------------------------
-Config.EnableWeed = true
+Config.EnableWeed = false
 Config.WeedItemName = 'weedqtroz'
 Config.WeedBudName = 'ogkush'
 Config.WeedItemPrice = 65
@@ -37,7 +37,7 @@ Config.MethItemPrice = 205
 ---------------------------
 -- Crack --
 ---------------------------
-Config.EnableCrack = true
+Config.EnableCrack = false
 Config.CrackItemName = 'crackrock'
 Config.CrackItemPrice = 285
 

@@ -1,3 +1,40 @@
+<?php
+session_start();
+  require 'connection.php';
+
+  if(isset($_POST["register"])){
+    
+    if( registrasi($_POST) > 0 ){
+			echo "<script> 
+					alert('registrasi berhasil!');
+			</script>";
+		} else{
+			echo mysqli_error($conn);
+    }
+    
+  }
+
+  if(isset($_POST["login"])){
+    $username1 = $_POST["username1"];
+    $password1 = $_POST["password1"];
+     
+    $result1 = mysqli_query($conn, "SELECT * FROM loginlauncher_users WHERE username = '$username1' AND password = '$password1'");
+
+    if( mysqli_num_rows($result1) == 1 ){
+
+      $_SESSION["login"] = true;
+      $_SESSION["username"] = $username1;
+      header("Location: Home.php");
+ 
+    }else{
+      echo "<script>alert('Username atau password salah!');</script>";
+    }
+    $error = true;
+  }
+
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,9 +46,16 @@
   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/4696d6047b.js" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <style>
-      <?php include 'css/index.css'; ?>
+    body{
+    background-repeat: no-repeat;
+    background-size: 96%;
+    background-color: rgba(33, 33, 33, 1);
+    background-image: url('image/IFR.png');
+    background-position-x: center;
+    background-position-y: -5%;
+    }
     </style>
 
 
@@ -64,27 +108,27 @@
                 <span aria-hidden="true" style="color: #FFF;">&times;</span>
               </button>
             </div>
-            <form action="/website5m/Home.php">
+             <form action="" method="post">
               <div class="modal-body">
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                       </div>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
+                      <input type="text" name="username1" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
                     </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                       </div>
-                      <input type="password" class="form-control" placeholder="password" aria-label="Username" aria-describedby="basic-addon1" required>
+                      <input type="password" name="password1" class="form-control" placeholder="password" aria-label="Username" aria-describedby="basic-addon1" required>
                     </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn" style="background-color: #871111; color:#fff;">Login</button>
+                <button type="submit" name="login" class="btn" style="background-color: #871111; color:#fff;">Login</button>
               </div>
-            </form>
           </div>
+          </form>
         </div>
       </div>
 
@@ -99,32 +143,32 @@
                 <span aria-hidden="true" style="color: #FFF;">&times;</span>
               </button>
             </div>
-            <form>
               <div class="modal-body">
+              <form accept="" method="POST">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
+                    <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password confirmation" aria-label="Password" aria-describedby="basic-addon1" required>
+                    <input type="password" class="form-control" name="password2" placeholder="Password confirmation" aria-label="Password" aria-describedby="basic-addon1" required>
                   </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn" style="background-color: #871111; color:#fff;">Register</button>
+                <input type="submit"name="register" class="btn" style="background-color: #871111; color:#fff;" value="Register" />     
               </div>
+              </form>
               </div>
-            </form>
           </div>
         </div>
       </div>

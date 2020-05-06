@@ -6,9 +6,9 @@ AddEventHandler('scrubz_drugs_sv:getDoors', function()
 	local drugLocations = {  --[[ 1 = Weed Enter, 2 = Weed Exit, 3 = Coke Enter, 4 = Coke Exit, 5 = Meth Enter, 6 = Meth Exit, 7 = Coke Gathering Door ]]
 		[1] = {pos = vector3(-99.91, -1783.16, 28.29), teleport = vector3(1066.41, -3183.51, -39.98), id = 'weedEnter', enter = true, text = 'Press ~r~[E]~w~ to enter'},
 		[2] = {pos = vector3(1066.41, -3183.51, -39.98), teleport = vector3(-99.91, -1783.16, 28.29), id = 'weedExit', enter = false,  text = 'Press ~r~[E]~w~ to exit'},
-		[3] = {pos = vector3(-85.98, -1794.88, 27.66), teleport = vector3(1088.65, -3187.46, -39.92), id = 'cokeEnter', enter = true, text = 'Press ~r~[E]~w~ to enter'},
+		[3] = {pos = vector3(1361.1, 3603.41, 34.95), teleport = vector3(1088.65, -3187.46, -39.92), id = 'cokeEnter', enter = true, text = 'Press ~r~[E]~w~ to enter'},
 		[4] = {pos = vector3(1088.65, -3187.46, -39.92), teleport = vector3(-85.98, -1794.88, 27.66), id = 'cokeExit', enter = false,  text = 'Press ~r~[E]~w~ to exit'},
-		[5] = {pos = vector3(-93.73, -1788.34, 28.09), teleport = vector3(996.81, -3200.67, -37.22), id = 'methEnter', enter = true, text = 'Press ~r~[E]~w~ to enter'},
+		[5] = {pos = vector3(2310.54, 4884.84, 41.81), teleport = vector3(996.81, -3200.67, -37.22), id = 'methEnter', enter = true, text = 'Press ~r~[E]~w~ to enter'},
 		[6] = {pos = vector3(996.81, -3200.67, -37.22), teleport = vector3(-93.73, -1788.34, 28.09), id = 'methExit', enter = false,  text = 'Press ~r~[E]~w~ to exit'},
 		[7] = {pos = vector3(-74.91, -1803.15, 27.88), teleport = nil, id = 'cokeTheft', enter = nil,  text = 'Press ~r~[E]~w~ steal some coke'},
 	}

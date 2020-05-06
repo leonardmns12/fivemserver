@@ -33,21 +33,21 @@ local useInteractSound = true -- if you wanna use InteractSound (when u lockpick
 ------------------------------------------------------
 
 ------ l o c a l e s ------
-local noCar = "No car nearby"
-local text = "~r~lockpick~w~ door?" -- lockpick the door
-local textUnlock = "~g~[E]~w~ Enter" -- enter the house
-local insideText = "~g~[E]~w~ Exit" -- exit the door
-local abortConfirm = "You have aborted the lockpicking"
-local searchText = "~g~[E]~w~ Search" -- search the spot
-local emptyMessage = "There is nothing here!" -- if you press E where it is empty
-local emptyMessage3D = "~r~Empty" -- if the spot is empty
-local closetText = "~g~[E]~w~ Peek into closet" -- text at closet
-local abortLock = "~g~[E]~w~ To abort lockpicking"
-local noLockpickText = "You don't have any lockpick!" -- if you don't have a lockpick and you try to do the burglary
-local carUnlocked = "You have unlocked the car"
-local youFound = "From the" -- when you steal something
-local burglaryDetected = "A burglary has been detected at" -- text 1 cops gets sent
-local sentPhoto = "We've sent you a photo of the criminal." -- if you use qalle's camerasystem this will be in the message too
+local noCar = "Tidak ada kendaraan terdekat"
+local text = "~r~Lockpick~w~ pintu ini?" -- lockpick the door
+local textUnlock = "Tekan ~g~[E]~w~ untuk masuk" -- enter the house
+local insideText = "Tekan ~g~[E]~w~ untuk keluar" -- exit the door
+local abortConfirm = "Lockpicking telah dibatalkan"
+local searchText = "Tekan ~g~[E]~w~ untuk memulai mencari" -- search the spot
+local emptyMessage = "TTidak ada apapun disini!" -- if you press E where it is empty
+local emptyMessage3D = "~r~Kosong" -- if the spot is empty
+local closetText = "Tekan ~g~[E]~w~ untuk mengintip kloset" -- text at closet
+local abortLock = "Tekan ~g~[E]~w~ untuk membatalkan lockpicking"
+local noLockpickText = "Kamu tidak punya lockpick!" -- if you don't have a lockpick and you try to do the burglary
+local carUnlocked = "Kamu berhasil membuka kendaraan"
+local youFound = "Dari" -- when you steal something
+local burglaryDetected = "Perampokan rumah telah terjadi di" -- text 1 cops gets sent
+local sentPhoto = "Kami telah mengirimkan foto kriminalitas kepada kamu." -- if you use qalle's camerasystem this will be in the message too
 local item = {'ring', 'goldNecklace', 'laptop', 'coke_pooch', 'weed_pooch', 'samsungS10', 'rolex', 'camera'}
 local exitPos = {pos = {x = 0, y = 0, z = 0, h = 0 }}
 local lastDoor = 0
@@ -117,7 +117,8 @@ AddEventHandler('99kr-burglary:onUse', function()
 					SetVehicleDoorsLockedForAllPlayers(vehicle, false)
 					ClearPedTasksImmediately(playerPed)
 
-					ESX.ShowNotification(carUnlocked)
+          --ESX.ShowNotification(carUnlocked)
+          exports['mythic_notify']:DoHudText('success', 'Kendaraan berhasil terbuka')
 				end
 				
 				CurrentAction = nil
@@ -135,7 +136,8 @@ AddEventHandler('99kr-burglary:onUse', function()
 
 				if IsControlJustReleased(0, Keys["X"]) then
 					TerminateThread(ThreadID)
-					ESX.ShowNotification(abortConfirm)
+          --ESX.ShowNotification(abortConfirm)
+          exports['mythic_notify']:DoHudText('inform', 'Lockpicking telah dibatalkan')
 					CurrentAction = nil
 				end
 			end
@@ -319,7 +321,8 @@ Citizen.CreateThread(function()
       elseif v.amount < 1 and dist <= 1.2 then
         DrawText3D(v.x, v.y, v.z, emptyMessage3D, 0.4)
         if IsControlJustPressed(0, Keys["E"]) and dist <= 0.5 then
-          ESX.ShowNotification(emptyMessage)
+         -- ESX.ShowNotification(emptyMessage)
+         exports['mythic_notify']:DoHudText('error', 'Tidak ada apapun disini!')
         end
       end
     end
@@ -387,7 +390,8 @@ function confMenu(house)
             TriggerServerEvent('esx_addons_gcphone:startCall', 'police', burglaryDetected .. '\n ' .. house, { x = exitPos.pos.x, y = exitPos.pos.y, z = exitPos.pos.z })
           end
         else 
-          ESX.ShowNotification(noLockpickText)
+          --ESX.ShowNotification(noLockpickText)
+          exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya lockpick!')
         end
 	end)
 end
@@ -402,7 +406,8 @@ function steal(k)
   Citizen.Wait(2000)
   procent(50)
   TriggerServerEvent('99kr-burglary:Add', goods, 1)
-  ESX.ShowNotification(youFound .. k ..' '.. goods)
+  --ESX.ShowNotification(youFound .. k ..' '.. goods)
+  exports['mythic_notify']:DoHudText('success', 'Kamu menemukan ' ..goods.. 'dari' ..k)
   values.amount = values.amount - 1
   ClearPedTasks(playerPed)
   FreezeEntityPosition(playerPed, false)
@@ -687,12 +692,12 @@ function OpenSellMenu()
       {
           title    = 'Do you have any of the following you want to sell?',
           elements = {
-              {label = 'Ring ($350)', value = 'ring'},
-              {label = 'Rolex ($1150)', value = 'rolex'},
-              {label = 'Camera ($135)', value = 'camera'},
-              {label = 'Gold Necklace ($345)', value = 'goldNecklace'},
-              {label = 'Laptop ($1750)', value = 'laptop'},
-              {label = 'Samsung S10($925)', value = 'samsungS10'},
+              {label = 'Ring', value = 'ring'},
+              {label = 'Rolex', value = 'rolex'},
+              {label = 'Camera', value = 'camera'},
+              {label = 'Gold Necklace', value = 'goldNecklace'},
+              {label = 'Laptop', value = 'laptop'},
+              {label = 'Samsung S10', value = 'samsungS10'},
           }
       },
       function(data, menu)

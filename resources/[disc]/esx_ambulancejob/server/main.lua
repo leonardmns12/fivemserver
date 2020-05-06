@@ -227,11 +227,9 @@ AddEventHandler('esx_ambulancejob:removeItem', function(item)
 	xPlayer.removeInventoryItem(item, 1)
 
 	if item == 'bandage' then
-		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah menggunakan 1x perban', length = 3000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
+		TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 	elseif item == 'medikit' then
-		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah menggunakan 1x medikit', length = 3000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+		TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 	end
 end)
 
@@ -262,8 +260,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
 	if xPlayer.canCarryItem(itemName, amount) then
 		xPlayer.addInventoryItem(itemName, amount)
 	else
-		TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Inventory anda penuh!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- xPlayer.showNotification(_U('max_item'))
+		xPlayer.showNotification(_U('max_item'))
 	end
 end)
 
@@ -286,8 +283,7 @@ ESX.RegisterUsableItem('medikit', function(source)
 	xPlayer.removeInventoryItem('medikit', 1)
 
 	TriggerClientEvent('esx_ambulancejob:heal', _source, 'big')
-	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah menggunakan 1x medikit', length = 3000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-	-- TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+	TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 end)
 
 ESX.RegisterUsableItem('bandage', function(source)
@@ -296,8 +292,7 @@ ESX.RegisterUsableItem('bandage', function(source)
 	xPlayer.removeInventoryItem('bandage', 1)
 
 	TriggerClientEvent('esx_ambulancejob:heal', _source, 'small')
-	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah menggunakan 1x perban', length = 3000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-	-- TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
+	TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 end)
 
 ESX.RegisterUsableItem('bandage2', function(source)
@@ -310,8 +305,9 @@ ESX.RegisterUsableItem('bandage2', function(source)
 end)
 
 ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, cb)
-	local identifier = GetPlayerIdentifiers(source)[1]
-	print(identifier)
+	-- local identifier = GetPlayerIdentifiers(source)[1]
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
 	MySQL.Async.fetchScalar('SELECT is_dead FROM users WHERE identifier = @identifier', {
 		['@identifier'] = identifier
 	}, function(isDead)
@@ -325,8 +321,9 @@ end)
 
 RegisterServerEvent('esx_ambulancejob:setDeathStatus')
 AddEventHandler('esx_ambulancejob:setDeathStatus', function(isDead)
-	local identifier = GetPlayerIdentifiers(source)[1]
-	
+	-- local identifier = GetPlayerIdentifiers(source)[1]
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
 	MySQL.Sync.execute('UPDATE users SET is_dead = @isDead WHERE identifier = @identifier', {
 		['@identifier'] = identifier,
 		['@isDead']     = isDead

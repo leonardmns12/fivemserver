@@ -47,10 +47,12 @@ AddEventHandler('99kr-burglary:sellring', function()
 				
 		if ring > 0 then
 			xPlayer.removeInventoryItem('ring', 1)
-			xPlayer.addMoney(350)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "$350 added")
+			xPlayer.addMoney(1000)
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "$1000 added")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu mendapatkan Rp 1000', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else 
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a ring to sell!")
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a ring to sell!")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak punya cincin/ring untuk dijual!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 end)
 			
@@ -71,9 +73,10 @@ AddEventHandler('99kr-burglary:sellrolex', function()
 		if rolex > 0 then
 			xPlayer.removeInventoryItem('rolex', 1)
 			xPlayer.addMoney(1150)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "$1150 added")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu mendapatkan Rp 1150', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else 
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a rolex to sell!")
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a rolex to sell!")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak punya Rolex untuk dijual!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 end)
 			
@@ -93,10 +96,12 @@ AddEventHandler('99kr-burglary:sellcamera', function()
 				
 	    if camera > 0 then
 		  xPlayer.removeInventoryItem('camera', 1)
-			xPlayer.addMoney(135)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "$135 added")
+			xPlayer.addMoney(2000)
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "$2000 added")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu mendapatkan Rp 2000', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else 
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a camera to sell!")
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "Kamu tidak punya kamera untuk dijual")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak punya kamera untuk dijual!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	    end
 end)
 			
@@ -116,10 +121,12 @@ AddEventHandler('99kr-burglary:sellgoldNecklace', function()
 				
 		if goldNecklace > 0 then
 			xPlayer.removeInventoryItem('goldNecklace', 1)
-			xPlayer.addMoney(345)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "$345 added")
+			xPlayer.addMoney(4000)
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "$4000 added")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu mendapatkan Rp 4000', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else 
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a goldNecklace to sell!")
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a goldNecklace to sell!")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak punya kalung emas/gold necklace untuk dijual!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 end)
 			
@@ -139,10 +146,12 @@ AddEventHandler('99kr-burglary:selllaptop', function()
 				
 		if laptop > 0 then
 			xPlayer.removeInventoryItem('laptop', 1)
-			xPlayer.addMoney(1750)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "$1750 added")
+			xPlayer.addMoney(5000)
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "$5000 added")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu mendapatkan Rp 5000', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else 
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a laptop to sell!")
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a laptop to sell!")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak punya laptop untuk dijual!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 end)
 			
@@ -163,14 +172,16 @@ AddEventHandler('99kr-burglary:sellsamsungS10', function()
 				
 		if samsungS10 > 0 then
 			xPlayer.removeInventoryItem('samsungS10', 1)
-			xPlayer.addMoney(925)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "$925 added")
+			xPlayer.addMoney(4000)
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "$4000 added")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu mendapatkan Rp 4000', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else 
-			TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a samsungS10 to sell!")
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, "You don't have a samsungS10 to sell!")
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak punya Samsung S10 untuk dijual!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 end)
 			
 			
-function notification(text)
-	TriggerClientEvent('esx:showNotification', source, text)
-end
+-- function notification(text)
+-- 	TriggerClientEvent('esx:showNotification', source, text)
+-- end
