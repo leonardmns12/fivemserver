@@ -9,7 +9,8 @@ ESX.RegisterUsableItem('bread', function(source)
 
 	TriggerClientEvent('esx_status:add', source, 'hunger', 200000)
 	TriggerClientEvent('esx_basicneeds:onEat', source)
-	TriggerClientEvent('esx:showNotification', source, _U('used_bread'))
+	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah memakan 1 roti', length = 2900, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+	-- TriggerClientEvent('esx:showNotification', source, _U('used_bread'))
 	exports['progressBars']:startUI(5000, "Minum")
 end)
 
@@ -20,7 +21,8 @@ ESX.RegisterUsableItem('water', function(source)
 
 	TriggerClientEvent('esx_status:add', source, 'thirst', 200000)
 	TriggerClientEvent('esx_basicneeds:onDrink', source)
-	TriggerClientEvent('esx:showNotification', source, _U('used_water'))
+	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah meminum 1 air mineral', length = 2900, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+	-- TriggerClientEvent('esx:showNotification', source, _U('used_water'))
 	exports['progressBars']:startUI(5000, "Makan")
 end)
 
