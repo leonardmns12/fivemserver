@@ -6,8 +6,8 @@ ESX = nil
 local logs = "https://discordapp.com/api/webhooks/705306638399176706/H_A7EHSlfnoQa0WhnDfSvDsbcvNT7BPcjgnH9b-F8qOTeE-5xqei_ZdUscqOOeVAsDX4"
 local logs1 = "https://discordapp.com/api/webhooks/705306485328183337/ecJvmw9IiyuPDuZxAyk5PQ61X1iTHZG_Hyv68Kmw8T_VWpk8ZIejunH0KEfP0T3IzmpQ"
 
-local communityname = "IN YOUR DREAM"
-local communtiylogo = "https://i.imgur.com/JvMPlGh.png" 
+local communityname = "INDOFOLKS ROLEPLAY"
+local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
 
 
 
@@ -27,7 +27,7 @@ AddEventHandler('bank:deposit', function(amount)
         	local steamhex = GetPlayerIdentifier(source);
 			local connect = {
        				 {
-           				 ["color"] = "8663711",
+           				 ["color"] = "14886454",
            				 ["title"] = "Player menyimpan uang di bank!",
           				 ["description"] = "Player: **"..xPlayer.name.."**\nJumlah: **"..amount.."**\nSteam Hex: **"..steamhex.."**",
          				 ["footer"] = {
@@ -36,7 +36,7 @@ AddEventHandler('bank:deposit', function(amount)
             		},
         }		
     }																								
-    PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "In Your Dream Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "IndoFolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 
         xPlayer.removeMoney(amount)
         xPlayer.addAccountMoney('bank', tonumber(amount))

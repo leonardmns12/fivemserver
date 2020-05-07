@@ -3,8 +3,8 @@ ESX = nil
 local logs = "https://discordapp.com/api/webhooks/704956142719205446/g8CEi-CqYgVBFDQJQfbUhVzAKgte5n-uDyFVPThRqZ57piDNIz1MI_zhpWmH0j6nZx0K"
 local logs1 = "https://discordapp.com/api/webhooks/704962850455683082/Lx15vy8JytImR8CjCKOpRNpXzOauZS3E8mYrYTnACG6VM8SdIynVgyMtJ5BUuciZxd-I"
 
-local communityname = "IN YOUR DREAM"
-local communtiylogo = "https://i.imgur.com/JvMPlGh.png" 
+local communityname = "INDOFOLKS ROLEPLAY"
+local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
 
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -21,7 +21,7 @@ AddEventHandler('esx_ambulancejob:revive', function(target)
 		xPlayer.addMoney(Config.ReviveReward)
 		local connect = {
         {
-            ["color"] = "8663711",
+            ["color"] = "14886454",
             ["title"] = "Ambulance Menyelamatkan Warga",
             ["description"] = "Player: **"..name.."**\nMerevive Seseorang!\nKorban: **" ..zPlayer.name.. "**\nSteam Hex: **"..steamhex.."**",
           ["footer"] = {
@@ -30,7 +30,7 @@ AddEventHandler('esx_ambulancejob:revive', function(target)
             },
         }
     }																								
-    PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "In Your Dream Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 	TriggerClientEvent('esx_ambulancejob:revive', target)
 	else
 		print(('esx_ambulancejob: %s attempted to revive!'):format(xPlayer.identifier))
@@ -239,7 +239,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
 	local steamhex = GetPlayerIdentifier(source);
 		local connect = {
         {
-            ["color"] = "8663711",
+            ["color"] = "14886454",
             ["title"] = "Ambulance Mengambil barang dari kantor!",
             ["description"] = "Player: **"..xPlayer.name.."**\nBarang: **" ..itemName.. "**\nJumlah: **"..amount.."**\nSteam Hex: **"..steamhex.."**",
           ["footer"] = {
@@ -248,7 +248,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
             },
         }
     }																								
-    PerformHttpRequest(logs1, function(err, text, headers) end, 'POST', json.encode({username = "In Your Dream Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(logs1, function(err, text, headers) end, 'POST', json.encode({username = "IndoFolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 	if xPlayer.job.name ~= 'ambulance' then
 		print(('[esx_ambulancejob] [^2INFO^7] "%s" attempted to spawn in an item!'):format(xPlayer.identifier))
 		return

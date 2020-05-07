@@ -39,16 +39,12 @@ Config.Zones2 = {
 }
 
 
-
-
-
-
 Config.Blips = {
     {name = "Coke Farm", 		 color=37, scale=0.8, id=501,	     x = 1361.1,	y= 3603.41,	    z = 34.95},
 
-	{name = "Meth Farm",       color=77, scale=0.8, id=499,	         x = 4884.84,	y = 1703.44,		z = 41.81},
+	{name = "Meth Farm",       color=77, scale=0.8, id=499,	         x = 2310.54,	y = 4884.84,		z = 41.81},
 
-	{name = "Farmasi",       color=69, scale=0.8, id=475,	         x = 4884.84,	y = 1703.44,		z = 41.81},
+	{name = "Farmasi",       color=69, scale=0.8, id=475,	         x = 243.02,	y = -1376.61,		z = 39.53}
 
 	
 

@@ -200,4 +200,14 @@ input:focus {
   background-color: rgba(221, 39, 66, 1);
 }
 
+.chat-message.police {
+  background-color: rgba(221, 39, 66, 0.75);
+}
 
+.chat-message.ems {
+  background-color: rgba(0, 255, 0, 0.75);
+}
+
+.chat-message.mecano {
+  background-color: rgba(123, 63, 0,0.75);
+}

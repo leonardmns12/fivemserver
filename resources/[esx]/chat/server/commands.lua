@@ -41,6 +41,54 @@ RegisterCommand('ooc', function(source, args, rawCommand)
     })
 end, false)
 
+RegisterCommand('ems', function(source, args, rawCommand) --ijo
+	local msg = rawCommand:sub(4)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
+    if name.job == "ambulance" then 
+        fal = name.firstname .. "  " .. name.lastname
+            TriggerClientEvent('chat:addMessage', -1, {
+            template = '<div class="chat-message ems"><b>[EMS] {0}:</b> {1}</div>',
+            args = { fal, msg }
+        })
+    else
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu bukan EMS!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    end
+end, false)
+
+RegisterCommand('pol', function(source, args, rawCommand) --merah
+	local msg = rawCommand:sub(4)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
+    if name.job == "police" then 
+        fal = name.firstname .. "  " .. name.lastname
+            TriggerClientEvent('chat:addMessage', -1, {
+            template = '<div class="chat-message police"><b>[POLISI] {0}:</b> {1}</div>',
+            args = { fal, msg }
+        })
+    else
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu bukan Polisi!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    end
+end, false)
+
+RegisterCommand('mech', function(source, args, rawCommand) --coklat
+	local msg = rawCommand:sub(5)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
+    if name.job == "mecano" then
+        fal = name.firstname .. "  " .. name.lastname
+            TriggerClientEvent('chat:addMessage', -1, {
+            template = '<div class="chat-message mecano"><b>[MECHANIC] {0}:</b> {1}</div>',
+            args = { fal, msg }
+        })
+    else
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu bukan Mekanik!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    end
+end, false)
+
 RegisterCommand('twt', function(source, args, rawCommand)
 	local msg = rawCommand:sub(4)
 	local xplayer = ESX.GetPlayerFromId(source)

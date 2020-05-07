@@ -251,8 +251,8 @@ window.onload = function () {
 							// else if (data.type == 21) { document.querySelector('#vehicle-others i').classList.add('fa-train'); } 
 						}
 
-						vehicleInfo.classList.remove('inactive');
-						vehicleInfo.classList.add('active', 'fadeIn');
+						// vehicleInfo.classList.remove('inactive');
+						// vehicleInfo.classList.add('active', 'fadeIn');
 					}
 
 					// if (vehicleInfo.classList.contains('updated') == false) {

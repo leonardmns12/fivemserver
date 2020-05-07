@@ -23,7 +23,7 @@ Config = {
 	CustomMenuEnabled = false,
 	MenuImage = "https://i.imgur.com/kgzvDwQ.png",
 -- You can change the menu position here
-	MenuPosition = "right", -- (left, right)
+	MenuPosition = "left", -- (left, right)
 -- You can disable the Ragdoll keybinding here.
 	RagdollEnabled = false,
 	RagdollKeybind = 303, -- Get the button number here https://docs.fivem.net/game-references/controls/

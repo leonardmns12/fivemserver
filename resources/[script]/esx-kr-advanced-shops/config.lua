@@ -84,64 +84,64 @@ Config.Zones = {
   Shop20 = {
     Pos = {x = 1729.216,  y = 6414.131, z = 34.037, number = 20}
   },
-  Robbery1 = {
-    Pos   = {x = 379.19, y = 332.08, z = 102.57, number = 101, red = true},
-  },
-  Robbery2 = {
-    Pos   = {x = 2550.15, y = 385.37, z = 107.62, number = 102, red = true},
-  },
-  Robbery3 = {
-    Pos   = {x = -3047.08, y = 586.37, z = 6.91, number = 103, red = true},
-  },
-  Robbery4 = {
-    Pos   = {x = -1480.09, y = -373.35, z = 38.16, number = 104, red = true},
-  },
-  Robbery5 = {
-    Pos   = {x = 1396.21, y = 3611.28, z = 33.98, number = 105, red = true},
-  },
-  Robbery6 = {
-    Pos   = {x = -2959.15, y = 388.54, z = 13.04, number = 106, red = true},
-  },
-  Robbery7 = {
-    Pos   = {x = 2673.59, y = 3286.2, z = 54.24, number = 107, red = true},
-  },
-  Robbery8 = {
-    Pos   = {x = -43.7, y = -1750.58, z = 28.42, number = 108, red = true},
-  },
-  Robbery9 = {
-    Pos   = {x = 1161.15, y = -315.73, z = 68.21, number = 109, red = true},
-  },
-  Robbery10 = {
-    Pos   = {x = -708.29, y = -905.99, z = 18.22, number = 110, red = true},
-  },
-  Robbery11 = {
-    Pos   = {x = -1827.32, y = 798.78, z = 137.16, number = 111, red = true},
-  },
-  Robbery12 = {
-    Pos   = {x = 1705.41, y = 4920.56, z = 41.06, number = 112, red = true},
-  },
-  Robbery13 = {
-    Pos   = { x = 1959.04, y = 3747.93, z = 31.34, number = 113, red = true},
-  },
-  Robbery14 = {
-    Pos   = {x = 1126.83, y = -982.6, z = 44.42, number = 114, red = true},
-  },
-  Robbery15 = {
-    Pos   = {x = 28.48, y = -1339.94, z = 28.5, number = 115, red = true},
-  },
-  Robbery16 = {
-    Pos   = {x = -1384.41, y = -628.71, z = 29.82, number = 116, red = true},
-  },
-  Robbery17 = {
-    Pos   = {x = 546.86, y = 2663.71, z = 41.16, number = 117, red = true},
-  },
-  Robbery18= {
-    Pos   = {x = -3249.3, y = 1004.54, z = 11.83, number = 118, red = true},
-  },
-  Robbery19 = {
-    Pos   = {x = 1166.89, y = 2718.14, z = 36.16, number = 119, red = true},
-  },
-  Robbery20= {
-    Pos   = {x = 1734.88, y = 6419.83, z = 34.04, number = 120, red = true},
-  },
+  -- Robbery1 = {
+  --   Pos   = {x = 379.19, y = 332.08, z = 102.57, number = 101, red = true},
+  -- },
+  -- Robbery2 = {
+  --   Pos   = {x = 2550.15, y = 385.37, z = 107.62, number = 102, red = true},
+  -- },
+  -- Robbery3 = {
+  --   Pos   = {x = -3047.08, y = 586.37, z = 6.91, number = 103, red = true},
+  -- },
+  -- Robbery4 = {
+  --   Pos   = {x = -1480.09, y = -373.35, z = 38.16, number = 104, red = true},
+  -- },
+  -- Robbery5 = {
+  --   Pos   = {x = 1396.21, y = 3611.28, z = 33.98, number = 105, red = true},
+  -- },
+  -- Robbery6 = {
+  --   Pos   = {x = -2959.15, y = 388.54, z = 13.04, number = 106, red = true},
+  -- },
+  -- Robbery7 = {
+  --   Pos   = {x = 2673.59, y = 3286.2, z = 54.24, number = 107, red = true},
+  -- },
+  -- Robbery8 = {
+  --   Pos   = {x = -43.7, y = -1750.58, z = 28.42, number = 108, red = true},
+  -- },
+  -- Robbery9 = {
+  --   Pos   = {x = 1161.15, y = -315.73, z = 68.21, number = 109, red = true},
+  -- },
+  -- Robbery10 = {
+  --   Pos   = {x = -708.29, y = -905.99, z = 18.22, number = 110, red = true},
+  -- },
+  -- Robbery11 = {
+  --   Pos   = {x = -1827.32, y = 798.78, z = 137.16, number = 111, red = true},
+  -- },
+  -- Robbery12 = {
+  --   Pos   = {x = 1705.41, y = 4920.56, z = 41.06, number = 112, red = true},
+  -- },
+  -- Robbery13 = {
+  --   Pos   = { x = 1959.04, y = 3747.93, z = 31.34, number = 113, red = true},
+  -- },
+  -- Robbery14 = {
+  --   Pos   = {x = 1126.83, y = -982.6, z = 44.42, number = 114, red = true},
+  -- },
+  -- Robbery15 = {
+  --   Pos   = {x = 28.48, y = -1339.94, z = 28.5, number = 115, red = true},
+  -- },
+  -- Robbery16 = {
+  --   Pos   = {x = -1384.41, y = -628.71, z = 29.82, number = 116, red = true},
+  -- },
+  -- Robbery17 = {
+  --   Pos   = {x = 546.86, y = 2663.71, z = 41.16, number = 117, red = true},
+  -- },
+  -- Robbery18= {
+  --   Pos   = {x = -3249.3, y = 1004.54, z = 11.83, number = 118, red = true},
+  -- },
+  -- Robbery19 = {
+  --   Pos   = {x = 1166.89, y = 2718.14, z = 36.16, number = 119, red = true},
+  -- },
+  -- Robbery20= {
+  --   Pos   = {x = 1734.88, y = 6419.83, z = 34.04, number = 120, red = true},
+  -- },
 }

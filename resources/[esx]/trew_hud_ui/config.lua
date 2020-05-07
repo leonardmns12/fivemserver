@@ -34,8 +34,8 @@ Config.vehicle = {
 	maxSpeed = 240,
 
 	keys = {
-		seatbelt 	= 'K',
-		cruiser		= 'CAPS',
+		seatbelt 	= '',
+		cruiser		= '',
 		signalLeft	= 'LEFT',
 		signalRight	= 'RIGHT',
 		signalBoth	= 'DOWN',

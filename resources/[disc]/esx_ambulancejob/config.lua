@@ -74,59 +74,59 @@ Config.Hospitals = {
 			}
 		},
 
-		-- FastTravels = {
-		-- 	{
-		-- 		From = vector3(327.12875366211,-603.37957763672,43.284034729004),
-		-- 		To = {coords = vector3(341.5446472168,-584.98382568359,74.165557861328), heading = 0.0},
-		-- 		Marker = {type = 21, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
-		-- 	},
+		FastTravels = {
+			{
+				From = vector3(327.12875366211,-603.37957763672,43.284034729004),
+				To = {coords = vector3(341.5446472168,-584.98382568359,74.165557861328), heading = 0.0},
+				Marker = {type = 21, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
+			},
 
-		-- 	{
-		-- 		From = vector3(338.50665283203,-583.82525634766,74.165679931641),
-		-- 		To = {coords = vector3(327.92477416992,-600.81384277344,43.283981323242), heading = 0.0},
-		-- 		Marker = {type = 21, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
-		-- 	},
+			{
+				From = vector3(338.50665283203,-583.82525634766,74.165679931641),
+				To = {coords = vector3(327.92477416992,-600.81384277344,43.283981323242), heading = 0.0},
+				Marker = {type = 21, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
+			},
 
-		-- 	{
-		-- 		From = vector3(247.3, -1371.5, 23.5),
-		-- 		To = {coords = vector3(333.1, -1434.9, 45.5), heading = 138.6},
-		-- 		Marker = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
-		-- 	},
+			{
+				From = vector3(247.3, -1371.5, 23.5),
+				To = {coords = vector3(333.1, -1434.9, 45.5), heading = 138.6},
+				Marker = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
+			},
 
-		-- 	{
-		-- 		From = vector3(335.5, -1432.0, 45.50),
-		-- 		To = {coords = vector3(249.1, -1369.6, 23.5), heading = 0.0},
-		-- 		Marker = {type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
-		-- 	},
+			{
+				From = vector3(335.5, -1432.0, 45.50),
+				To = {coords = vector3(249.1, -1369.6, 23.5), heading = 0.0},
+				Marker = {type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false}
+			},
 
-		-- 	{
-		-- 		From = vector3(234.5, -1373.7, 20.9),
-		-- 		To = {coords = vector3(320.9, -1478.6, 28.8), heading = 0.0},
-		-- 		Marker = {type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false}
-		-- 	},
+			{
+				From = vector3(234.5, -1373.7, 20.9),
+				To = {coords = vector3(320.9, -1478.6, 28.8), heading = 0.0},
+				Marker = {type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false}
+			},
 
-		-- 	{
-		-- 		From = vector3(317.9, -1476.1, 28.9),
-		-- 		To = {coords = vector3(238.6, -1368.4, 23.5), heading = 0.0},
-		-- 		Marker = {type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false}
-		-- 	}
-		-- },
+			{
+				From = vector3(317.9, -1476.1, 28.9),
+				To = {coords = vector3(238.6, -1368.4, 23.5), heading = 0.0},
+				Marker = {type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false}
+			}
+		},
 
-		-- FastTravelsPrompt = {
-		-- 	{
-		-- 		From = vector3(237.4, -1373.8, 26.0),
-		-- 		To = {coords = vector3(251.9, -1363.3, 38.5), heading = 0.0},
-		-- 		Marker = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false},
-		-- 		Prompt = _U('fast_travel')
-		-- 	},
+		FastTravelsPrompt = {
+			{
+				From = vector3(237.4, -1373.8, 26.0),
+				To = {coords = vector3(251.9, -1363.3, 38.5), heading = 0.0},
+				Marker = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false},
+				Prompt = _U('fast_travel')
+			},
 
-		-- 	{
-		-- 		From = vector3(256.5, -1357.7, 36.0),
-		-- 		To = {coords = vector3(235.4, -1372.8, 26.3), heading = 0.0},
-		-- 		Marker = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false},
-		-- 		Prompt = _U('fast_travel')
-		-- 	}
-		-- }
+			{
+				From = vector3(256.5, -1357.7, 36.0),
+				To = {coords = vector3(235.4, -1372.8, 26.3), heading = 0.0},
+				Marker = {type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false},
+				Prompt = _U('fast_travel')
+			}
+		}
 
 	}
 }

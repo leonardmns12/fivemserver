@@ -1,0 +1,15 @@
+* {
+    color: #eee;
+    font-size: 30px;
+}
+
+.bg{
+    background-color: #131e29;
+}
+
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}

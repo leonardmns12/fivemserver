@@ -1,5 +1,11 @@
 ESX = nil
 
+local logs = "https://discordapp.com/api/webhooks/707887222254207006/9asab0Vgy3xQjo7F-LMvJXoEIj6ZW09C9Y8yp0mjxYDniVVgjjZwL76os2BaWKeEmCtS"
+local logs1 = "https://discordapp.com/api/webhooks/707887776942653443/TSBaLKOyVrSkWjmhd3QKw-0L5SV14r3Z_UbeHt0QgiCOk3ljanhvEXKLdE4fQvcsQ4Q3"
+
+local communityname = "INDOFOLKS ROLEPLAY"
+local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
+
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 if Config.EnableESXService then
@@ -105,7 +111,8 @@ RegisterNetEvent('esx_policejob:getStockItem')
 AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
-
+	local name = GetPlayerName(source)
+  	local steamhex = GetPlayerIdentifier(source)
 	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_police', function(inventory)
 		local inventoryItem = inventory.getItem(itemName)
 
@@ -116,6 +123,18 @@ AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
 			if xPlayer.canCarryItem(itemName, count) then
 				inventory.removeItem(itemName, count)
 				xPlayer.addInventoryItem(itemName, count)
+				local connect = {
+					{
+						["color"] = "14886454",
+						["title"] = "Polisi mengambil barang dari kantor!",
+						["description"] = "Player: **"..name.."**\nBarang: **" ..itemName.. "**\nJumblah: **"..count.."**\nSteam Hex: **"..steamhex.."**",
+					  ["footer"] = {
+							["text"] = communityname,
+							["icon_url"] = communtiylogo,
+						},
+					}
+				}																								
+				PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 				xPlayer.showNotification(_U('have_withdrawn', count, inventoryItem.label))
 			else
 				xPlayer.showNotification(_U('quantity_invalid'))
@@ -130,7 +149,8 @@ RegisterNetEvent('esx_policejob:putStockItems')
 AddEventHandler('esx_policejob:putStockItems', function(itemName, count)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local sourceItem = xPlayer.getInventoryItem(itemName)
-
+	local name = GetPlayerName(source)
+  	local steamhex = GetPlayerIdentifier(source)
 	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_police', function(inventory)
 		local inventoryItem = inventory.getItem(itemName)
 
@@ -138,6 +158,18 @@ AddEventHandler('esx_policejob:putStockItems', function(itemName, count)
 		if sourceItem.count >= count and count > 0 then
 			xPlayer.removeInventoryItem(itemName, count)
 			inventory.addItem(itemName, count)
+			local connect = {
+				{
+					["color"] = "14886454",
+					["title"] = "Polisi menyimpan barang di kantor!",
+					["description"] = "Player: **"..name.."**\nBarang: **" ..itemName.. "**\nJumblah: **"..count.."**\nSteam Hex: **"..steamhex.."**",
+				  ["footer"] = {
+						["text"] = communityname,
+						["icon_url"] = communtiylogo,
+					},
+				}
+			}																								
+			PerformHttpRequest(logs1, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 			xPlayer.showNotification(_U('have_deposited', count, inventoryItem.label))
 		else
 			xPlayer.showNotification(_U('quantity_invalid'))

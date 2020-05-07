@@ -3,7 +3,7 @@
 ---------------------------
 Config = {}
 
-Config.PoliceRequired = 0  -- Set to 0 to disable
+Config.PoliceRequired = 1  -- Set to 0 to disable
 Config.UseVisualDispatch = true
 Config.UseChatAlert = false
 Config.CustomAlert = false
@@ -25,14 +25,14 @@ Config.WeedItemPrice = 65
 ---------------------------
 Config.EnableCocaine = true
 Config.CokeItemName = 'coke1g'
-Config.CokeItemPrice = 110
+Config.CokeItemPrice = 5000
 
 ---------------------------
 -- Meth --
 ---------------------------
 Config.EnableMeth = true
 Config.MethItemName = 'meth1g'
-Config.MethItemPrice = 205
+Config.MethItemPrice = 7000
 
 ---------------------------
 -- Crack --
@@ -45,8 +45,8 @@ Config.CrackItemPrice = 285
 -- Materials --
 ---------------------------
 Config.RaidTimer = 240  -- 4 Mins
-Config.UseSpecialItem = false
+Config.UseSpecialItem = true
 Config.SpecialItemName = 'advancedlockpick'
-Config.CooldownTimer = 1800000  -- 30 Mins
+Config.CooldownTimer = 900  -- 30 Mins
 Config.Reward1 = 'psuedoephedrine'
 Config.Reward2 = 'lithium'
