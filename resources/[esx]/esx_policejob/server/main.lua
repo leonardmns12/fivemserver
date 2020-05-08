@@ -38,12 +38,16 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 				targetXPlayer.removeInventoryItem(itemName, amount)
 				sourceXPlayer.addInventoryItem   (itemName, amount)
 				sourceXPlayer.showNotification(_U('you_confiscated', amount, sourceItem.label, targetXPlayer.name))
+				TriggerClientEvent('mythic_notify:client:SendAlert', sourceXPlayer, { type = 'inform', text = 'Anda telah mengambil ' ..sourceItem.label.. ' sebanyak ' ..amount , length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				targetXPlayer.showNotification(_U('got_confiscated', amount, sourceItem.label, sourceXPlayer.name))
+				TriggerClientEvent('mythic_notify:client:SendAlert', targetXPlayer, { type = 'inform', text = 'Polisi mengambil ' ..sourceItem.label.. ' sebanyak ' ..amount , length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			else
 				sourceXPlayer.showNotification(_U('quantity_invalid'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', sourceXPlayer, { type = 'inform', text = 'Jumlah invalid', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			end
 		else
 			sourceXPlayer.showNotification(_U('quantity_invalid'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', sourceXPlayer, { type = 'inform', text = 'Jumlah invalid', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 
 	elseif itemType == 'item_account' then
@@ -51,7 +55,9 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 		sourceXPlayer.addAccountMoney   (itemName, amount)
 
 		sourceXPlayer.showNotification(_U('you_confiscated_account', amount, itemName, targetXPlayer.name))
+		TriggerClientEvent('mythic_notify:client:SendAlert', sourceXPlayer, { type = 'inform', text = 'Anda mengambil uang sebesar ' ..amount, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		targetXPlayer.showNotification(_U('got_confiscated_account', amount, itemName, sourceXPlayer.name))
+		TriggerClientEvent('mythic_notify:client:SendAlert', targetXPlayer, { type = 'inform', text = 'Uang anda telah diambil sebesar ' ..amount, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 	elseif itemType == 'item_weapon' then
 		if amount == nil then amount = 0 end
@@ -59,7 +65,9 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 		sourceXPlayer.addWeapon   (itemName, amount)
 
 		sourceXPlayer.showNotification(_U('you_confiscated_weapon', ESX.GetWeaponLabel(itemName), targetXPlayer.name, amount))
+		TriggerClientEvent('mythic_notify:client:SendAlert', sourceXPlayer, { type = 'inform', text = 'Anda telah mengambil ' ..ESX.GetWeaponLabel(itemName), length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		targetXPlayer.showNotification(_U('got_confiscated_weapon', ESX.GetWeaponLabel(itemName), amount, sourceXPlayer.name))
+		TriggerClientEvent('mythic_notify:client:SendAlert', targetXPlayer, { type = 'inform', text = ESX.GetWeaponLabel(itemName).. ' anda telah diambil', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	end
 end)
 
@@ -136,11 +144,14 @@ AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
 				}																								
 				PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 				xPlayer.showNotification(_U('have_withdrawn', count, inventoryItem.label))
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Anda telah mengambil ' ..inventoryItem.label.. ' sebanyak ' ..count , length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			else
 				xPlayer.showNotification(_U('quantity_invalid'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Jumlah invalid!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			end
 		else
 			xPlayer.showNotification(_U('quantity_invalid'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Jumlah invalid!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 	end)
 end)
@@ -171,8 +182,10 @@ AddEventHandler('esx_policejob:putStockItems', function(itemName, count)
 			}																								
 			PerformHttpRequest(logs1, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 			xPlayer.showNotification(_U('have_deposited', count, inventoryItem.label))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Anda telah memasukkan ' ..inventoryItem.label.. ' sebanyak ' ..count, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else
 			xPlayer.showNotification(_U('quantity_invalid'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Jumlah invalid!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 	end)
 end)
@@ -182,6 +195,7 @@ ESX.RegisterServerCallback('esx_policejob:getOtherPlayerData', function(source, 
 
 	if notify then
 		xPlayer.showNotification(_U('being_searched'))
+		TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'inform', text = 'Anda sedang di geledah', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	end
 
 	if xPlayer then
