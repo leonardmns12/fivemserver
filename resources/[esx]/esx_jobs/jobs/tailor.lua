@@ -161,7 +161,7 @@ Config.Jobs.tailor = {
 					time = 0.5,
 					remove = 1,
 					max = 100, -- if not present, probably an error at itemQtty >= item.max in esx_jobs_sv.lua
-					price = 40,
+					price = 80,
 					requires = 'clothe',
 					requires_name = _U('dd_clothing'),
 					drop = 100

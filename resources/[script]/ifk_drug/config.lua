@@ -44,9 +44,14 @@ Config.Blips = {
 
 	{name = "Meth Farm",       color=77, scale=0.8, id=499,	         x = 2310.54,	y = 4884.84,		z = 41.81},
 
-	{name = "Farmasi",       color=69, scale=0.8, id=475,	         x = 243.02,	y = -1376.61,		z = 39.53}
+	{name = "Farmasi",       color=69, scale=0.8, id=475,	         x = 243.02,	y = -1376.61,		z = 39.53},
 
-	
+	{name = "Berburu",       color=21, scale=0.8, id=141,	         x = -769.23773193359,	y = 5595.6215820313,		z = 33.48571395874},
+
+	{name = "Hunting sell",       color=49, scale=0.8, id=272,	         x = -769.23773193359,	y = 5595.6215820313,		z = 33.48571395874},
+	{name = "Crafting 1",       color=46, scale=0.8, id=402,	         x = 1015.003,	y = -3158.878,		z = -38.907},
+	{name = "Crafting 2",       color=46, scale=0.8, id=402,	         x = 1175.433,	y = 2635.81,		z = 37.755},
+	{name = "Crafting 3",       color=46, scale=0.8, id=402,	         x = -1154.895,	y = -2022.624,		z = 13.176}
 
 
 }

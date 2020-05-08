@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
             local pos = GetEntityCoords(GetPlayerPed(-1), true)
             for i=1, #Crafting.Locations, 1 do
                 if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, Crafting.Locations[i].x, Crafting.Locations[i].y, Crafting.Locations[i].z, true) < 2.5 then
-                    DrawText3D(Crafting.Locations[i].x, Crafting.Locations[i].y, Crafting.Locations[i].z, "[~g~E~w~] to craft item")
+                    DrawText3D(Crafting.Locations[i].x, Crafting.Locations[i].y, Crafting.Locations[i].z, "[~g~E~w~] untuk crafting")
                     if IsControlJustReleased(0, Keys["E"]) then
                         OpenCraftMenu()
                     end
@@ -89,7 +89,7 @@ function OpenCraftMenu()
                     TaskPlayAnim(GetPlayerPed(-1), "mini@repair" ,"fixing_a_ped" ,8.0, -8.0, -1, 1, 0, false, false, false )
                     FreezeEntityPosition(GetPlayerPed(-1),true)
                 else
-                    ESX.ShowNotification("~r~Je hebt niet genoeg materieel")
+                    exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup material!')
                 end
             end, CurrentCraft)
 

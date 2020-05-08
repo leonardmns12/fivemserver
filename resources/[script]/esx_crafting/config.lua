@@ -27,43 +27,43 @@ Crafting.Items = {
     ["lockpick"] = {
         label = "Lockpick",
         needs = {
-            ["iron"] = {label = "Metalscrap", count = 10},
-            ["blowtorch"] = {label = "Plastic", count = 5},
-            ["wood"] = {label = "Wood", count = 5},
+            ["iron"] = {label = "Besi", count = 10},
+            ["blowtorch"] = {label = "blowtorch", count = 5},
+            ["wood"] = {label = "Kayu", count = 5},
         },
-        threshold = 100,
+        threshold = 0,
     },
     ["advancelockpick"] = {
         label = "Advance Lockpick",
         needs = {
-            ["iron"] = {label = "Metalscrap", count = 20},
-            ["blowtorch"] = {label = "Plastic", count = 10},
-            ["wood"] = {label = "Wood", count = 10},
+            ["iron"] = {label = "Besi", count = 20},
+            ["blowtorch"] = {label = "blowtorch", count = 10},
+            ["wood"] = {label = "Kayu", count = 10},
         },
-        threshold = 100,
+        threshold = 0,
     },
     ["rope"] = {
         label = "Tali",
         needs = {
             ["leather"] = {label = "Kulit", count = 15},
         },
-        threshold = 100,
+        threshold = 0,
     },
     ["handcuffs"] = {
         label = "Borgol",
         needs = {
-            ["iron"] = {label = "Metalscrap", count = 30},
-            ["diamond"] = {label = "Small lockpick", count = 5},
+            ["iron"] = {label = "Besi", count = 30},
+            ["diamond"] = {label = "Berlian", count = 5},
         },
-        threshold = 250,
+        threshold = 100,
     },
     ["weapon_pistol"] = {
         label = "Pistol",
         needs = {
             ["weaclip"] = {label = "Ammo clip", count = 5},
-            ["gold"] = {label = "Plastic", count = 20},
+            ["gold"] = {label = "Emas", count = 20},
         },
-        threshold = 450,
+        threshold = 200,
     },
     ["weaclip"] = {
         label = "Ammo clip",
@@ -72,7 +72,7 @@ Crafting.Items = {
             ["baggie"] = {label = "Plastik Bag", count = 5},
             ["lockpick"] = {label = "Lockpick", count = 1},
         },
-        threshold = 450,
+        threshold = 50,
     },
     ["weabox"] = {
         label = "Ammo box",
@@ -81,7 +81,7 @@ Crafting.Items = {
             ["baggie"] = {label = "Plastik Bag", count = 20},
             ["lockpick"] = {label = "Lockpick", count = 1},
         },
-        threshold = 450,
+        threshold = 50,
     },
     ["weapon_advancerifle"] = {
         label = "AK - 47",
@@ -91,7 +91,7 @@ Crafting.Items = {
             ["leather"] = {label = "Kulit", count = 20},
             ["batteryacid"] = {label = "Battery Acid", count = 5},
         },
-        threshold = 600,
+        threshold = 200,
     },
     ["weapon_doubleaction"] = {
         label = "Doubleaction Revolver",
@@ -101,6 +101,40 @@ Crafting.Items = {
             ["leather"] = {label = "Kulit", count = 5},
             ["batteryacid"] = {label = "Battery Acid", count = 1},
         },
-        threshold = 600,
+        threshold = 200,
+    },
+    ["raspberry"] = {
+        label = "Raspberry",
+        needs = {
+            ["copper"] = {label = "Tembaga", count = 15},
+            ["highrim"] = {label = "Iron", count = 2},
+            ["rolex"] = {label = "Rolex", count = 1},
+            ["battery"] = {label = "Battery Acid", count = 3},
+        },
+        threshold = 0,
+    },
+    ["batteryacid"] = {
+        label = "Baterry Acid",
+        needs = {
+            ["psuedoephedrine"] = {label = "psuedoephedrine", count = 5},
+        },
+        threshold = 0,
+    },
+    ["bulletproof"] = {
+        label = "bulletproof",
+        needs = {
+            ["shark"] = {label = "Hiu", count = 1},
+            ["turtle"] = {label = "Kura kura", count = 5},
+            ["iron"] = {label = "Besi", count = 25},
+            ["leather"] = {label = "Kulit", count = 10},
+        },
+        threshold = 0,
+    },
+    ["baggie"] = {
+        label = "Plastik",
+        needs = {
+            ["bottle"] = {label = "Botol Plastik", count = 5},
+        },
+        threshold = 0,
     },
 }

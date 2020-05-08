@@ -1,0 +1,12 @@
+# i would've used dotenv but this fork of nodejs
+# doesn't support it
+#
+# create a blank file of the config.json template using this
+# {
+#   "token" : "Your token"
+# }
+# get one from here https://discordapp.com/developers/applications
+config.json
+/node_modules
+/.vscode
+package-lock.json

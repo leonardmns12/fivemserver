@@ -147,10 +147,31 @@ RegisterCommand("webconnect", function(source, args)
         else
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Username atau password salah!', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })      
         end
-        -- MySQL.Sync.fetchAll("UPDATE loginlauncher_users set identifier = @identifier where username = @username AND PASSWORD = @pwd ", {['@identifier'] = identifier , ['@username'] = args[1] , ['@pwd'] = args[2]})
-        -- TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu berhasil terhubung ke website', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
     end
 end,false)
 
+RegisterCommand("getmoney", function(source, args)
+    local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local argsString = table.concat( args," " )
+    local money = tonumber(args[1])
+
+    local result = MySQL.Sync.fetchAll("SELECT * FROM loginlauncher_users WHERE identifier = @identifier ", {['@identifier'] = identifier})
+    local webmoney = tonumber(result[1].cash)
+    if(result[1] ~= nil) then
+        if(money > webmoney) then
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Jumlah invalid!', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) 
+        else
+            print(1)
+            xplayer.addAccountMoney('bank', money)
+            webmoney = webmoney - money
+            MySQL.Sync.fetchAll("UPDATE loginlauncher_users set cash = @webcash where identifier = @identifier" , {['@webcash'] = webmoney , ['@identifier'] = identifier})
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Uang bank bertambah Rp' ..money..'.', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) 
+        end
+    else    
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'FiveM anda belum terhubung!', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) 
+    end
+
+end,false)
 
 

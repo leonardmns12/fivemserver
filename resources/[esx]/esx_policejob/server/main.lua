@@ -120,7 +120,7 @@ AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
 		if count > 0 and inventoryItem.count >= count then
 
 			-- can the player carry the said amount of x item?
-			if xPlayer.canCarryItem(itemName, count) then
+			if xPlayer ~= nil then
 				inventory.removeItem(itemName, count)
 				xPlayer.addInventoryItem(itemName, count)
 				local connect = {

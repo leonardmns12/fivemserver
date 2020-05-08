@@ -257,7 +257,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
 		return
 	end
 
-	if xPlayer.canCarryItem(itemName, amount) then
+	if xPlayer ~= nil then
 		xPlayer.addInventoryItem(itemName, amount)
 	else
 		xPlayer.showNotification(_U('max_item'))

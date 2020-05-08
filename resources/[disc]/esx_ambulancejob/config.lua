@@ -25,7 +25,7 @@ Config.RemoveItemsAfterRPDeath    = true
 
 -- Let the player pay for respawning early, only if he can afford it.
 Config.EarlyRespawnFine           = true
-Config.EarlyRespawnFineAmount     = 10000
+Config.EarlyRespawnFineAmount     = 5000
 
 Config.RespawnPoint = { coords = vector3(320.052, -593.575, 43.292), heading = 93.42} -- pillbox
 

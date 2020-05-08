@@ -28,10 +28,11 @@ Config.Zones = {
   },
 
   VehicleSpawnPoint = {
-    Pos   = { x = -211.731, y = -1305.159, z = 31.433 },
+    Pos   = { x = -211.731, y = -1305.159, z = 30.59 },
     Heading = 164.621,
     Size  = { x = 1.5, y = 1.5, z = 1.0 },
-    Type  = -1,
+    Color = { r = 204, g = 0, b = 0 },
+    Type  = 27,
   },
 
   VehicleDeleter = {
