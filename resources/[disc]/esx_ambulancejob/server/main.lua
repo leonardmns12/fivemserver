@@ -121,8 +121,7 @@ if Config.EarlyRespawnFine then
 		local xPlayer = ESX.GetPlayerFromId(source)
 		local fineAmount = Config.EarlyRespawnFineAmount
 
-		TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'success', text = 'Kamu telah membayar '..ESX.Math.GroupDigits(fineAmount)..' untuk respawn.', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- TriggerClientEvent('esx:showNotification', xPlayer.source, _U('respawn_bleedout_fine_msg', ESX.Math.GroupDigits(fineAmount)))
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('respawn_bleedout_fine_msg', ESX.Math.GroupDigits(fineAmount)))
 		xPlayer.removeAccountMoney('bank', fineAmount)
 	end)
 end
@@ -228,16 +227,15 @@ AddEventHandler('esx_ambulancejob:removeItem', function(item)
 	xPlayer.removeInventoryItem(item, 1)
 
 	if item == 'bandage' then
-		TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'inform', text = 'Kamu telah menggunakan 1x perban', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
+		TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 	elseif item == 'medikit' then
-		TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'inform', text = 'Kamu telah menggunakan 1x medikit', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+		TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 	end
 end)
 
 RegisterNetEvent('esx_ambulancejob:giveItem')
 AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
+	print('ls')
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local steamhex = GetPlayerIdentifier(source);
 		local connect = {
@@ -260,11 +258,10 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName, amount)
 		return
 	end
 
-	if xPlayer.canCarryItem(itemName, amount) then
+	if xPlayer ~= nil  then
 		xPlayer.addInventoryItem(itemName, amount)
 	else
-		TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer, { type = 'error', text = 'Inventory anda penuh!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-		-- xPlayer.showNotification(_U('max_item'))
+		xPlayer.showNotification(_U('max_item'))
 	end
 end)
 
@@ -287,8 +284,7 @@ ESX.RegisterUsableItem('medikit', function(source)
 	xPlayer.removeInventoryItem('medikit', 1)
 
 	TriggerClientEvent('esx_ambulancejob:heal', _source, 'big')
-	TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'inform', text = 'Kamu telah menggunakan 1x medikit', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-	-- TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+	TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 end)
 
 ESX.RegisterUsableItem('bandage', function(source)
@@ -297,8 +293,7 @@ ESX.RegisterUsableItem('bandage', function(source)
 	xPlayer.removeInventoryItem('bandage', 1)
 
 	TriggerClientEvent('esx_ambulancejob:heal', _source, 'small')
-	TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'inform', text = 'Kamu telah menggunakan 1x perban', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-	-- TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
+	TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 end)
 
 ESX.RegisterUsableItem('bandage2', function(source)

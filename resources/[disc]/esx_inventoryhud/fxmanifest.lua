@@ -205,7 +205,7 @@ files {
   "html/img/items/rolex.png",
   "html/img/items/camera.png",
   "html/img/items/licenseA.png",
-  "html/img/items/licenseC.png",
+  "html/img/items/licenseB.png",
   "html/img/items/lithium.png",
   "html/img/items/batteryacid.png",
   "html/img/items/psuedoephedrine.png"

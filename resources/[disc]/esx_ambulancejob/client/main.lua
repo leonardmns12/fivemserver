@@ -102,8 +102,33 @@ function OnPlayerDeath()
 	StartDeathTimer()
 	StartDistressSignal()
 
+	while IsDead do
+		Wait(0)
+		if IsEntityDead(GetPlayerPed(-1)) then
+		
+			Wait(5000)
+		
+			TriggerEvent('ragdoll')
+			
+			SetPedToRagdoll(GetPlayerPed(-1), 6000, 6000, 0, 0, 0, 0)     ---ragdoll
+		
+			SetPlayerInvincible(GetPlayerPed(-1), true)
+			SetEntityHealth(GetPlayerPed(-1), 1)
+		
+			plyPos = GetEntityCoords(GetPlayerPed(-1))
+		
+			Wait(60000)
+		end
+		end
+
 	StartScreenEffect('DeathFailOut', 0, false)
 end
+
+RegisterNetEvent('ragdoll')
+AddEventHandler('ragdoll', function()
+local plyPos = GetEntityCoords(GetPlayerPed(-1))
+NetworkResurrectLocalPlayer(plyPos, true, true, false)
+end)
 
 function StartDistressSignal()
 	Citizen.CreateThread(function()

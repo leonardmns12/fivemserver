@@ -205,7 +205,7 @@ input:focus {
 }
 
 .chat-message.ems {
-  background-color: rgba(0, 255, 0, 0.75);
+  background-color: rgba(0, 102, 0, 0.75);
 }
 
 .chat-message.mecano {

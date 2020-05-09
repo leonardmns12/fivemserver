@@ -83,8 +83,8 @@ ESX.RegisterServerCallback('esx_billing:payBill', function(source, cb, billId)
 								xPlayer.removeMoney(amount)
 								xTarget.addMoney(amount)
 
-								TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-								TriggerClientEvent('mythic_notify:client:SendAlert', xTarget, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+								TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+								TriggerClientEvent('mythic_notify:client:SendAlert', xTarget.source, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 5000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 								-- xPlayer.showNotification(_U('paid_invoice', ESX.Math.GroupDigits(amount)))
 								-- xTarget.showNotification(_U('received_payment', ESX.Math.GroupDigits(amount)))
@@ -100,8 +100,8 @@ ESX.RegisterServerCallback('esx_billing:payBill', function(source, cb, billId)
 								xPlayer.removeAccountMoney('bank', amount)
 								xTarget.addAccountMoney('bank', amount)
 
-								TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-								TriggerClientEvent('mythic_notify:client:SendAlert', xTarget, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+								TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+								TriggerClientEvent('mythic_notify:client:SendAlert', xTarget.source, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 								-- xPlayer.showNotification(_U('paid_invoice', ESX.Math.GroupDigits(amount)))
 								-- xTarget.showNotification(_U('received_payment', ESX.Math.GroupDigits(amount)))
@@ -111,15 +111,15 @@ ESX.RegisterServerCallback('esx_billing:payBill', function(source, cb, billId)
 						end)
 					else
 
-						TriggerClientEvent('mythic_notify:client:SendAlert', xTarget, { type = 'error', text = 'Orang ini tidak memiliki cukup uang.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
-						TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu tidak memiliki cukup uang untuk membayar tagihan. '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', xTarget.source, { type = 'error', text = 'Orang ini tidak memiliki cukup uang.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'inform', text = 'Kamu tidak memiliki cukup uang untuk membayar tagihan. '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 						-- xTarget.showNotification(_U('target_no_money'))
 						-- xPlayer.showNotification(_U('no_money'))
 						cb()
 					end
 				else
-					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Orang ini sedang tidak berada di dalam game.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'error', text = 'Orang ini sedang tidak berada di dalam game.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 					-- xPlayer.showNotification(_U('player_not_online'))
 					cb()
 				end
@@ -133,11 +133,11 @@ ESX.RegisterServerCallback('esx_billing:payBill', function(source, cb, billId)
 								xPlayer.removeMoney(amount)
 								account.addMoney(amount)
 
-								TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+								TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 								-- xPlayer.showNotification(_U('paid_invoice', ESX.Math.GroupDigits(amount)))
 								if xTarget then
-									TriggerClientEvent('mythic_notify:client:SendAlert', xTarget, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+									TriggerClientEvent('mythic_notify:client:SendAlert', xTarget.source, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 									-- xTarget.showNotification(_U('received_payment', ESX.Math.GroupDigits(amount)))
 								end
@@ -153,12 +153,12 @@ ESX.RegisterServerCallback('esx_billing:payBill', function(source, cb, billId)
 								xPlayer.removeAccountMoney('bank', amount)
 								account.addMoney(amount)
 
-								TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+								TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu berhasil membayar tagihan sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 								-- xPlayer.showNotification(_U('paid_invoice', ESX.Math.GroupDigits(amount)))
 
 								if xTarget then
-									TriggerClientEvent('mythic_notify:client:SendAlert', xTarget, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+									TriggerClientEvent('mythic_notify:client:SendAlert', xTarget.source, { type = 'inform', text = 'Kamu menerima pembayaran sebanyak '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 									-- xTarget.showNotification(_U('received_payment', ESX.Math.GroupDigits(amount)))
 								end
@@ -168,12 +168,12 @@ ESX.RegisterServerCallback('esx_billing:payBill', function(source, cb, billId)
 						end)
 					else
 						if xTarget then
-							TriggerClientEvent('mythic_notify:client:SendAlert', xTarget, { type = 'error', text = 'Orang ini tidak memiliki cukup uang.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+							TriggerClientEvent('mythic_notify:client:SendAlert', xTarget.source, { type = 'error', text = 'Orang ini tidak memiliki cukup uang.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 						
 							-- xTarget.showNotification(_U('target_no_money'))
 						end
 
-						TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak memiliki cukup uang untuk membayar tagihan. '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+						TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'error', text = 'Kamu tidak memiliki cukup uang untuk membayar tagihan. '..ESX.Math.GroupDigits(amount)..'.', length = 4000, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 						-- xPlayer.showNotification(_U('no_money'))
 						cb()

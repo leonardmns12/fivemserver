@@ -7,11 +7,11 @@ Config.MarkerType         = 22    -- Change to -1 to disable marker.
 Config.MarkerColor        = { r = 255, g = 0, b = 0 } -- Change the marker color.
 
 Config.Locale             = 'en' -- Change the language. Currently available (en or fr).
-Config.CooldownMinutes    = 1 -- Minutes between chopping.
+Config.CooldownMinutes    = 5 -- Minutes between chopping.
 
 Config.CallCops           = true -- Set to true if you want cops to be alerted when chopping is in progress
 Config.CallCopsPercent    = 1 -- (min1) if 1 then cops will be called every time=100%, 2=50%, 3=33%, 4=25%, 5=20%.
-Config.CopsRequired       = 0
+Config.CopsRequired       = 1
 
 Config.NPCEnable          = true -- Set to false to disable NPC Ped at shop location.
 Config.NPCHash			      = 68070371 --Hash of the npc ped. Change only if you know what you are doing.
@@ -51,11 +51,11 @@ Config.Items = {
 }
 
 Config.Itemsprice = {
-    battery = 500,
-    lowradio = 1000,
-    highradio = 1000,
-    stockrim = 500,
-    highrim = 500,
-    airbag = 300,
-    turbo = 200
+    battery = 200,
+    lowradio = 300,
+    highradio = 500,
+    stockrim = 100,
+    highrim = 150,
+    airbag = 50,
+    turbo = 50
 }

@@ -137,7 +137,7 @@ local function Craft(source)
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Anda tidak memiliki ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
       else
                 xPlayer.removeInventoryItem('gazbottle', 1)
-                xPlayer.addInventoryItem('blowpipe', 1)
+                xPlayer.addInventoryItem('blowtorch', 1)
 
         Craft(source)
       end
@@ -170,7 +170,7 @@ local function Craft2(source)
       local FixToolQuantity  = xPlayer.getInventoryItem('fixtool').count
       if FixToolQuantity <= 0 then
         -- TriggerClientEvent('esx:showNotification', source, _U('not_enough_repair_tools'))
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Anda tidak memiliki ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Anda tidak memiliki cukup repairtool', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
       else
                 xPlayer.removeInventoryItem('fixtool', 1)
                 xPlayer.addInventoryItem('fixkit', 1)
@@ -186,7 +186,7 @@ AddEventHandler('esx_mecanojob:startCraft2', function()
   local _source = source
   PlayersCrafting2[_source] = true
   -- TriggerClientEvent('esx:showNotification', _source, _U('assembling_blowtorch'))
-  TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Anda sedang membuat ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+  TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Anda sedang membuat blowtorch' , length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
   Craft2(_source)
 end)
 
@@ -206,7 +206,7 @@ local function Craft3(source)
       local CaroToolQuantity  = xPlayer.getInventoryItem('carotool').count
             if CaroToolQuantity <= 0 then
         -- TriggerClientEvent('esx:showNotification', source, _U('not_enough_body_tools'))
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Anda tidak memiliki ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Anda tidak memiliki body tools', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
       else
                 xPlayer.removeInventoryItem('carotool', 1)
                 xPlayer.addInventoryItem('carokit', 1)
@@ -222,7 +222,7 @@ AddEventHandler('esx_mecanojob:startCraft3', function()
   local _source = source
   PlayersCrafting3[_source] = true
   -- TriggerClientEvent('esx:showNotification', _source, _U('assembling_body_kit'))
-  TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Anda sedang membuat ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+  TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Anda sedang membuat body kit', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
   Craft3(_source)
 end)
 
@@ -242,7 +242,7 @@ ESX.RegisterUsableItem('blowpipe', function(source)
 
   TriggerClientEvent('esx_mecanojob:onHijack', _source)
     -- TriggerClientEvent('esx:showNotification', _source, _U('you_used_blowtorch'))
-    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Anda telah menggunakan ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Anda telah menggunakan blowpipe', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 end)
 
@@ -255,7 +255,7 @@ ESX.RegisterUsableItem('fixkit', function(source)
 
   TriggerClientEvent('esx_mecanojob:onFixkit', _source)
     -- TriggerClientEvent('esx:showNotification', _source, _U('you_used_repair_kit'))
-    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Anda telah menggunakan ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Anda telah menggunakan repair kit', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 end)
 
@@ -268,7 +268,7 @@ ESX.RegisterUsableItem('carokit', function(source)
 
   TriggerClientEvent('esx_mecanojob:onCarokit', _source)
     -- TriggerClientEvent('esx:showNotification', _source, _U('you_used_body_kit'))
-    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Anda telah menggunakan ' ..source, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Anda telah menggunakan body kit', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 
 end)
 

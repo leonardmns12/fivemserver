@@ -10,13 +10,31 @@ Config.ChangeNamePrice = 150000 -- In $ - how much you can change the shops name
 
 -- CONFIG ITEMS, DON'T FORGET TO ADD CORRECT NUMBER IN THE BRACKETS
 Config.Items = {
-    [1] = {label = "Water",       item = "water",        price = 5},
-    [2] = {label = "Bread",      item = "bread",       price = 5},
+    [1] = {label = "Air Mineral",       item = "water",        price = 5000},
+    [2] = {label = "Roti",      item = "bread",       price = 100},
+    [3] = {label = "Rokok",      item = "cigarette",       price = 5000},
+    [4] = {label = "Handphone",      item = "phone",       price = 7500},
+    [5] = {label = "Bir",      item = "beer",       price = 10000},
+    [6] = {label = "Bullet-Proof Vest",      item = "bulletproof",       price = 25000},
+    [7] = {label = "Umpan ikan",      item = "fishbait",       price = 50},
+    [8] = {label = "Pancingan",      item = "fishingrod",       price = 50},
 }
 
 Config.Images = {
-  [1] = {item = "water",   src = "img/bottle.png"},
-  [2] = {item = "bread",   src = "img/burger.png"},
+  [1] = {item = "water",   src = "img/water.png"},
+  [2] = {item = "bread",   src = "img/bread.png"},
+  [3] = {item = "cigarette",   src = "img/cigarette.png"},
+  [4] = {item = "phone",   src = "img/phone.png"},
+  [5] = {item = "bandage",   src = "img/bandage.png"},
+  [6] = {item = "medikit",   src = "img/medikit.png"},
+  [7] = {item = "beer",   src = "img/beer.png"},
+  [8] = {item = "bulletproof",   src = "img/bulletproof.png"},
+  [9] = {item = "fishbait",   src = "img/fishbait.png"},
+  [10] = {item = "fishingrod",   src = "img/fishingrod.png"},
+  [11] = {item = "lockpick",   src = "img/lockpick.png"},
+  [12] = {item = "advancedlockpick",   src = "img/advancedlockpick.png"},
+  [13] = {item = "weabox",   src = "img/weabox.png"},
+  [14] = {item = "weaclip",   src = "img/weaclip.png"},
 }
 
 Config.Zones = {

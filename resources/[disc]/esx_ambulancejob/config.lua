@@ -25,7 +25,7 @@ Config.RemoveItemsAfterRPDeath    = true
 
 -- Let the player pay for respawning early, only if he can afford it.
 Config.EarlyRespawnFine           = true
-Config.EarlyRespawnFineAmount     = 5000
+Config.EarlyRespawnFineAmount     = 3000
 
 Config.RespawnPoint = { coords = vector3(320.052, -593.575, 43.292), heading = 93.42} -- pillbox
 
@@ -133,43 +133,19 @@ Config.Hospitals = {
 Config.AuthorizedVehicles = {
 
     ambulance = {
-		{ model = 'ambulance', label = 'Ambulance', price = 40 },
-		{ model = 'ambulance2', label = 'Ambulance 2', price = 40 },
-		{ model = 'emscar', label = 'EMS Car', price = 40 },
-		{ model = 'emscar2', label = 'Car 2', price = 40 },
-		{ model = 'emsvan', label = 'VAN', price = 40 },
-		{ model = 'sheriff2', label = 'Raptor', price = 40 },
-		{ model = 'emssuv', label = 'SUV', price = 40 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
     },
 
 	doctor = {
-		{ model = 'ambulance', label = 'Ambulance', price = 40 },
-		{ model = 'ambulance2', label = 'Ambulance 2', price = 40 },
-		{ model = 'emscar', label = 'EMS Car', price = 40 },
-		{ model = 'emscar2', label = 'Car 2', price = 40 },
-		{ model = 'emsvan', label = 'VAN', price = 40 },
-		{ model = 'sheriff2', label = 'Raptor', price = 40 },
-		{ model = 'emssuv', label = 'SUV', price = 40 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
 	},
 
 	chief_doctor = {
-		{ model = 'ambulance', label = 'Ambulance', price = 40 },
-		{ model = 'ambulance2', label = 'Ambulance 2', price = 40 },
-		{ model = 'emscar', label = 'EMS Car', price = 40 },
-		{ model = 'emscar2', label = 'Car 2', price = 40 },
-		{ model = 'emsvan', label = 'VAN', price = 40 },
-		{ model = 'sheriff2', label = 'Raptor', price = 40 },
-		{ model = 'emssuv', label = 'SUV', price = 40 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
 	},
 
 	boss = {
-		{ model = 'ambulance', label = 'Ambulance', price = 40 },
-		{ model = 'ambulance2', label = 'Ambulance 2', price = 40 },
-		{ model = 'emscar', label = 'EMS Car', price = 40 },
-		{ model = 'emscar2', label = 'Car 2', price = 40 },
-		{ model = 'emsvan', label = 'VAN', price = 40 },
-		{ model = 'sheriff2', label = 'Raptor', price = 40 },
-		{ model = 'emssuv', label = 'SUV', price = 40 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
 	},
 
 }

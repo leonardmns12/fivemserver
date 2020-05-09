@@ -41,6 +41,16 @@ RegisterCommand('311', function(source, args, rawCommand)
     TriggerServerEvent('311', source, caller, msg)
 end, false)
 
+RegisterCommand('report', function(source, args, rawCommand)
+    local source = GetPlayerServerId(PlayerId())
+    local name = GetPlayerName(PlayerId())
+    local msg = rawCommand:sub(4)
+     TriggerEvent('chat:addMessage', {
+        template = '<div class="chat-message heist">Your id: {0} </div>',
+        args = {args[1]}
+        });
+end, false)
+
 
 RegisterNetEvent('chat:EmergencySend911r')
 AddEventHandler('chat:EmergencySend911r', function(fal, caller, msg)

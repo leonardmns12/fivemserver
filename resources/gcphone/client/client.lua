@@ -29,6 +29,7 @@ local currentPlaySound = false
 local soundDistanceMax = 8.0
 local TokoVoipID = nil
 
+
 --====================================================================================
 --  Check si le joueurs poséde un téléphone
 --  Callback true or false
@@ -38,15 +39,14 @@ local TokoVoipID = nil
 -- end
 --====================================================================================
 --  Que faire si le joueurs veut ouvrir sont téléphone n'est qu'il en a pas ?
---====================================================================================
+-- --====================================================================================
 -- function ShowNoPhoneWarning ()
 -- end
 
---[[
-  Ouverture du téphone lié a un item
-  Un solution ESC basé sur la solution donnée par HalCroves
-  https://forum.fivem.net/t/tutorial-for-gcphone-with-call-and-job-message-other/177904
---]]
+
+  -- Ouverture du téphone lié a un item
+  -- Un solution ESC basé sur la solution donnée par HalCroves
+  -- https://forum.fivem.net/t/tutorial-for-gcphone-with-call-and-job-message-other/177904
 
 ESX = nil
 Citizen.CreateThread(function()
@@ -65,8 +65,7 @@ end
 function ShowNoPhoneWarning () 
   if (ESX == nil) then return end
   exports['mythic_notify']:DoHudText('error', 'Kamu tidak memiliki Handphone!')
-end
-
+end  
 
 
 --====================================================================================
@@ -380,9 +379,11 @@ RegisterNetEvent("gcPhone:acceptCall")
 AddEventHandler("gcPhone:acceptCall", function(infoCall, initiator)
   if inCall == false and USE_RTC == false then
     inCall = true
+    --NetworkSetVoiceChannel(infoCall.id + 1)
+    --NetworkSetTalkerProximity(0.0)
     exports.tokovoip_script:addPlayerToRadio(infoCall.id + 120)
-	TokoVoipID = infoCall.id + 120
-  end
+    TokoVoipID = infoCall.id + 120 NetworkSetVoiceChannel(0xE036A705F989E049)
+  end 
   if menuIsOpen == false then 
     TooglePhone()
   end
@@ -395,8 +396,9 @@ AddEventHandler("gcPhone:rejectCall", function(infoCall)
   if inCall == true then
     inCall = false
     Citizen.InvokeNative(0xE036A705F989E049)
+    --NetworkSetTalkerProximity(2.5)
     exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
-	TokoVoipID = nil
+    TokoVoipID = nil
   end
   PhonePlayText()
   SendNUIMessage({event = 'rejectCall', infoCall = infoCall})
@@ -467,7 +469,8 @@ RegisterNUICallback('notififyUseRTC', function (use, cb)
     inCall = false
     Citizen.InvokeNative(0xE036A705F989E049)
     exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
-	TokoVoipID = nil
+    TokoVoipID = nil
+    --NetworkSetTalkerProximity(2.5)
   end
   cb()
 end)
@@ -757,7 +760,7 @@ RegisterNUICallback('takePhoto', function(data, cb)
         local resp = json.decode(data)
         DestroyMobilePhone()
         CellCamActivate(false, false)
-        cb(json.encode({ url = resp.files[1].url }))   
+        --cb(json.encode({ url = resp.files[1].url }))   
       end)
       takePhoto = false
 		end
