@@ -70,7 +70,6 @@ Crafting.Items = {
         needs = {
             ["leather"] = {label = "Kulit", count = 10},
             ["baggie"] = {label = "Plastik Bag", count = 5},
-            ["lockpick"] = {label = "Lockpick", count = 1},
         },
         threshold = 50,
     },
@@ -79,7 +78,6 @@ Crafting.Items = {
         needs = {
             ["leather"] = {label = "Kulit", count = 25},
             ["baggie"] = {label = "Plastik Bag", count = 20},
-            ["lockpick"] = {label = "Lockpick", count = 1},
         },
         threshold = 50,
     },
@@ -133,7 +131,7 @@ Crafting.Items = {
     ["baggie"] = {
         label = "Plastik",
         needs = {
-            ["bottle"] = {label = "Botol Plastik", count = 5},
+            ["leather"] = {label = "Botol Plastik", count = 5},
         },
         threshold = 0,
     },
