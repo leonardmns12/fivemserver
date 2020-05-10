@@ -12,9 +12,9 @@ files {
   'data/visualsettings.dat',
 }
 
-data_file 'HANDLING_FILE' 'handling.meta'
-data_file 'VEHICLE_METADATA_FILE' 'vehicles.meta'
-data_file 'CARCOLS_FILE' 'carcols.meta'
-data_file 'VEHICLE_VARIATION_FILE' 'carvariations.meta'
-data_file 'VEHICLE_SETTINGS_FILE' 'vehiclesettings.meta'
-data_file 'VISUAL_SETTINGS_FILE' 'visualsettings.dat'
+data_file 'HANDLING_FILE' 'data/handling.meta'
+data_file 'VEHICLE_METADATA_FILE' 'data/vehicles.meta'
+data_file 'CARCOLS_FILE' 'data/carcols.meta'
+data_file 'VEHICLE_VARIATION_FILE' 'data/carvariations.meta'
+data_file 'VEHICLE_SETTINGS_FILE' 'data/vehiclesettings.meta'
+data_file 'VISUAL_SETTINGS_FILE' 'data/visualsettings.dat'

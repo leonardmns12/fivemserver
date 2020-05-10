@@ -47,7 +47,7 @@ RegisterCommand('report', function(source, args, rawCommand)
     local msg = rawCommand:sub(4)
      TriggerEvent('chat:addMessage', {
         template = '<div class="chat-message heist">Your id: {0} </div>',
-        args = {args[1]}
+        args = {PlayerId()}
         });
 end, false)
 

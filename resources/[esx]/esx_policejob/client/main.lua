@@ -40,6 +40,8 @@ function setUniform(uniform, playerPed)
 
 			if uniform == 'bullet_wear' then
 				SetPedArmour(playerPed, 100)
+				exports.ft_libs:EnableArea("esx_eden_garage_area_police_mecanodeletepoint")
+	  			exports.ft_libs:EnableArea("esx_eden_garage_area_police_mecanospawnpoint")
 			end
 		else
 			ESX.ShowNotification(_U('no_outfit'))

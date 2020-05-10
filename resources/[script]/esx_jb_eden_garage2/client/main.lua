@@ -96,8 +96,8 @@ function ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 					vehicleName = GetDisplayNameFromVehicleModel(vehicleHash)
 				end
 
-				if v.fourrieremecano then
-					vehicleLabel = vehicleName..': ' .. _U('pound_name')
+				if v.pound then
+					vehicleLabel = vehicleName..': ' .. 'Garasi polisi!'
 				elseif v.stored then
 					vehicleLabel = vehicleName..': ' .. _U('returns') .." ("..v.garage_name..")"
 				else
@@ -108,7 +108,7 @@ function ListVehiclesMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 					vehicleName = vehicleName,
 					stored = v.stored,
 					plate = vehicleProps.plate,
-					fourrieremecano = v.fourrieremecano,
+					pound = v.pound,
 					garage_name = v.garage_name
 				})
 				
@@ -234,8 +234,8 @@ function ListVehiclesFourriereMenu(garage)
 			vehiclePropsList[vehicleProps.plate] = vehicleProps
 			local vehicleHash = vehicleProps.model
 			local vehicleName = GetDisplayNameFromVehicleModel(vehicleHash)
-
-			if string.match(v.owner, 'steam:') then
+			print(v.owner)
+			if string.match(v.owner, '') then  --identifier
 				table.insert(elements, {
 					label = ('%s | %s %s'):format(vehicleName, v.firstname, v.lastname),
 					plate = vehicleProps.plate
@@ -441,8 +441,8 @@ function ReturnVehicleMenu(garage, KindOfVehicle, garage_name, vehicle_type)
 					vehicleName = GetDisplayNameFromVehicleModel(vehicleHash)
 				end
 
-				if v.fourrieremecano then
-					vehicleLabel = vehicleName..': '.._U('pound_name')
+				if v.pound then
+					vehicleLabel = vehicleName..': '.. "Garasi Polisi"
 					table.insert(elements, {label = vehicleLabel, action = 'fourrieremecano'})
 				else
 					vehicleLabel = vehicleName..': '.._U('exits')
