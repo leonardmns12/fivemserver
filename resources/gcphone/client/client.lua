@@ -292,9 +292,10 @@ AddEventHandler("gcPhone:receiveMessage", function(message)
         end
       end
     end
-    SetNotificationTextEntry("STRING")
-    AddTextComponentString(text)
-    DrawNotification(false, false)
+    -- SetNotificationTextEntry("STRING")
+    -- AddTextComponentString(text)
+    -- DrawNotification(false, false)
+    exports['mythic_notify']:DoHudText('success', 'Kamu Memiliki Pesan baru')
     PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
     Citizen.Wait(300)
     PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)

@@ -18,14 +18,14 @@ AddEventHandler('esx_vangelico_robbery:toofar', function(robb)
 	for i=1, #xPlayers, 1 do
  		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
  		if xPlayer.job.name == 'police' then
-			TriggerClientEvent('esx:showNotification', xPlayers[i], _U('robbery_cancelled_at') .. Stores[robb].nameofstore)
-			TriggerClientEvent('esx_vangelico_robbery:killblip', xPlayers[i])
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayers[i], { type = 'error', text = 'Robbery cancelled at ' ..Stores[robb].nameofstore.. '!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
+			TriggerClientEvent('esx_vangelico_robbery:killblip', xPlayers[i]) --
 		end
 	end
 	if(robbers[source])then
 		TriggerClientEvent('esx_vangelico_robbery:toofarlocal', source)
 		robbers[source] = nil
-		TriggerClientEvent('esx:showNotification', source, _U('robbery_has_cancelled') .. Stores[robb].nameofstore)
+		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Robbery cancelled at ' ..Stores[robb].nameofstore, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
 	end
 end)
 
@@ -37,14 +37,14 @@ AddEventHandler('esx_vangelico_robbery:endrob', function(robb)
 	for i=1, #xPlayers, 1 do
  		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
  		if xPlayer.job.name == 'police' then
-			TriggerClientEvent('esx:showNotification', xPlayers[i], _U('end'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayers[i], { type = 'inform', text = 'Perhiasan sudah dirampok!' , length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			TriggerClientEvent('esx_vangelico_robbery:killblip', xPlayers[i])
 		end
 	end
 	if(robbers[source])then
 		TriggerClientEvent('esx_vangelico_robbery:robberycomplete', source)
 		robbers[source] = nil
-		TriggerClientEvent('esx:showNotification', source, _U('robbery_has_ended') .. Stores[robb].nameofstore)
+		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Robbery has finished at ' ..Stores[robb].nameofstore ..'!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	end
 end)
 
@@ -62,7 +62,7 @@ AddEventHandler('esx_vangelico_robbery:rob', function(robb)
 		if (os.time() - store.lastrobbed) < 800 and store.lastrobbed ~= 0 then
 
             TriggerClientEvent('esx_vangelico_robbery:togliblip', source)
-			TriggerClientEvent('esx:showNotification', source, _U('already_robbed') .. (1800 - (os.time() - store.lastrobbed)) .. _U('seconds'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Robbery cooldown ' ..(1800 - (os.time() - store.lastrobbed)).. 'detik!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			return
 		end
 
@@ -84,24 +84,24 @@ AddEventHandler('esx_vangelico_robbery:rob', function(robb)
 				for i=1, #xPlayers, 1 do
 					local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
 					if xPlayer.job.name == 'police' then
-							TriggerClientEvent('esx:showNotification', xPlayers[i], _U('rob_in_prog') .. store.nameofstore)
+							TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Robbery in proggress at' .. store.nameofstore, length = 5500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 							TriggerClientEvent('esx_vangelico_robbery:setblip', xPlayers[i], Stores[robb].position)
 					end
 				end
 
-				TriggerClientEvent('esx:showNotification', source, _U('started_to_rob') .. store.nameofstore .. _U('do_not_move'))
-				TriggerClientEvent('esx:showNotification', source, _U('alarm_triggered'))
-				TriggerClientEvent('esx:showNotification', source, _U('hold_pos'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'You started jewellery at ' .. store.nameofstore , length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'The alarm has been triggered!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Run when you ready', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })  --
 			    TriggerClientEvent('esx_vangelico_robbery:currentlyrobbing', source, robb)
                 CancelEvent()
 				Stores[robb].lastrobbed = os.time()
 			else
 				TriggerClientEvent('esx_vangelico_robbery:togliblip', source)
-				TriggerClientEvent('esx:showNotification', source, _U('min_two_police'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Butuh 2 polisi untuk memulai robbery!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
 			end
 		else
 			TriggerClientEvent('esx_vangelico_robbery:togliblip', source)
-			TriggerClientEvent('esx:showNotification', source, _U('robbery_already'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Robbery already in progress', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })--
 		end
 	end
 end)
@@ -142,7 +142,7 @@ local function Craft(source)
 			local JewelsQuantity = xPlayer.getInventoryItem('jewels').count
 
 			if JewelsQuantity < 20 then 
-				TriggerClientEvent('esx:showNotification', source, _U('notenoughgold'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu tidak mempunyai jewel!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
 			else   
                 xPlayer.removeInventoryItem('jewels', 20)
                 Citizen.Wait(4000)
@@ -151,7 +151,7 @@ local function Craft(source)
 				Craft(source)
 			end
 		else
-		TriggerClientEvent('esx:showNotification', source, _U('copsforsell'))
+		TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Harus memiliki 2 polisi untuk menjual!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } }) --
 		end
 	end)
 end
@@ -160,7 +160,7 @@ RegisterServerEvent('lester:vendita')
 AddEventHandler('lester:vendita', function()
 	local _source = source
 	PlayersCrafting[_source] = true
-	TriggerClientEvent('esx:showNotification', _source, _U('goldsell'))
+	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Sale in progress', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	Craft(_source)
 end)
 

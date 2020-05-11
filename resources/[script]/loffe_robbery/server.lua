@@ -65,11 +65,11 @@ AddEventHandler('loffe_robbery:rob', function(store)
         if xPlayer.job.name == 'police' then
             TriggerClientEvent('loffe_robbery:msgPolice', xPlayer.source, store, src)
         end
-        TriggerClientEvent('chat:addMessage', -1, {
+    end
+    TriggerClientEvent('chat:addMessage', -1, {
             template = '<div class="chat-message heist"><b>[NEWS] Robbery Market on progress!</b></div>',
             args = { "", "" }
         })
-    end
     TriggerClientEvent('loffe_robbery:rob', -1, store)
     Wait(30000)
     TriggerClientEvent('loffe_robbery:robberyOver', src)

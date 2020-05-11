@@ -45,9 +45,10 @@ RegisterCommand('report', function(source, args, rawCommand)
     local source = GetPlayerServerId(PlayerId())
     local name = GetPlayerName(PlayerId())
     local msg = rawCommand:sub(4)
+    local pid = GetPlayerServerId(PlayerId())
      TriggerEvent('chat:addMessage', {
         template = '<div class="chat-message heist">Your id: {0} </div>',
-        args = {PlayerId()}
+        args = {pid}
         });
 end, false)
 

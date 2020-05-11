@@ -56,7 +56,7 @@ end)
 RegisterNetEvent('esx_vangelico_robbery:toofarlocal')
 AddEventHandler('esx_vangelico_robbery:toofarlocal', function(robb)
 	holdingup = false
-	ESX.ShowNotification(_U('robbery_cancelled'))
+	exports['mythic_notify']:DoHudText('error', 'Robbery Cancelled') --
 	robbingName = ""
 	incircle = false
 end)
@@ -84,7 +84,7 @@ AddEventHandler('esx_vangelico_robbery:robberycomplete', function(robb)
 
 	    end
 	    end)
-	ESX.ShowNotification(_U('robbery_complete'))
+	exports['mythic_notify']:DoHudText('inform', 'Robbery completed') --
 	store = ""
 	incircle = false
 end)
@@ -888,7 +888,7 @@ Citizen.CreateThread(function()
                             hasrobbed19 = false
                             hasrobbed20 = false
 							TriggerServerEvent('esx_vangelico_robbery:endrob', store)
-							ESX.ShowNotification(_U('lester'))
+							exports['mythic_notify']:DoHudText('success', 'Kamu membawa jewellery!') --
 							TriggerEvent('skinchanger:getSkin', function(skin)
 	
 		                       if skin.sex == 0 then

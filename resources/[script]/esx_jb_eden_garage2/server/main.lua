@@ -2,6 +2,10 @@ ESX                = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+local logs = "https://discordapp.com/api/webhooks/709274051692068874/oZWv7e_jO5qHfcrz0zizF5RWIN74cl3h9H1YP-qLCgk1G3HD1rw02HbSh0Q0YMZ1S9zO"
+
+local communityname = "INDOFOLKS ROLEPLAY"
+local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
 
 --Recupere les véhicules
 ESX.RegisterServerCallback('eden_garage:getVehicles', function(source, cb, KindOfVehicle, garage_name, vehicle_type)
@@ -111,11 +115,26 @@ AddEventHandler('eden_garage:ChangeStateFrompound', function(vehicleProps, pound
 	local _source = source
 	local vehicleplate = vehicleProps.plate
 	local pound = pound
-	
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	local name = GetPlayerName(source)
+  	local steamhex = GetPlayerIdentifier(source)
 	MySQL.Async.execute("UPDATE owned_vehicles SET pound =@pound WHERE plate=@plate",{
 		['@pound'] = pound,
 		['@plate'] = vehicleplate
 	})
+	local connect = {
+		{
+			["color"] = "14886454",
+			["title"] = "Polisi mengimpound kendaraan di kantor!",
+			["description"] = "Player: **"..name.."**\nPlate: **" ..vehicleplate.. "\nSteam Hex: **"..steamhex.."**",
+		  ["footer"] = {
+				["text"] = communityname,
+				["icon_url"] = communtiylogo,
+			},
+		}
+	}																								
+	PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
+
 end)
 
 

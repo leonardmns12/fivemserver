@@ -27,7 +27,7 @@ AddEventHandler('rs_crafting:CraftingFailed', function(CraftItem)
     local item = Crafting.Items[CraftItem]
     -- Random chance to lose your items you can't change it
     local rand = math.random(1,50)
-    if rand >= 50 then
+    if rand >= 25 then
         TriggerClientEvent('esx:showNotification', src, "Luckily you still have your items..")
     else
         for itemname, v in pairs(item.needs) do

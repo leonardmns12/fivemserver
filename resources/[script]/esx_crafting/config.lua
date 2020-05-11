@@ -135,4 +135,11 @@ Crafting.Items = {
         },
         threshold = 0,
     },
+    ["weapon_knife"] = {
+        label = "Pisau",
+        needs = {
+            ["iron"] = {label = "Besi", count = 5},
+        },
+        threshold = 0,
+    },
 }
