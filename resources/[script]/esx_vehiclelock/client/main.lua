@@ -68,7 +68,7 @@ function ToggleVehicleLock()
 
 				TriggerEvent('chat:addMessage', {
 					template = '<div class="chat-message twitter">[Car System] : {0} </div>',
-					args = { "Mobil Terkunci!"}
+					args = { "Kendaraan Terkunci!"}
 				});
 			elseif lockStatus == 2 then -- locked
 				SetVehicleDoorsLocked(vehicle, 1)
@@ -78,7 +78,7 @@ function ToggleVehicleLock()
 
 				TriggerEvent('chat:addMessage', {
 					template = '<div class="chat-message twitter">[Car System] : {0} </div>',
-					args = {"Kunci Terbuka!"}
+					args = {"Kendaraan Terbuka!"}
 				});
 			end
 		end
