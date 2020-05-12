@@ -120,7 +120,7 @@ function StartHuntingSession()
 		OnGoingHuntSession = false
 
 		-- RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_HEAVYSNIPER"), true, true)
-		RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_KNIFE"), true, true)
+		-- RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_KNIFE"), true, true)
 
 		DeleteEntity(HuntCar)
 
@@ -138,7 +138,7 @@ function StartHuntingSession()
 		HuntCar = CreateVehicle(GetHashKey('blazer'), Positions['SpawnATV'].x, Positions['SpawnATV'].y, Positions['SpawnATV'].z, 169.79, true, false)
 
 		-- GiveWeaponToPed(PlayerPedId(), GetHashKey("WEAPON_HEAVYSNIPER"),45, true, false)
-		GiveWeaponToPed(PlayerPedId(), GetHashKey("WEAPON_APPISTOL"),1, false, false)
+		-- GiveWeaponToPed(PlayerPedId(), GetHashKey("WEAPON_APPISTOL"),1, false, false)
 
  		--Animals
 
