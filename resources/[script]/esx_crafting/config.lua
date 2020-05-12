@@ -65,6 +65,14 @@ Crafting.Items = {
         },
         threshold = 0,
     },
+    ["weapon_pistol50"] = {
+        label = "Pistol 50",
+        needs = {
+            ["weaclip"] = {label = "Ammo clip", count = 10},
+            ["gold"] = {label = "Emas", count = 40},
+        },
+        threshold = 0,
+    },
     ["weaclip"] = {
         label = "Ammo clip",
         needs = {
@@ -81,7 +89,7 @@ Crafting.Items = {
         },
         threshold = 0,
     },
-    ["weapon_advancerifle"] = {
+    ["weapon_assaultrifle"] = {
         label = "AK - 47",
         needs = {
             ["weabox"] = {label = "Ammo senjata", count = 5},
@@ -136,7 +144,7 @@ Crafting.Items = {
         threshold = 0,
     },
     ["weapon_knife"] = {
-        label = "Pisau",
+        label = "Knife",
         needs = {
             ["iron"] = {label = "Besi", count = 5},
         },

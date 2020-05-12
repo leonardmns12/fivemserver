@@ -10,7 +10,7 @@ AddEventHandler('rs_crafting:CraftingSuccess', function(CraftItem)
     for itemname, v in pairs(item.needs) do
         xPlayer.removeInventoryItem(itemname, v.count)
     end
-    if CraftItem == "weapon_pistol" or CraftItem == "weapon_combatpistol" then
+    if CraftItem == "weapon_pistol50" or CraftItem == "weapon_pistol" or CraftItem == "weapon_combatpistol" or CraftItem == "weapon_knife" or CraftItem == "weapon_assaultrifle" or CraftItem == "weapon_doubleaction" then
         xPlayer.addWeapon(CraftItem, 0)
     else
         xPlayer.addInventoryItem(CraftItem, 1)
