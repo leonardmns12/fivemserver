@@ -55,7 +55,7 @@ Crafting.Items = {
             ["iron"] = {label = "Besi", count = 30},
             ["diamond"] = {label = "Berlian", count = 5},
         },
-        threshold = 100,
+        threshold = 0,
     },
     ["weapon_pistol"] = {
         label = "Pistol",
@@ -63,7 +63,7 @@ Crafting.Items = {
             ["weaclip"] = {label = "Ammo clip", count = 5},
             ["gold"] = {label = "Emas", count = 20},
         },
-        threshold = 200,
+        threshold = 0,
     },
     ["weaclip"] = {
         label = "Ammo clip",
@@ -71,7 +71,7 @@ Crafting.Items = {
             ["leather"] = {label = "Kulit", count = 10},
             ["baggie"] = {label = "Plastik Bag", count = 5},
         },
-        threshold = 50,
+        threshold = 0,
     },
     ["weabox"] = {
         label = "Ammo box",
@@ -79,7 +79,7 @@ Crafting.Items = {
             ["leather"] = {label = "Kulit", count = 25},
             ["baggie"] = {label = "Plastik Bag", count = 20},
         },
-        threshold = 50,
+        threshold = 0,
     },
     ["weapon_advancerifle"] = {
         label = "AK - 47",
@@ -89,7 +89,7 @@ Crafting.Items = {
             ["leather"] = {label = "Kulit", count = 20},
             ["batteryacid"] = {label = "Battery Acid", count = 5},
         },
-        threshold = 200,
+        threshold = 0,
     },
     ["weapon_doubleaction"] = {
         label = "Doubleaction Revolver",
@@ -99,7 +99,7 @@ Crafting.Items = {
             ["leather"] = {label = "Kulit", count = 5},
             ["batteryacid"] = {label = "Battery Acid", count = 1},
         },
-        threshold = 200,
+        threshold = 0,
     },
     ["raspberry"] = {
         label = "Raspberry",

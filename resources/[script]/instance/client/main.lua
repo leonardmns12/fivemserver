@@ -36,6 +36,7 @@ function LeaveInstance()
 	if instance.host then
 		if #instance.players > 1 then
 			ESX.ShowNotification(_U('left_instance'))
+			exports['mythic_notify']:DoHudText('success', 'Kamu telah keluar dari properti')
 		end
 
 		if registeredInstanceTypes[instance.type].exit then
@@ -117,7 +118,8 @@ AddEventHandler('instance:onPlayerEntered', function(_instance, player)
 	instance = _instance
 	local playerName = GetPlayerName(GetPlayerFromServerId(player))
 
-	ESX.ShowNotification(_('entered_into', playerName))
+	--ESX.ShowNotification(_('entered_into', playerName))
+	exports['mythic_notify']:DoHudText('inform','' ..playerName.. ' telah masuk ke properti')
 end)
 
 RegisterNetEvent('instance:onPlayerLeft')
@@ -125,7 +127,8 @@ AddEventHandler('instance:onPlayerLeft', function(_instance, player)
 	instance = _instance
 	local playerName = GetPlayerName(GetPlayerFromServerId(player))
 
-	ESX.ShowNotification(_('left_out', playerName))
+	--ESX.ShowNotification(_('left_out', playerName))
+	exports['mythic_notify']:DoHudText('inform','' ..playerName.. ' telah keluar dari properti')
 end)
 
 RegisterNetEvent('instance:onInvite')
@@ -140,7 +143,8 @@ AddEventHandler('instance:onInvite', function(_instance, type, data)
 		Citizen.Wait(10000)
 
 		if instanceInvite then
-			ESX.ShowNotification(_U('invite_expired'))
+			--ESX.ShowNotification(_U('invite_expired'))
+			exports['mythic_notify']:DoHudText('error', 'Undangan expired')
 			instanceInvite = nil
 		end
 	end)
@@ -158,7 +162,8 @@ Citizen.CreateThread(function()
 
 			if IsControlJustReleased(0, 38) then
 				EnterInstance(instanceInvite)
-				ESX.ShowNotification(_U('entered_instance'))
+				--ESX.ShowNotification(_U('entered_instance'))
+				exports['mythic_notify']:DoHudText('success', 'Kamu telah masuk ke properti')
 				instanceInvite = nil
 			end
 		else
@@ -202,7 +207,7 @@ Citizen.CreateThread(function()
 
 			if NetworkIsPlayerActive(player) then
 				local otherPlayerPed = GetPlayerPed(player)
-				SetEntityVisible(otherPlayerPed, false, false)
+				SetEntityVisible(otherPlayerPed, true, 0)
 				SetEntityNoCollisionEntity(playerPed, otherPlayerPed, false)
 			end
 		end
