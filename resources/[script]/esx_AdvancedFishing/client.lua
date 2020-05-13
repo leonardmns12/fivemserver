@@ -131,7 +131,7 @@ Citizen.CreateThread(function()
 			
 			if IsControlJustReleased(0, Keys['X']) then
 				fishing = false
-				ESX.ShowNotification("~r~Stopped fishing")
+				exports['mythic_notify']:DoHudText('inform', 'Stop Fishing!')
 			end
 			if fishing then
 			
@@ -141,10 +141,10 @@ Citizen.CreateThread(function()
 					
 				else
 					fishing = false
-					ESX.ShowNotification("~r~Stopped fishing")
+					exports['mythic_notify']:DoHudText('inform', 'Stop Fishing!')
 				end
 				if IsEntityDead(playerPed) or IsEntityInWater(playerPed) then
-					ESX.ShowNotification("~r~Stopped fishing")
+					exports['mythic_notify']:DoHudText('inform', 'Stop Fishing!')
 				end
 			end
 			
@@ -158,8 +158,10 @@ Citizen.CreateThread(function()
 				pause = false
 				if input == correct then
 					TriggerServerEvent('fishing:catch', bait)
+					print(input)
 				else
-					ESX.ShowNotification("~r~Fish got free")
+					TriggerServerEvent('fishing:catch', bait)
+					print(input)
 				end
 			end
 		end
@@ -201,7 +203,7 @@ Citizen.CreateThread(function()
 			if fishing then
 				pause = true
 				correct = math.random(1,8)
-				ESX.ShowNotification("~g~Fish is taking the bait \n ~h~Press " .. correct .. " to catch it")
+				exports['mythic_notify']:DoHudText('inform', 'Fish is taking the bait , Press ' .. correct .. ' to catch it')
 				input = 0
 				pausetimer = 0
 			end
@@ -254,7 +256,7 @@ AddEventHandler('fishing:fishstart', function()
 			TaskStartScenarioInPlace(GetPlayerPed(-1), "WORLD_HUMAN_STAND_FISHING", 0, true)
 			fishing = true
 		else
-			ESX.ShowNotification("~y~You need to go further away from the shore")
+			exports['mythic_notify']:DoHudText('inform', 'You need to go further away from the shore')
 		end
 	end
 	
@@ -298,18 +300,6 @@ function OpenBoatsMenu(x, y , z)
 	--If user has police job they will be able to get free Police Predator boat
 	if PlayerData.job.name == "police" then
 		table.insert(elements, {label = '<span style="color:green;">Police Predator</span>', value = 'police'})
-	end
-	
-	if PlayerData.job.name == "police" then
-		table.insert(elements, {label = '<span style="color:green;">CG Predator</span>', value = 'police'})
-	end
-	
-	if PlayerData.job.name == "police" then
-		table.insert(elements, {label = '<span style="color:green;">CG Dinghy</span>', value = 'police'})
-	end
-	
-	if PlayerData.job.name == "police" then
-		table.insert(elements, {label = '<span style="color:green;">CG Executioner</span>', value = 'police'})
 	end
 	
 	ESX.UI.Menu.CloseAll()
@@ -386,30 +376,6 @@ function OpenBoatsMenu(x, y , z)
 		TriggerEvent("chatMessage", 'You took out a boat')
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "predator")
-	end
-	
-	if data.current.value == 'police' then
-		ESX.UI.Menu.CloseAll()
-
-		TriggerEvent("chatMessage", 'You took out a boat')
-		SetPedCoordsKeepVehicle(ped, x, y , z)
-		TriggerEvent('esx:spawnVehicle', "cgpredator")
-	end
-	
-	if data.current.value == 'police' then
-		ESX.UI.Menu.CloseAll()
-
-		TriggerEvent("chatMessage", 'You took out a boat')
-		SetPedCoordsKeepVehicle(ped, x, y , z)
-		TriggerEvent('esx:spawnVehicle', "cgdinghy")
-	end
-	
-	if data.current.value == 'police' then
-		ESX.UI.Menu.CloseAll()
-
-		TriggerEvent("chatMessage", 'You took out a boat')
-		SetPedCoordsKeepVehicle(ped, x, y , z)
-		TriggerEvent('esx:spawnVehicle', "cgexecutioner")
 	end
 	ESX.UI.Menu.CloseAll()
 	

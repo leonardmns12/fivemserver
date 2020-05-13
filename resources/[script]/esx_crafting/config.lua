@@ -33,7 +33,7 @@ Crafting.Items = {
         },
         threshold = 0,
     },
-    ["advancelockpick"] = {
+    ["advancedlockpick"] = {
         label = "Advance Lockpick",
         needs = {
             ["iron"] = {label = "Besi", count = 20},

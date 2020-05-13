@@ -84,7 +84,7 @@ AddEventHandler('esx_vangelico_robbery:rob', function(robb)
 				for i=1, #xPlayers, 1 do
 					local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
 					if xPlayer.job.name == 'police' then
-							TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Robbery in proggress at' .. store.nameofstore, length = 5500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+							TriggerClientEvent('mythic_notify:client:SendAlert', xPlayers[i], { type = 'error', text = 'Robbery in proggress at jewellery', length = 5500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 							TriggerClientEvent('esx_vangelico_robbery:setblip', xPlayers[i], Stores[robb].position)
 					end
 				end
