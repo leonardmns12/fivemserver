@@ -10,11 +10,11 @@ Config.ChangeNamePrice = 150000 -- In $ - how much you can change the shops name
 
 -- CONFIG ITEMS, DON'T FORGET TO ADD CORRECT NUMBER IN THE BRACKETS
 Config.Items = {
-    [1] = {label = "Air Mineral",       item = "water",        price = 5000},
+    [1] = {label = "Air Mineral",       item = "water",        price = 50},
     [2] = {label = "Roti",      item = "bread",       price = 100},
-    [3] = {label = "Rokok",      item = "cigarette",       price = 5000},
+    [3] = {label = "Rokok",      item = "cigarette",       price = 500},
     [4] = {label = "Handphone",      item = "phone",       price = 7500},
-    [5] = {label = "Bir",      item = "beer",       price = 10000},
+    [5] = {label = "Bir",      item = "beer",       price = 2000},
     [6] = {label = "Bullet-Proof Vest",      item = "bulletproof",       price = 25000},
     [7] = {label = "Umpan ikan",      item = "fishbait",       price = 50},
     [8] = {label = "Pancingan",      item = "fishingrod",       price = 50},
