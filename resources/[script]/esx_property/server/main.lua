@@ -439,14 +439,14 @@ AddEventHandler('esx_property:getItem', function(owner, type, item, count)
 			if count > 0 and inventoryItem.count >= count then
 			
 				-- can the player carry the said amount of x item?
-				if sourceItem.limit ~= -1 and (sourceItem.count + count) > sourceItem.limit then
+				if  (sourceItem.count + count) > 9999999999 then
 					--TriggerClientEvent('esx:showNotification', _source, _U('player_cannot_hold'))
 					TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'error', text = 'Inventory kamu penuh!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 				else
 					inventory.removeItem(item, count)
 					xPlayer.addInventoryItem(item, count)
 					--TriggerClientEvent('esx:showNotification', _source, _U('have_withdrawn', count, inventoryItem.label))
-					TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'success', text = 'Kamu telah mengambil ' ..inventoryItem.label ' sebanyak ' ..count, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+					TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'success', text = 'Kamu telah mengambil ' ..item.label.. ' sebanyak ' ..count, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 					local xPlayer = ESX.GetPlayerFromId(source)
 
 					local steamid = xPlayer.identifier
