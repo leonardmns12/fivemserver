@@ -1,7 +1,11 @@
-local CurrentActionData, handcuffTimer, dragStatus, blipsCops, currentTask = {}, {}, {}, {}, {}
+local CurrentActionData, handcuffTimer, blipsCops, currentTask = {}, {}, {}, {}
 local HasAlreadyEnteredMarker, isDead, isHandcuffed, hasAlreadyJoined, playerInService = false, false, false, false, false
 local LastStation, LastPart, LastPartNum, LastEntity, CurrentAction, CurrentActionMsg
-dragStatus.isDragged, isInShopMenu = false, false
+local DragStatus = {}
+DragStatus.isDragged = false
+DragStatus.draganim = false 
+isInShopMenu = false
+
 ESX = nil
 
 Citizen.CreateThread(function()
@@ -16,6 +20,221 @@ Citizen.CreateThread(function()
 
 	ESX.PlayerData = ESX.GetPlayerData()
 end)
+
+function LoadAnimDict(dict)
+    while (not HasAnimDictLoaded(dict)) do
+        RequestAnimDict(dict)
+        Citizen.Wait(10)
+    end    
+end
+
+
+RegisterNetEvent('esx_policejob:st-search')
+AddEventHandler('esx_policejob:st-search', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	OpenBodySearchMenu(closestPlayer)
+end)
+
+RegisterNetEvent('esx_policejob:st-escort')
+AddEventHandler('esx_policejob:st-escort', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	TriggerServerEvent('esx_policejob:drag', GetPlayerServerId(closestPlayer))
+end)
+
+RegisterNetEvent('esx_policejob:st-unpaidbill')
+AddEventHandler('esx_policejob:st-unpaidbill', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	OpenUnpaidBillsMenu(closestPlayer)
+end)
+
+
+
+RegisterNetEvent('esx_policejob:st-hijack')
+AddEventHandler('esx_policejob:st-hijack', function()
+	local playerPed = PlayerPedId()
+	local coords  = GetEntityCoords(playerPed)
+	local vehicle = ESX.Game.GetVehicleInDirection()
+	vehicle = ESX.Game.GetVehicleInDirection()
+	if IsAnyVehicleNearPoint(coords.x, coords.y, coords.z, 3.0) then
+		TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_WELDING', 0, true)
+		Citizen.Wait(20000)
+		ClearPedTasksImmediately(playerPed)
+	
+		SetVehicleDoorsLocked(vehicle, 1)
+		SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+		ESX.ShowNotification(_U('vehicle_unlocked'))
+	end
+end)
+
+RegisterNetEvent('esx_policejob:st-setin')
+AddEventHandler('esx_policejob:st-setin', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	TriggerServerEvent('esx_policejob:putInVehicle', GetPlayerServerId(closestPlayer))
+end)
+
+RegisterNetEvent('esx_policejob:st-finemenu')
+AddEventHandler('esx_policejob:st-finemenu', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	OpenFineMenu(closestPlayer)
+end)
+
+
+
+RegisterNetEvent('esx_policejob:st-setout')
+AddEventHandler('esx_policejob:st-setout', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	TriggerServerEvent('esx_policejob:OutVehicle', GetPlayerServerId(closestPlayer))
+end)
+
+RegisterNetEvent('esx_policejob:st-softcuff')
+AddEventHandler('esx_policejob:st-softcuff', function(playerheading, playercoords, playerlocation)
+	local target, distance = ESX.Game.GetClosestPlayer()
+		playerheading = GetEntityHeading(GetPlayerPed(-1))
+		playerlocation = GetEntityForwardVector(PlayerPedId())
+		playerCoords = GetEntityCoords(GetPlayerPed(-1))
+		local target_id = GetPlayerServerId(target)
+		TriggerServerEvent('esx_policejob:requestarrest', target_id, playerheading, playerCoords, playerlocation)
+end)
+
+RegisterNetEvent('esx_policejob:st-uncuff')
+AddEventHandler('esx_policejob:st-uncuff', function(playerheading, playercoords, playerlocation)
+	local target, distance = ESX.Game.GetClosestPlayer()
+	playerheading = GetEntityHeading(GetPlayerPed(-1))
+	playerlocation = GetEntityForwardVector(PlayerPedId())
+	playerCoords = GetEntityCoords(GetPlayerPed(-1))
+	local target_id = GetPlayerServerId(target)
+	TriggerServerEvent('esx_policejob:requestrelease', target_id, playerheading, playerCoords, playerlocation)
+	Citizen.Wait(1200)
+	TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3, 'uncuff', 0.5)
+end)
+
+
+
+RegisterNetEvent('esx_policejob:st-hardcuff')
+AddEventHandler('esx_policejob:st-hardcuff', function(playerheading, playercoords, playerlocation)
+	local target, distance = ESX.Game.GetClosestPlayer()
+	playerheading = GetEntityHeading(GetPlayerPed(-1))
+	playerlocation = GetEntityForwardVector(PlayerPedId())
+	playerCoords = GetEntityCoords(GetPlayerPed(-1))
+	local target_id = GetPlayerServerId(target)
+		--TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3, 'cuff', 1.0)
+		TriggerServerEvent('esx_policejob:requesthard', target_id, playerheading, playerCoords, playerlocation)
+end)
+
+RegisterNetEvent('esx_policejob:getarrestedhard')
+AddEventHandler('esx_policejob:getarrestedhard', function(playerheading, playercoords, playerlocation)
+	playerPed = GetPlayerPed(-1)
+	SetCurrentPedWeapon(playerPed, GetHashKey('WEAPON_UNARMED'), true)
+	local x, y, z   = table.unpack(playercoords + playerlocation * 1.0)
+	SetEntityCoords(GetPlayerPed(-1), x, y, z)
+	SetEntityHeading(GetPlayerPed(-1), playerheading)
+	Citizen.Wait(250)
+	LoadAnimDict('mp_arrest_paired')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arrest_paired', 'crook_p2_back_right', 8.0, -8, 3750 , 2, 0, 0, 0, 0)
+	Citizen.Wait(3760)
+	IsHandcuffed = true
+	IsShackles = true
+	TriggerEvent('esx_policejob:hardcuff')
+	LoadAnimDict('mp_arresting')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0.0, false, false, false)
+end)
+
+RegisterNetEvent('esx_policejob:getarrested')
+AddEventHandler('esx_policejob:getarrested', function(playerheading, playercoords, playerlocation)
+	playerPed = GetPlayerPed(-1)
+	SetCurrentPedWeapon(playerPed, GetHashKey('WEAPON_UNARMED'), true)
+	local x, y, z   = table.unpack(playercoords + playerlocation * 1.0)
+	SetEntityCoords(GetPlayerPed(-1), x, y, z)
+	SetEntityHeading(GetPlayerPed(-1), playerheading)
+	Citizen.Wait(250)
+	LoadAnimDict('mp_arrest_paired')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arrest_paired', 'crook_p2_back_right', 8.0, -8, 3750 , 2, 0, 0, 0, 0)
+	Citizen.Wait(3760)
+	IsHandcuffed = true
+	IsShackles = false
+	TriggerEvent('esx_policejob:handcuff')
+	LoadAnimDict('mp_arresting')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0.0, false, false, false)
+end)
+
+
+RegisterNetEvent('esx_policejob:doarrested')
+AddEventHandler('esx_policejob:doarrested', function()
+	Citizen.Wait(250)
+	LoadAnimDict('mp_arrest_paired')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arrest_paired', 'cop_p2_back_right', 8.0, -8,3750, 2, 0, 0, 0, 0)
+	Citizen.Wait(3000)
+
+end) 
+
+RegisterNetEvent('esx_policejob:douncuffing')
+AddEventHandler('esx_policejob:douncuffing', function()
+	Citizen.Wait(250)
+	LoadAnimDict('mp_arresting')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arresting', 'a_uncuff', 8.0, -8,-1, 2, 0, 0, 0, 0)
+	Citizen.Wait(5500)
+	ClearPedTasks(GetPlayerPed(-1))
+end)
+
+RegisterNetEvent('esx_policejob:drag')
+AddEventHandler('esx_policejob:drag', function(copID)
+	if not IsHandcuffed then
+		return
+	end
+	DragStatus.IsDragged = not DragStatus.IsDragged
+	DragStatus.CopId     = tonumber(copID)
+	
+end)
+
+
+RegisterNetEvent('esx_policejob:getuncuffed')
+AddEventHandler('esx_policejob:getuncuffed', function(playerheading, playercoords, playerlocation)
+	local x, y, z   = table.unpack(playercoords + playerlocation * 1.0)
+	SetEntityCoords(GetPlayerPed(-1), x, y, z)
+	SetEntityHeading(GetPlayerPed(-1), playerheading)
+	Citizen.Wait(250)
+	LoadAnimDict('mp_arresting')
+	TaskPlayAnim(GetPlayerPed(-1), 'mp_arresting', 'b_uncuff', 8.0, -8,-1, 2, 0, 0, 0, 0)
+	Citizen.Wait(5500)
+	IsHandcuffed = false
+	IsShackles = false
+	TriggerEvent('esx_policejob:handcuff')
+	ClearPedTasks(GetPlayerPed(-1))
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local playerPed = PlayerPedId()
+
+		if IsShackles then
+			DisableControlAction(0, 32, true) -- W
+			DisableControlAction(0, 34, true) -- A
+			DisableControlAction(0, 31, true) -- S
+			DisableControlAction(0, 30, true) -- D
+			DisableControlAction(0, 22, true) -- Jump
+			DisableControlAction(0, 44, true) -- Cover
+			DisableControlAction(0, 288,  true) -- Disable phone
+			DisableControlAction(0, 289, true) -- Inventory
+			if IsEntityPlayingAnim(playerPed, 'mp_arresting', 'idle', 3) ~= 1 then
+				ESX.Streaming.RequestAnimDict('mp_arresting', function()
+					TaskPlayAnim(playerPed, 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0.0, false, false, false)
+				end)
+			end
+		else
+			DisableControlAction(0, 1, true) -- Disable pan
+			DisableControlAction(0, 2, true) -- Disable tilt
+			DisableControlAction(0, 24, true) -- Attack
+			DisableControlAction(0, 257, true) -- Attack 2
+			DisableControlAction(0, 25, true) -- Aim
+			DisableControlAction(0, 263, true) -- Melee Attack 1
+			Citizen.Wait(500)
+		end
+	end
+end)
+
+
+
 
 function cleanPlayer(playerPed)
 	SetPedArmour(playerPed, 0)
@@ -239,8 +458,8 @@ function OpenPoliceActionsMenu()
 		title    = 'Police',
 		align    = 'top-left',
 		elements = {
-			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
-			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
+			--{label = _U('citizen_interaction'), value = 'citizen_interaction'},
+			--{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
 			{label = _U('object_spawner'), value = 'object_spawner'},
 			{label = "Jail Menu",               value = 'jail_menu'}
 	}}, function(data, menu)
@@ -251,7 +470,9 @@ function OpenPoliceActionsMenu()
 			local elements = {
 				-- {label = _U('id_card'), value = 'identity_card'},
 				{label = _U('search'), value = 'search'},
-				{label = _U('handcuff'), value = 'handcuff'},
+				-- {label = _U('handcuff'), value = 'handcuff'},
+				{label = 'softcuff', value = 'softcuff'},
+				{label = 'hardcuff', value = 'hardcuffs'},
 				{label = ('Uncuff'), value = 'uncuff'},
 				{label = _U('drag'), value = 'drag'},
 				{label = _U('put_in_vehicle'), value = 'put_in_vehicle'},
@@ -284,9 +505,25 @@ function OpenPoliceActionsMenu()
 					Citizen.Wait(3100)																									-- Czeka 3.1 Sekund**
 					TriggerServerEvent('esx_policejob:handcuff',  GetPlayerServerId(closestPlayer))
 					elseif action == 'uncuff' then
-					TriggerServerEvent('esx_policejob:handcuff',  GetPlayerServerId(closestPlayer))
+						local target, distance = ESX.Game.GetClosestPlayer()
+						playerheading = GetEntityHeading(GetPlayerPed(-1))
+						playerlocation = GetEntityForwardVector(PlayerPedId())
+						playerCoords = GetEntityCoords(GetPlayerPed(-1))
+						local target_id = GetPlayerServerId(target)
+						TriggerServerEvent('esx_policejob:requestrelease', target_id, playerheading, playerCoords, playerlocation)
+						Citizen.Wait(1200)
+						TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3, 'uncuff', 0.5)
 					elseif action == 'drag' then
 						TriggerServerEvent('esx_policejob:drag', GetPlayerServerId(closestPlayer))
+						Citizen.Wait(800)
+						if DragStatus.draganim then
+							StopAnimTask(GetPlayerPed(-1), 'switch@trevor@escorted_out', '001215_02_trvs_12_escorted_out_idle_guard2', 1.0)
+							DragStatus.draganim = false
+						else
+							LoadAnimDict('switch@trevor@escorted_out')
+							TaskPlayAnim(GetPlayerPed(-1), 'switch@trevor@escorted_out', '001215_02_trvs_12_escorted_out_idle_guard2', 8.0, 1.0, -1, 49, 0, 0, 0, 0)
+							DragStatus.draganim = true
+						end
 					elseif action == 'put_in_vehicle' then
 						TriggerServerEvent('esx_policejob:putInVehicle', GetPlayerServerId(closestPlayer))
 					elseif action == 'out_the_vehicle' then
@@ -297,8 +534,23 @@ function OpenPoliceActionsMenu()
 						ShowPlayerLicense(closestPlayer)
 					elseif action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
+					elseif data2.current.value == 'hardcuffs' then
+							local target, distance = ESX.Game.GetClosestPlayer()
+								playerheading = GetEntityHeading(GetPlayerPed(-1))
+								playerlocation = GetEntityForwardVector(PlayerPedId())
+								playerCoords = GetEntityCoords(GetPlayerPed(-1))
+								local target_id = GetPlayerServerId(target)
+									--TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 3, 'cuff', 1.0)
+									TriggerServerEvent('esx_policejob:requesthard', target_id, playerheading, playerCoords, playerlocation)
+					elseif action == 'softcuff' then
+						local target, distance = ESX.Game.GetClosestPlayer()
+						playerheading = GetEntityHeading(GetPlayerPed(-1))
+						playerlocation = GetEntityForwardVector(PlayerPedId())
+						playerCoords = GetEntityCoords(GetPlayerPed(-1))
+						local target_id = GetPlayerServerId(target)
+						TriggerServerEvent('esx_policejob:requestarrest', target_id, playerheading, playerCoords, playerlocation)
 					end
-				else
+ 				else
 					-- ESX.ShowNotification(_U('no_players_nearby'))
 					exports['mythic_notify']:DoHudText('error', 'Tidak ada orang disekitar!')
 				end
@@ -390,8 +642,8 @@ function OpenPoliceActionsMenu()
 					{label = _U('cone'), model = 'prop_roadcone02a'},
 					{label = _U('barrier'), model = 'prop_barrier_work05'},
 					{label = _U('spikestrips'), model = 'p_ld_stinger_s'},
-					{label = _U('box'), model = 'prop_boxpile_07d'},
-					{label = _U('cash'), model = 'hei_prop_cash_crate_half_full'}
+					--{label = _U('box'), model = 'prop_boxpile_07d'},
+					--{label = _U('cash'), model = 'hei_prop_cash_crate_half_full'}
 			}}, function(data2, menu2)
 				local playerPed = PlayerPedId()
 				local coords, forward = GetEntityCoords(playerPed), GetEntityForwardVector(playerPed)
@@ -964,52 +1216,71 @@ AddEventHandler('esx_policejob:hasExitedEntityZone', function(entity)
 	end
 end)
 
+-- RegisterNetEvent('esx_policejob:handcuff')
+-- AddEventHandler('esx_policejob:handcuff', function()
+-- 	isHandcuffed = not isHandcuffed
+-- 	local playerPed = PlayerPedId()
+
+-- 	if isHandcuffed then
+-- 		RequestAnimDict('mp_arresting')
+-- 		while not HasAnimDictLoaded('mp_arresting') do
+-- 			Citizen.Wait(100)
+-- 		end
+
+-- 		TaskPlayAnim(playerPed, 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0, 0, 0, 0)
+
+-- 		SetEnableHandcuffs(playerPed, true)
+-- 		DisablePlayerFiring(playerPed, true)
+-- 		SetCurrentPedWeapon(playerPed, GetHashKey('WEAPON_UNARMED'), true) -- unarm player
+-- 		SetPedCanPlayGestureAnims(playerPed, false)
+-- 		FreezeEntityPosition(playerPed, true)
+-- 		DisplayRadar(false)
+
+-- 		if Config.EnableHandcuffTimer then
+-- 			if handcuffTimer.active then
+-- 				ESX.ClearTimeout(handcuffTimer.task)
+-- 			end
+
+-- 			StartHandcuffTimer()
+-- 		end
+-- 	else
+-- 		if Config.EnableHandcuffTimer and handcuffTimer.active then
+-- 			ESX.ClearTimeout(handcuffTimer.task)
+-- 		end
+
+-- 		ClearPedSecondaryTask(playerPed)
+-- 		SetEnableHandcuffs(playerPed, false)
+-- 		DisablePlayerFiring(playerPed, false)
+-- 		SetPedCanPlayGestureAnims(playerPed, true)
+-- 		FreezeEntityPosition(playerPed, false)
+-- 		DisplayRadar(true)
+-- 	end
+-- end)
+
 RegisterNetEvent('esx_policejob:handcuff')
 AddEventHandler('esx_policejob:handcuff', function()
-	isHandcuffed = not isHandcuffed
 	local playerPed = PlayerPedId()
-
-	if isHandcuffed then
-		RequestAnimDict('mp_arresting')
-		while not HasAnimDictLoaded('mp_arresting') do
-			Citizen.Wait(100)
-		end
-
-		TaskPlayAnim(playerPed, 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0, 0, 0, 0)
-
-		SetEnableHandcuffs(playerPed, true)
-		DisablePlayerFiring(playerPed, true)
-		SetCurrentPedWeapon(playerPed, GetHashKey('WEAPON_UNARMED'), true) -- unarm player
-		SetPedCanPlayGestureAnims(playerPed, false)
-		FreezeEntityPosition(playerPed, true)
-		DisplayRadar(false)
-
-		if Config.EnableHandcuffTimer then
-			if handcuffTimer.active then
-				ESX.ClearTimeout(handcuffTimer.task)
+	Citizen.CreateThread(function()
+		if IsHandcuffed then
+			if Config.EnableHandcuffTimer then
+				if HandcuffTimer.active then
+					ESX.ClearTimeout(HandcuffTimer.task)
+				end
+				StartHandcuffTimer()
 			end
-
-			StartHandcuffTimer()
+		else
+			if Config.EnableHandcuffTimer and HandcuffTimer.active then
+				ESX.ClearTimeout(HandcuffTimer.task)
+			end
 		end
-	else
-		if Config.EnableHandcuffTimer and handcuffTimer.active then
-			ESX.ClearTimeout(handcuffTimer.task)
-		end
-
-		ClearPedSecondaryTask(playerPed)
-		SetEnableHandcuffs(playerPed, false)
-		DisablePlayerFiring(playerPed, false)
-		SetPedCanPlayGestureAnims(playerPed, true)
-		FreezeEntityPosition(playerPed, false)
-		DisplayRadar(true)
-	end
+	end)
 end)
 
 RegisterNetEvent('esx_policejob:unrestrain')
 AddEventHandler('esx_policejob:unrestrain', function()
-	if isHandcuffed then
+	if IsHandcuffed then
 		local playerPed = PlayerPedId()
-		isHandcuffed = false
+		IsHandcuffed = false
 
 		ClearPedSecondaryTask(playerPed)
 		SetEnableHandcuffs(playerPed, false)
@@ -1019,46 +1290,45 @@ AddEventHandler('esx_policejob:unrestrain', function()
 		DisplayRadar(true)
 
 		-- end timer
-		if Config.EnableHandcuffTimer and handcuffTimer.active then
-			ESX.ClearTimeout(handcuffTimer.task)
+		if Config.EnableHandcuffTimer and HandcuffTimer.Active then
+			ESX.ClearTimeout(HandcuffTimer.Task)
 		end
 	end
 end)
 
-RegisterNetEvent('esx_policejob:drag')
-AddEventHandler('esx_policejob:drag', function(copId)
-	if isHandcuffed then
-		dragStatus.isDragged = not dragStatus.isDragged
-		dragStatus.CopId = copId
-	end
-end)
 
 Citizen.CreateThread(function()
-	local wasDragged
+	local playerPed
+	local targetPed
+	DragStatus.isDragged = false
 
 	while true do
-		Citizen.Wait(0)
-		local playerPed = PlayerPedId()
+		Citizen.Wait(1)
 
-		if isHandcuffed and dragStatus.isDragged then
-			local targetPed = GetPlayerPed(GetPlayerFromServerId(dragStatus.CopId))
+		if IsHandcuffed then
+			playerPed = PlayerPedId()
 
-			if DoesEntityExist(targetPed) and IsPedOnFoot(targetPed) and not IsPedDeadOrDying(targetPed, true) then
-				if not wasDragged then
-					AttachEntityToEntity(playerPed, targetPed, 11816, 0.54, 0.54, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
-					wasDragged = true
+			if DragStatus.IsDragged then
+				targetPed = GetPlayerPed(GetPlayerFromServerId(DragStatus.CopId))
+
+				-- undrag if target is in an vehicle
+				if not IsPedSittingInAnyVehicle(targetPed) then
+					AttachEntityToEntity(playerPed, targetPed, 11816, -0.06, 0.65, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
 				else
-					Citizen.Wait(1000)
+					DragStatus.IsDragged = false
+					DetachEntity(playerPed, true, false)
 				end
+
+				if IsPedDeadOrDying(targetPed, true) then
+					DragStatus.IsDragged = false
+					DetachEntity(playerPed, true, false)
+				end
+
 			else
-				wasDragged = false
-				dragStatus.isDragged = false
 				DetachEntity(playerPed, true, false)
 			end
-		elseif wasDragged then
-			wasDragged = false
-			DetachEntity(playerPed, true, false)
 		else
+			
 			Citizen.Wait(500)
 		end
 	end
@@ -1066,7 +1336,9 @@ end)
 
 RegisterNetEvent('esx_policejob:putInVehicle')
 AddEventHandler('esx_policejob:putInVehicle', function()
-	if isHandcuffed then
+	print('ganteng1')
+	if not isHandcuffed then
+		print('ganteng')
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 
@@ -1085,7 +1357,7 @@ AddEventHandler('esx_policejob:putInVehicle', function()
 
 				if freeSeat then
 					TaskWarpPedIntoVehicle(playerPed, vehicle, freeSeat)
-					dragStatus.isDragged = false
+					DragStatus.isDragged = false
 				end
 			end
 		end
@@ -1115,10 +1387,11 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 257, true) -- Attack 2
 			DisableControlAction(0, 25, true) -- Aim
 			DisableControlAction(0, 263, true) -- Melee Attack 1
-			DisableControlAction(0, 32, true) -- W
-			DisableControlAction(0, 34, true) -- A
-			DisableControlAction(0, 31, true) -- S
-			DisableControlAction(0, 30, true) -- D
+
+			--DisableControlAction(0, 32, true) -- W
+			--DisableControlAction(0, 34, true) -- A
+			--DisableControlAction(0, 31, true) -- S
+			--DisableControlAction(0, 30, true) -- D
 
 			DisableControlAction(0, 45, true) -- Reload
 			DisableControlAction(0, 22, true) -- Jump
@@ -1498,16 +1771,16 @@ end)
 
 -- handcuff timer, unrestrain the player after an certain amount of time
 function StartHandcuffTimer()
-	if Config.EnableHandcuffTimer and handcuffTimer.active then
-		ESX.ClearTimeout(handcuffTimer.task)
+	if Config.EnableHandcuffTimer and HandcuffTimer.Active then
+		ESX.ClearTimeout(HandcuffTimer.Task)
 	end
 
-	handcuffTimer.active = true
+	HandcuffTimer.Active = true
 
-	handcuffTimer.task = ESX.SetTimeout(Config.HandcuffTimer, function()
+	HandcuffTimer.Task = ESX.SetTimeout(Config.HandcuffTimer, function()
 		ESX.ShowNotification(_U('unrestrained_timer'))
 		TriggerEvent('esx_policejob:unrestrain')
-		handcuffTimer.active = false
+		HandcuffTimer.Active = false
 	end)
 end
 

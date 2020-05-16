@@ -22,6 +22,11 @@ AddEventHandler('esx:setJob', function(job)
   PlayerData.job = job
 end)
 
+RegisterNetEvent('tokovoip:radial')
+AddEventHandler('tokovoip:radial', function()
+  enableRadio(true)
+end)
+
 
 local radioMenu = false
 
@@ -47,11 +52,11 @@ end
 
 --- sprawdza czy komenda /radio jest włączony
 
-RegisterCommand('radio', function(source, args)
-    if Config.enableCmd then
-      enableRadio(true)
-    end
-end, false)
+-- RegisterCommand('radio', function(source, args)
+--     if Config.enableCmd then
+--       enableRadio(true)
+--     end
+-- end, false)
 
 
 -- radio test

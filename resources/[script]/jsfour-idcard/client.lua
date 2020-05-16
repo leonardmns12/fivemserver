@@ -20,6 +20,10 @@ AddEventHandler('jsfour-idcard:open', function( data, type )
 	})
 end)
 
+RegisterNetEvent('jsfour-idcard:open-menu')
+AddEventHandler('jsfour-idcard:open-menu', function()
+	openMenu()
+end)	
 -- Key events
 Citizen.CreateThread(function()
 	while true do

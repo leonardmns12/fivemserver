@@ -82,15 +82,31 @@ AddEventHandler('esx_policejob:handcuff', function(target)
 	end
 end)
 
-RegisterNetEvent('esx_policejob:drag')
-AddEventHandler('esx_policejob:drag', function(target)
-	local xPlayer = ESX.GetPlayerFromId(source)
+RegisterServerEvent('esx_policejob:requestrelease')
+AddEventHandler('esx_policejob:requestrelease', function(targetid, playerheading, playerCoords,  playerlocation)
+    _source = source
+    TriggerClientEvent('esx_policejob:getuncuffed', targetid, playerheading, playerCoords, playerlocation)
+    TriggerClientEvent('esx_policejob:douncuffing', _source)
+end)
 
-	if xPlayer.job.name == 'police' then
-		TriggerClientEvent('esx_policejob:drag', target, source)
-	else
-		print(('esx_policejob: %s attempted to drag (not cop)!'):format(xPlayer.identifier))
-	end
+RegisterServerEvent('esx_policejob:requestarrest')
+AddEventHandler('esx_policejob:requestarrest', function(targetid, playerheading, playerCoords,  playerlocation)
+    _source = source
+    TriggerClientEvent('esx_policejob:getarrested', targetid, playerheading, playerCoords, playerlocation)
+    TriggerClientEvent('esx_policejob:doarrested', _source)
+end)
+
+RegisterServerEvent('esx_policejob:requesthard')
+AddEventHandler('esx_policejob:requesthard', function(targetid, playerheading, playerCoords,  playerlocation)
+    _source = source
+    TriggerClientEvent('esx_policejob:getarrestedhard', targetid, playerheading, playerCoords, playerlocation)
+    TriggerClientEvent('esx_policejob:doarrested', _source)
+end)
+
+RegisterServerEvent('esx_policejob:drag')
+AddEventHandler('esx_policejob:drag', function(target)
+  local _source = source
+  TriggerClientEvent('esx_policejob:drag', target, _source)
 end)
 
 RegisterNetEvent('esx_policejob:putInVehicle')

@@ -3,6 +3,187 @@ local HasAlreadyEnteredMarker, LastHospital, LastPart, LastPartNum
 local IsBusy = false
 local spawnedVehicles, isInShopMenu = {}, false
 
+
+RegisterNetEvent('esx_ambulancejob:st-revive')
+AddEventHandler('esx_ambulancejob:st-revive', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	IsBusy = true
+	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
+		if quantity > 0 then
+			local closestPlayerPed = GetPlayerPed(closestPlayer)
+
+			if IsPedDeadOrDying(closestPlayerPed, 1) then
+				local playerPed = PlayerPedId()
+
+				-- ESX.ShowNotification(_U('revive_inprogress'))
+				exports['mythic_notify']:DoHudText('inform', 'Kamu sedang menghidupkan seseorang!')
+				
+				local lib, anim = 'mini@cpr@char_a@cpr_str', 'cpr_pumpchest'
+
+				for i=1, 15, 1 do
+					Citizen.Wait(900)
+			
+					ESX.Streaming.RequestAnimDict(lib, function()
+						TaskPlayAnim(PlayerPedId(), lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
+					end)
+				end
+
+				TriggerServerEvent('esx_ambulancejob:removeItem', 'medikit')
+				TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
+
+				-- Show revive award?
+				if Config.ReviveReward > 0 then
+					-- ESX.ShowNotification(_U('revive_complete_award', GetPlayerName(closestPlayer), Config.ReviveReward))
+					exports['mythic_notify']:DoHudText('success', 'Kamu berhasil menghidupkan seseorang!')
+
+				else
+					--ESX.ShowNotification(_U('revive_complete', GetPlayerName(closestPlayer)))
+					exports['mythic_notify']:DoHudText('success', 'Kamu berhasil menghidupkan seseorang!')
+
+				end
+			else
+				--ESX.ShowNotification(_U('player_not_unconscious'))
+				exports['mythic_notify']:DoHudText('error', 'Tidak dapat menghidupkan player tersbut!')
+
+			end
+		else
+			--ESX.ShowNotification(_U('not_enough_medikit'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup medikit!')
+
+		end
+
+		IsBusy = false
+
+	end, 'medikit')
+
+end)
+
+RegisterNetEvent('esx_ambulancejob:st-small')
+AddEventHandler('esx_ambulancejob:st-small', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	IsBusy = true
+	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
+		if quantity > 0 then
+			local closestPlayerPed = GetPlayerPed(closestPlayer)
+			local health = GetEntityHealth(closestPlayerPed)
+
+			if health > 0 then
+				local playerPed = PlayerPedId()
+
+				IsBusy = true
+				--ESX.ShowNotification(_U('heal_inprogress'))
+				exports['mythic_notify']:DoHudText('inform', 'Kamu sedang mengobati seseorang.')
+
+				TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TEND_TO_DEAD', 0, true)
+				Citizen.Wait(10000)
+				ClearPedTasks(playerPed)
+
+				TriggerServerEvent('esx_ambulancejob:removeItem', 'bandage')
+				TriggerServerEvent('esx_ambulancejob:heal', GetPlayerServerId(closestPlayer), 'small')
+				--ESX.ShowNotification(_U('heal_complete', GetPlayerName(closestPlayer)))
+				exports['mythic_notify']:DoHudText('success', 'Kamu berhasil mengobati seseorang.')
+
+				IsBusy = false
+			else
+				--ESX.ShowNotification(_U('player_not_conscious'))
+				exports['mythic_notify']:DoHudText('error', 'Tidak dapat menghidupkan player tersebut!')
+
+			end
+		else
+			--ESX.ShowNotification(_U('not_enough_bandage'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup bandage!')
+
+		end
+	end, 'bandage')
+end)
+
+RegisterNetEvent('esx_ambulancejob:st-large')
+AddEventHandler('esx_ambulancejob:st-large', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	IsBusy = true
+	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
+		if quantity > 0 then
+			local closestPlayerPed = GetPlayerPed(closestPlayer)
+			local health = GetEntityHealth(closestPlayerPed)
+
+			if health > 0 then
+				local playerPed = PlayerPedId()
+
+				IsBusy = true
+				--ESX.ShowNotification(_U('heal_inprogress'))
+				exports['mythic_notify']:DoHudText('inform', 'Kamu sedang mengobati seseorang.')
+
+				TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TEND_TO_DEAD', 0, true)
+				Citizen.Wait(10000)
+				ClearPedTasks(playerPed)
+
+				TriggerServerEvent('esx_ambulancejob:removeItem', 'medikit')
+				TriggerServerEvent('esx_ambulancejob:heal', GetPlayerServerId(closestPlayer), 'big')
+				--ESX.ShowNotification(_U('heal_complete', GetPlayerName(closestPlayer)))
+				exports['mythic_notify']:DoHudText('success', 'Kamu berhasil mengobati seseorang.')
+
+				IsBusy = false
+			else
+				--ESX.ShowNotification(_U('player_not_conscious'))
+				exports['mythic_notify']:DoHudText('error', 'Tidak dapat menghidupkan player tersebut!')
+
+			end
+		else
+			--ESX.ShowNotification(_U('not_enough_medikit'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup medikit!')
+
+		end
+	end, 'medikit')
+end)
+
+RegisterNetEvent('esx_ambulancejob:st-putveh')
+AddEventHandler('esx_ambulancejob:st-putveh', function()
+local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+IsBusy = true
+TriggerServerEvent('esx_ambulancejob:putInVehicle', GetPlayerServerId(closestPlayer))
+end)
+
+RegisterNetEvent('esx_ambulancejob:st-outveh')
+AddEventHandler('esx_ambulancejob:st-outveh', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	IsBusy = true
+	TriggerServerEvent('esx_policejob:OutVehicle', GetPlayerServerId(closestPlayer))
+end)
+
+RegisterNetEvent('esx_ambulancejob:st-pickup')
+AddEventHandler('esx_ambulancejob:st-pickup', function()
+TriggerEvent('esx_barbie_lyftupp')
+end)
+
+RegisterNetEvent('esx_ambulancejob:st-billing')
+AddEventHandler('esx_ambulancejob:st-billing', function()
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+	IsBusy = true
+	ESX.UI.Menu.Open(
+		'dialog', GetCurrentResourceName(), 'billing',
+		{
+			title = 'Jumlah Faktur'
+		},
+		function(data, menu)
+			local amount = tonumber(data.value)
+			if amount == nil then
+				exports['mythic_notify']:DoHudText('error', 'Angka tidak valid!')
+			else							
+				menu.close()							
+				local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+				if closestPlayer == -1 or closestDistance > 3.0 then
+					exports['mythic_notify']:DoHudText('error', 'Tidak ada orang disekitar')
+				else
+					TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_ambulance', 'Ambulance', amount)
+				end
+			end
+		end,
+	function(data, menu)
+		menu.close()
+	end
+	)
+end)
+
 function OpenAmbulanceActionsMenu()
 	local elements = {
 		{label = _U('cloakroom'), value = 'cloakroom'}
@@ -444,9 +625,9 @@ Citizen.CreateThread(function()
 			end
 
 		elseif ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'ambulance' and not IsDead then
-			if IsControlJustReleased(0, Keys['F6']) then
-				OpenMobileAmbulanceActionsMenu()
-			end
+			--if IsControlJustReleased(0, Keys['F6']) then
+				--OpenMobileAmbulanceActionsMenu()
+			--end
 		else
 			Citizen.Wait(500)
 		end

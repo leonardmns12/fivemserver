@@ -1,5 +1,11 @@
--- gas filling
-DecorRegister("CurrentFuel", 3)
+local seatbeltInput = 305                   -- Toggle seatbelt on/off with K or DPAD down (controller)
+local seatbeltPlaySound = true              -- Play seatbelt sound
+local seatbeltDisableExit = true            -- Disable vehicle exit when seatbelt is enabled
+local seatbeltEjectSpeed = 45.0             -- Speed threshold to eject player (MPH)
+local seatbeltEjectAccel = 100.0            -- Acceleration threshold to eject player (G's)
+local seatbeltColorOn = {160, 255, 160}     -- Color used when seatbelt is on
+local seatbeltColorOff = {255, 96, 96}      -- Color used when seatbelt is off
+DecorRegister("CurrentFuel", 1)
 Fuel = 0
 local gasStations = {
     {179.8573, 6602.839, 31.86817,600},
@@ -25,8 +31,62 @@ function getVehicleInDirection(coordFrom, coordTo)
 
     return vehicle ~= nil and vehicle or 0
 end
+local pedInVeh = false
+local seatbeltIsOn = false
+Citizen.CreateThread(function()
+	local currSpeed = 0.0
+	while true do
+		Citizen.Wait(0)
+		local player = GetPlayerPed(-1)
+		local position = GetEntityCoords(player)
+		local vehicle = GetVehiclePedIsIn(player, false)
 
+		-- Set vehicle states
+		if IsPedInAnyVehicle(player, false) then
+			pedInVeh = true
+		else
+			-- Reset states when not in car
+			pedInVeh = false
+			cruiseIsOn = false
+			seatbeltIsOn = false
+		end
+		local vehicleClass = GetVehicleClass(vehicle)
+		if pedInVeh and vehicleClass ~= 13 then
+			local prevSpeed = currSpeed
+			currSpeed = GetEntitySpeed(vehicle)
 
+			-- Set PED flags
+			SetPedConfigFlag(PlayerPedId(), 32, true)
+			if IsControlJustReleased(0, seatbeltInput) and (enableController or GetLastInputMethod(0)) and vehicleClass ~= 8 then
+				-- Toggle seatbelt status and play sound when enabled
+				seatbeltIsOn = not seatbeltIsOn
+				if seatbeltPlaySound then
+					PlaySoundFrontend(-1, "Faster_Click", "RESPAWN_ONLINE_SOUNDSET", 1)
+				end
+			end
+			if not seatbeltIsOn then
+				-- Eject PED when moving forward, vehicle was going over 45 MPH and acceleration over 100 G's
+				local vehIsMovingFwd = GetEntitySpeedVector(vehicle, true).y > 1.0
+				local vehAcc = (prevSpeed - currSpeed) / GetFrameTime()
+				if (vehIsMovingFwd and (prevSpeed > (seatbeltEjectSpeed/2.237)) and (vehAcc > (seatbeltEjectAccel*9.81))) then
+					SetEntityCoords(player, position.x, position.y, position.z - 0.47, true, true, true)
+					SetEntityVelocity(player, prevVelocity.x, prevVelocity.y, prevVelocity.z)
+					Citizen.Wait(1)
+					SetPedToRagdoll(player, 1000, 1000, 0, 0, 0, 0)
+				else
+					-- Update previous velocity for ejecting player
+					prevVelocity = GetEntityVelocity(vehicle)
+				end
+			elseif seatbeltDisableExit then
+				-- Disable vehicle exit when seatbelt is on
+				DisableControlAction(0, 75)
+			end
+			Citizen.Wait(0)
+		else
+			Citizen.Wait(400)
+		end
+	end
+end)
 
 
 function TargetVehicle()
@@ -211,7 +271,7 @@ end)
 
 
 local counter = 0
-local Mph = GetEntitySpeed(GetVehiclePedIsIn(PlayerPedId(), false)) * 2.236936
+local Mph = GetEntitySpeed(GetVehiclePedIsIn(PlayerPedId(), false)) * 3.6
 local Fuel = 0.0
 local uiopen = false
 local colorblind = false
@@ -285,9 +345,8 @@ Citizen.CreateThread(function()
             end
             local playerPed = PlayerPedId()
             local vehicle = GetVehiclePedIsIn(playerPed, false)
-            Fuel = 100 * GetVehicleFuelLevel(vehicle) / GetVehicleHandlingFloat(vehicle,"CHandlingData","fPetrolTankVolume")
-           -- print(Fuel)
-            Mph = math.ceil(GetEntitySpeed(GetVehiclePedIsIn(player, false)) * 2.236936)
+            Fuel = exports["LegacyFuel"]:GetFuel(vehicle)
+            Mph = math.ceil(GetEntitySpeed(GetVehiclePedIsIn(player, false)) * 3.6)
             local hours = GetClockHours()
             if string.len(tostring(hours)) == 1 then
                 trash = '0'..hours
@@ -308,7 +367,7 @@ Citizen.CreateThread(function()
               mph = Mph,
               fuel = math.ceil(Fuel),
               street = street,
-              belt = seatbelt,
+              belt = seatbeltIsOn,
               time = hours .. ':' .. mins,
               colorblind = colorblind
             }) 
@@ -437,9 +496,9 @@ AddEventHandler("CarFuelAlarm",function()
         while i > 0 do
             PlaySound(-1, "5_SEC_WARNING", "HUD_MINI_GAME_SOUNDSET", 0, 0, 1)
             i = i - 1
-            Citizen.Wait(300)
+            Citizen.Wait(6000)
         end
-        Citizen.Wait(60000)
+        Citizen.Wait(9000)
         alarmset = false
     end
 end)

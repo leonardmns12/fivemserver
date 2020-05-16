@@ -30,10 +30,10 @@ $(document).ready(function(){
        $(".belt").empty();
       if (item.belt === true) {
         let colorOn = (item.colorblind) ? 'blue' : 'green';
-        $(".belt").append(`<div class='${colorOn}'>BELT</div>`);
+        $(".belt").append(`<div class='${colorOn}'>Seatbelt</div>`);
       } else {
         let colorOff = (item.colorblind) ? 'yellow' : 'red';
-        $(".belt").append(`<div class='${colorOff}'>BELT</div>`);
+        $(".belt").append(`<div class='${colorOff}'>Seatbelt</div>`);
       }
     }
 
@@ -44,6 +44,7 @@ $(document).ready(function(){
       $(".fuelamount").empty();
       $(".speedamount").empty();
       $(".street-txt").empty();
+      $(".belt-txt").empty();
 
       $(".time").empty();
       $(".time").append(item.time); 

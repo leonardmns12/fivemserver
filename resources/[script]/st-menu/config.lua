@@ -47,7 +47,7 @@ rootMenuConfig =  {
                 return true
             end
         end,
-        subMenus = {"cuffs:cuff", "cuffs:softcuff", "cuffs:uncuff", "police:escort", "police:putinvehicle", "police:unseatnearest", "cuffs:checkinventory", --[[ "cuffs:remmask",  "police:frisk", ]]--[[ "police:removeweapons" ]] "police:revive", "police:gsr", "police:openmdt", "police:getid", "police:impound"}
+        subMenus = {"cuffs:cuff", "cuffs:softcuff", "cuffs:uncuff", "police:escort", "police:putinvehicle", "police:unseatnearest", "cuffs:checkinventory", --[["police:gsr",]] "police:openmdt", "police:getid", "police:impound"}
     },
     {
         id = "police-vehicle",
@@ -261,23 +261,23 @@ rootMenuConfig =  {
 newSubMenus = {
     ['general:emotes'] = {
         title = "Emotes",
-        icon = "#general-emotes",
-        functionName = "dp:RecieveMenu"
+        icon = "#general-shirt-menu",
+        functionName = "esx_accessories:st-wear"
     },    
     ['general:keysgive'] = {
-        title = "Give Key",
+        title = "Lock/Unlock car",
         icon = "#general-keys-give",
-        functionName = "st:givekey"
+        functionName = "esx_vehiclelock:lockveh"
     },
     ['general:apartgivekey'] = {
-        title = "Give Key",
-        icon = "#general-apart-givekey",
-        functionName = "menu:givekeys"
+        title = "Radio",
+        icon = "#general-broadcast-tower",
+        functionName = "tokovoip:radial"
     },
     ['general:aparttakekey'] = {
-        title = "Take Key",
-        icon = "#general-apart-givekey",
-        functionName = "menu:takekeys"
+        title = "Action menu",
+        icon = "#general-rob-menu",
+        functionName = "cuffs:OpenMenu"
     },
 --[[     ['general:checkoverself'] = {
         title = "Examine Self",
@@ -295,9 +295,9 @@ newSubMenus = {
         functionName = "towgarage:annoyedBouce"
     }, ]]
     ['general:putinvehicle'] = {
-        title = "Seat Vehicle",
+        title = "Seat Vehicles",
         icon = "#general-put-in-veh",
-        functionName = "police:forceEnter"
+        functionName = "esx_policejob:st-setin"
     },
     ['general:unseatnearest'] = {
         title = "Unseat Nearest",
@@ -305,9 +305,9 @@ newSubMenus = {
         functionName = "unseatPlayer"
     },    
     ['general:flipvehicle'] = {
-        title = "Flip Vehicle",
-        icon = "#general-flip-vehicle",
-        functionName = "FlipVehicle"
+        title = "ID Menu",
+        icon = "#general-id-card",
+        functionName = "jsfour-idcard:open-menu"
     },
     ['animations:brave'] = {
         title = "Brave",
@@ -423,27 +423,28 @@ newSubMenus = {
     ['k9:spawn'] = {
         title = "Summon",
         icon = "#k9-spawn",
-        functionName = "K9:Create"
+        -- functionName = "K9:Create"
+        functionName = "esx_policedog:spawnDog"
     },
     ['k9:delete'] = {
         title = "Dismiss",
         icon = "#k9-dismiss",
-        functionName = "K9:Delete"
+        functionName = "esx_policedog:removeDog"
     },
     ['k9:follow'] = {
-        title = "Follow",
+        title = "Attack",
         icon = "#k9-follow",
-        functionName = "K9:Follow"
+        functionName = "esx_policedog:attackNearest"
     },
     ['k9:vehicle'] = {
         title = "Get in/out",
         icon = "#k9-vehicle",
-        functionName = "K9:Vehicle"
+        functionName = "esx_policedog:getIn/getOut"
     },
     ['k9:sit'] = {
         title = "Sit",
         icon = "#k9-sit",
-        functionName = "K9:Sit"
+        functionName = "esx_policedog:sit_stand"
     },
     ['k9:lay'] = {
         title = "Lay",
@@ -453,12 +454,12 @@ newSubMenus = {
     ['k9:stand'] = {
         title = "Stand",
         icon = "#k9-stand",
-        functionName = "K9:Stand"
+        functionName = "esx_policedog:sit_stand"
     },
     ['k9:sniff'] = {
         title = "Sniff Person",
         icon = "#k9-sniff",
-        functionName = "st:k9drugsniff"
+        functionName = "esx_policedog:sniff"
     },
 --[[     ['k9:sniffvehicle'] = {
         title = "Sniff Vehicle",
@@ -493,17 +494,17 @@ newSubMenus = {
     ['cuffs:cuff'] = {
         title = "Hard Cuff",
         icon = "#cuffs-cuff",
-        functionName = "st:handcuff"
+        functionName = "esx_policejob:st-hardcuff"
     }, 
     ['cuffs:softcuff'] = {
         title = "Soft Cuff",
         icon = "#cuffs-cuff",
-        functionName = "st:softcuff"
+        functionName = "esx_policejob:st-softcuff"
     },
     ['cuffs:uncuff'] = {
         title = "Uncuff",
         icon = "#cuffs-uncuff",
-        functionName = "st:uncuff"
+        functionName = "esx_policejob:st-uncuff"
     },
 --[[     ['cuffs:remmask'] = {
         title = "Remove Mask Hat",
@@ -511,9 +512,9 @@ newSubMenus = {
         functionName = "police:remmask"
     }, ]]
     ['cuffs:checkinventory'] = {
-        title = "Search Person",
+        title = "Periksa barang",
         icon = "#cuffs-check-inventory",
-        functionName = "st:search"
+        functionName = "esx_policejob:st-search"
     },
     ['cuffs:unseat'] = {
         title = "Unseat",
@@ -528,62 +529,62 @@ newSubMenus = {
     ['medic:revive'] = {
         title = "Revive",
         icon = "#medic-revive",
-        functionName = "st:emsRevive"
+        functionName = "esx_ambulancejob:st-revive"
     },
     ['medic:heal'] = {
         title = "Treat Small Wounds",
         icon = "#medic-heal",
-        functionName = "st:emssmallheal"
+        functionName = "esx_ambulancejob:st-small"
     },
     ['medic:bigheal'] = {
         title = "Treat Serious Wounds",
         icon = "#medic-heal",
-        functionName = "st:emsbigheal"
+        functionName = "esx_ambulancejob:st-large"
     },
     ['medic:putinvehicle'] = {
         title = "Put in vehicle",
         icon = "#general-put-in-veh",
-        functionName = "st:emsputinvehicle"
+        functionName = "esx_ambulancejob:st-putveh"
     },
     ['medic:takeoutvehicle'] = {
         title = "Take out vehicle",
         icon = "#general-unseat-nearest",
-        functionName = "st:emstakeoutvehicle"
+        functionName = "esx_ambulancejob:st-outveh"
     },
     ['medic:drag'] = {
-        title = "Drag",
+        title = "Pick up",
         icon = "#general-escort",
-        functionName = "st:emsdrag"
+        functionName = "esx_ambulancejob:st-pickup"
     },
     ['medic:undrag'] = {
-        title = "Undrag",
-        icon = "#general-escort",
-        functionName = "st:emsundrag"
+        title = "Billing",
+        icon = "#judge-licenses-grant-business",
+        functionName = "esx_ambulancejob:st-billing"
     },
     ['police:escort'] = {
         title = "Escort",
         icon = "#general-escort",
-        functionName = "st:escort"
+        functionName = "esx_policejob:st-escort"
     },
-    ['police:revive'] = {
-        title = "Revive",
-        icon = "#medic-revive",
-        functionName = "st:pdrevive"
-    },
+    -- ['police:revive'] = {
+    --     title = "Revive",
+    --     icon = "#medic-revive",
+    --     functionName = "st:pdrevive"
+    -- },
     ['police:putinvehicle'] = {
-        title = "Seat Vehicle",
+        title = "Seat Vehicles",
         icon = "#general-put-in-veh",
-        functionName = "st:putinvehicle"
+        functionName = "esx_policejob:st-setin"
     },
     ['police:unseatnearest'] = {
         title = "Unseat Nearest",
         icon = "#general-unseat-nearest",
-        functionName = "st:takeoutvehicle"
+        functionName = "esx_policejob:st-setout"
     },
     ['police:impound'] = {
-        title = "Impound",
+        title = "Lockpick Vehicles",
         icon = "#police-vehicle",
-        functionName = "st:menuimpound"
+        functionName = "esx_policejob:st-hijack"
     },
     ['police:cuff'] = {
         title = "Cuff",
@@ -605,20 +606,20 @@ newSubMenus = {
         icon = "#police-action-remove-weapons",
         functionName = "police:removeWeapon"
     }, ]]
-    ['police:gsr'] = {
-        title = "GSR Test",
-        icon = "#police-action-gsr",
-        functionName = "st:checkGSR"
-    },
+    -- ['police:gsr'] = {
+    --     title = "GSR Test",
+    --     icon = "#police-action-gsr",
+    --     functionName = "st:checkGSR"
+    -- },
     ['police:openmdt'] = {
-        title = "MDT",
+        title = "Tunggakan denda",
         icon = "#judge-licenses-grant-business",
-        functionName = "st:openmdt"
+        functionName = "esx_policejob:st-unpaidbill"
     },
     ['police:getid'] = {
-        title = "Get ID",
+        title = "Denda",
         icon = "#police-vehicle-plate",
-        functionName = "st:getid"
+        functionName = "esx_policejob:st-finemenu"
     },
 --[[     ['police:toggleradar'] = {
         title = "Toggle Radar",

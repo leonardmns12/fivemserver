@@ -88,7 +88,7 @@ function OpenCuffMenu()
     'default', GetCurrentResourceName(), 'cuffing',
     {
       title    = _U('handcuffs'),
-      align    = 'top-left',
+      align    = 'right',
       elements = elements
       },
           function(data2, menu2)

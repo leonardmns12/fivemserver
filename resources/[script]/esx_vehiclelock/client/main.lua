@@ -9,6 +9,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+RegisterNetEvent('esx_vehiclelock:lockveh')
+AddEventHandler('esx_vehiclelock:lockveh', function()
+	ToggleVehicleLock()
+end)
+
+
 function StartWorkaroundTask()
 	if isRunningWorkaround then
 		return
