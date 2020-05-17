@@ -260,9 +260,10 @@ rootMenuConfig =  {
 
 newSubMenus = {
     ['general:emotes'] = {
-        title = "Emotes",
-        icon = "#general-shirt-menu",
-        functionName = "esx_accessories:st-wear"
+        title = "Car control",
+        icon = "#general-car-side",
+        functionName = "carcontrol:open"
+        --esx_accessories:st-wear
     },    
     ['general:keysgive'] = {
         title = "Lock/Unlock car",
