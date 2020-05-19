@@ -239,3 +239,139 @@ h2 {
   width: 100px;
   background-color: #555;
 }
+
+@media (max-width: 1680px){
+  #wrapper {
+    display: none;
+    height: 800px;
+    width: 1400px;
+    position: absolute;
+    top: 450px;           
+    overflow-y: auto;
+    background-color: #181818;
+    left: 100px;
+    transform: translate(0, -50%)
+  }
+
+  .carticon {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 49px;
+  }
+  
+  #cart {
+    display: none;
+    padding: 5px 3px;
+    border-radius: 5px;
+    height: 375px;
+    width: 375px;
+    position: absolute;
+    top: 220.75px;           
+    overflow : auto;
+    background-color: #181818;
+    left: 500.5px;
+  }
+}
+
+@media (max-width: 1440px){
+  #wrapper {
+    display: none;
+    height: 800px;
+    width: 1200px;
+    position: absolute;
+    top: 450px;           
+    overflow-y: auto;
+    background-color: #181818;
+    left: 100px;
+    transform: translate(0, -50%)
+  }
+
+  .carticon {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 49px;
+  }
+  
+  #cart {
+    display: none;
+    padding: 5px 3px;
+    border-radius: 5px;
+    height: 375px;
+    width: 375px;
+    position: absolute;
+    top: 160.75px;           
+    overflow : auto;
+    background-color: #181818;
+    left: 500.5px;
+  }
+}
+
+@media (max-width: 1400px){
+  #wrapper {
+    display: none;
+    height: 800px;
+    width: 1200px;
+    position: absolute;
+    top: 450px;           
+    overflow-y: auto;
+    background-color: #181818;
+    left: 100px;
+    transform: translate(0, -50%)
+  }
+
+  .carticon {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 49px;
+  }
+  
+  #cart {
+    display: none;
+    padding: 5px 3px;
+    border-radius: 5px;
+    height: 375px;
+    width: 375px;
+    position: absolute;
+    top: 160.75px;           
+    overflow : auto;
+    background-color: #181818;
+    left: 500.5px;
+  }
+}
+
+@media (max-width: 1366px){
+  #wrapper {
+    display: none;
+    height: 720px;
+    width: 1200px;
+    position: absolute;
+    top: 400px;           
+    overflow-y: auto;
+    background-color: #181818;
+    left: 80px;
+    transform: translate(0, -50%)
+  }
+
+  .carticon {
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 40px;
+  }
+  
+  #cart {
+    display: none;
+    padding: 5px 3px;
+    border-radius: 5px;
+    height: 375px;
+    width: 375px;
+    position: absolute;
+    top: 160.75px;           
+    overflow : auto;
+    background-color: #181818;
+    left: 500.5px;
+  }
+}
