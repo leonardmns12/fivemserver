@@ -106,6 +106,7 @@ end)
 RegisterServerEvent('esx_policejob:drag')
 AddEventHandler('esx_policejob:drag', function(target)
   local _source = source
+  print(source)
   TriggerClientEvent('esx_policejob:drag', target, _source)
 end)
 

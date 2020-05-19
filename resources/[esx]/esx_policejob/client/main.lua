@@ -48,7 +48,6 @@ AddEventHandler('esx_policejob:st-unpaidbill', function()
 end)
 
 
-
 RegisterNetEvent('esx_policejob:st-hijack')
 AddEventHandler('esx_policejob:st-hijack', function()
 	local playerPed = PlayerPedId()
@@ -222,7 +221,6 @@ Citizen.CreateThread(function()
 				end)
 			end
 		else
-			
 			Citizen.Wait(500)
 		end
 	end

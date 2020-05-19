@@ -106,7 +106,7 @@ AddEventHandler('esx_basicneeds:onEat', function(prop_name)
 
 			ESX.Streaming.RequestAnimDict('mp_player_inteat@burger', function()
 				TaskPlayAnim(playerPed, 'mp_player_inteat@burger', 'mp_player_int_eat_burger_fp', 8.0, -8, -1, 49, 0, 0, 0, 0)
-
+				exports['progressBars']:startUI(3000, "Makan")
 				Citizen.Wait(3000)
 				IsAnimated = false
 				ClearPedSecondaryTask(playerPed)
@@ -122,7 +122,7 @@ AddEventHandler('esx_basicneeds:onDrink', function(prop_name)
 	if not IsAnimated then
 		prop_name = prop_name or 'prop_ld_flow_bottle'
 		IsAnimated = true
-
+		
 		Citizen.CreateThread(function()
 			local playerPed = PlayerPedId()
 			local x,y,z = table.unpack(GetEntityCoords(playerPed))
@@ -139,8 +139,9 @@ AddEventHandler('esx_basicneeds:onDrink', function(prop_name)
 				EnableControlAction(0, 22, true) -- space
 				EnableControlAction(0, 36, true) -- ctrl
 				EnableControlAction(0, 21, true) -- SHIFT
-
+				exports['progressBars']:startUI(3000, "Minum")
 				Citizen.Wait(3000)
+				
 				IsAnimated = false
 				ClearPedSecondaryTask(playerPed)
 				DeleteObject(prop)

@@ -35,6 +35,7 @@ Citizen.CreateThread(function()
     end
 end)
 
+
 -- NUI that get triggered on success
 RegisterNUICallback('CraftingSuccess', function()
     SetNuiFocus(false, false)
