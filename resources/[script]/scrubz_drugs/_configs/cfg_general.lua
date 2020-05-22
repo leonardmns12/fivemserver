@@ -25,14 +25,14 @@ Config.WeedItemPrice = 65
 ---------------------------
 Config.EnableCocaine = true
 Config.CokeItemName = 'coke1g'
-Config.CokeItemPrice = 5000
+Config.CokeItemPrice = 8000
 
 ---------------------------
 -- Meth --
 ---------------------------
 Config.EnableMeth = true
 Config.MethItemName = 'meth1g'
-Config.MethItemPrice = 7000
+Config.MethItemPrice = 13000
 
 ---------------------------
 -- Crack --

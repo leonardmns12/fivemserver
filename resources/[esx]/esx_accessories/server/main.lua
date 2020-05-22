@@ -7,8 +7,7 @@ AddEventHandler('esx_accessories:pay', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
 
 	xPlayer.removeMoney(Config.Price)
-	--TriggerClientEvent('esx:showNotification', source, _U('you_paid', ESX.Math.GroupDigits(Config.Price)))
-	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'Kamu telah membayar '..ESX.Math.GroupDigits(Config.Price), length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+	TriggerClientEvent('esx:showNotification', source, _U('you_paid', ESX.Math.GroupDigits(Config.Price)))
 end)
 
 RegisterServerEvent('esx_accessories:save')

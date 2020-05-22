@@ -15,10 +15,10 @@ function OpenAccessoryMenu()
 		title = _U('set_unset'),
 		align = 'top-left',
 		elements = {
-			{label = _U('Helm'), value = 'Helmet'},
-			{label = _U('Anting'), value = 'Ears'},
-			{label = _U('Topeng'), value = 'Mask'},
-			{label = _U('Kacamata'), value = 'Glasses'}
+			{label = _U('helmet'), value = 'Helmet'},
+			{label = _U('ears'), value = 'Ears'},
+			{label = _U('mask'), value = 'Mask'},
+			{label = _U('glasses'), value = 'Glasses'}
 		}}, function(data, menu)
 		menu.close()
 		SetUnsetAccessory(data.current.value)
@@ -51,8 +51,7 @@ function SetUnsetAccessory(accessory)
 				TriggerEvent('skinchanger:loadClothes', skin, accessorySkin)
 			end)
 		else
-			--ESX.ShowNotification(_U('no_' .. _accessory))
-			exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya aksesoris!')
+			ESX.ShowNotification(_U('no_' .. _accessory))
 		end
 	end, accessory)
 end
@@ -86,8 +85,7 @@ function OpenShopMenu(accessory)
 						TriggerEvent('esx_skin:getLastSkin', function(skin)
 							TriggerEvent('skinchanger:loadSkin', skin)
 						end)
-						--ESX.ShowNotification(_U('not_enough_money'))
-						exports['mythic_notify']:DoHudText('error', 'Kamu tidak punya cukup uang')
+						ESX.ShowNotification(_U('not_enough_money'))
 					end
 				end)
 			end
@@ -136,11 +134,6 @@ end)
 AddEventHandler('esx_accessories:hasExitedMarker', function(zone)
 	ESX.UI.Menu.CloseAll()
 	CurrentAction = nil
-end)
-
-RegisterNetEvent('esx_accessories:st-wear')
-AddEventHandler('esx_accessories:st-wear', function()
-	OpenAccessoryMenu()
 end)
 
 -- Create Blips --
@@ -224,10 +217,10 @@ Citizen.CreateThread(function()
 			Citizen.Wait(500)
 		end
 
-		--[[if Config.EnableControls then
-			if IsControlJustReleased(0, 311) and IsInputDisabled(0) then
+		if Config.EnableControls then
+			if IsControlJustReleased(0, 311) and IsInputDisabled(0) and not isDead then
 				OpenAccessoryMenu()
 			end
-		end]]
+		end
 	end
 end)

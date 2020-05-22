@@ -132,6 +132,17 @@
           "number": "taxi"
         }
       }]
+    },
+     {
+      "display": "Mekanik",
+      "backgroundColor": "yellow",
+      "subMenu": [{
+        "title": "Send a message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "mecano"
+        }
+      }]
     }
   ],
 
@@ -149,8 +160,15 @@
     },
     {
       "number": "taxi",
-      "display": "Taxi",
-      "backgroundColor": "yellow"
+      "display": "Ojek Online",
+      "backgroundColor": "yellow",
+      "icon": "/html/static/img/icons_app/gojek.png"
+    },
+     {
+      "number": "mecano",
+      "display": "Mekanik",
+      "backgroundColor": "yellow",
+      "icon": "/html/static/img/icons_app/mecano.png"
     }
   ],
 

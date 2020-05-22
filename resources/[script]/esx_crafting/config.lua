@@ -28,7 +28,7 @@ Crafting.Items = {
         label = "Lockpick",
         needs = {
             ["iron"] = {label = "Besi", count = 10},
-            ["blowtorch"] = {label = "blowtorch", count = 5},
+            ["blowtorch"] = {label = "blowtorch", count = 2},
             ["wood"] = {label = "Kayu", count = 5},
         },
         threshold = 0,
@@ -38,7 +38,7 @@ Crafting.Items = {
         needs = {
             ["iron"] = {label = "Besi", count = 20},
             ["blowtorch"] = {label = "blowtorch", count = 10},
-            ["wood"] = {label = "Kayu", count = 10},
+            ["wood"] = {label = "Kayu", count = 3},
         },
         threshold = 0,
     },
@@ -139,7 +139,7 @@ Crafting.Items = {
     ["baggie"] = {
         label = "Plastik",
         needs = {
-            ["leather"] = {label = "Botol Plastik", count = 5},
+            ["leather"] = {label = "Kulit", count = 2},
         },
         threshold = 0,
     },
