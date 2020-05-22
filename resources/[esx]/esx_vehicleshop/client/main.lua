@@ -106,7 +106,7 @@ function ReturnVehicleProvider()
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'return_provider_menu', {
 			title    = _U('return_provider_menu'),
-			align    = 'top-left',
+			align    = 'top-right',
 			elements = elements
 		}, function(data, menu)
 			TriggerServerEvent('esx_vehicleshop:returnProvider', data.current.value)
