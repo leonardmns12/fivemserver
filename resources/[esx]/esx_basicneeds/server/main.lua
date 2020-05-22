@@ -14,6 +14,30 @@ ESX.RegisterUsableItem('bread', function(source)
 	exports['progressBars']:startUI(3000, "Minum")
 end)
 
+ESX.RegisterUsableItem('cocacola', function(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	xPlayer.removeInventoryItem('cocacola', 1)
+
+	TriggerClientEvent('esx_status:add', source, 'thirst', 250000)
+	TriggerClientEvent('esx_basicneeds:onEat', source)
+	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah minum 1 cola', length = 2900, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+	-- TriggerClientEvent('esx:showNotification', source, _U('used_bread'))
+	exports['progressBars']:startUI(3000, "Minum")
+end)
+
+ESX.RegisterUsableItem('sandwich', function(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	xPlayer.removeInventoryItem('sandwich', 1)
+
+	TriggerClientEvent('esx_status:add', source, 'hunger', 150000)
+	TriggerClientEvent('esx_basicneeds:onEat', source)
+	TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Kamu telah memakan 1 sandwich', length = 2900, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+	-- TriggerClientEvent('esx:showNotification', source, _U('used_bread'))
+	exports['progressBars']:startUI(3000, "Makan")
+end)
+
 ESX.RegisterUsableItem('water', function(source)
 	local xPlayer = ESX.GetPlayerFromId(source)
 

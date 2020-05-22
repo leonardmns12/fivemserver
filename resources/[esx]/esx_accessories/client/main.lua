@@ -10,6 +10,12 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('esx_accessories:st-wear')
+AddEventHandler('esx_accessories:st-wear', function()
+	OpenAccessoryMenu()
+end)
+
+
 function OpenAccessoryMenu()
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'set_unset_accessory', {
 		title = _U('set_unset'),

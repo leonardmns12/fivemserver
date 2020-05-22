@@ -33,7 +33,7 @@ rootMenuConfig =  {
         fuck = false
             return not fuck
         end,
-        subMenus = {"general:flipvehicle",  "general:checkoverself", "general:checktargetstates",  "general:keysgive",  "general:emotes",  "general:checkvehicle", "general:apartgivekey", "general:aparttakekey"  }
+        subMenus = {"general:flipvehicle", --[["general:wear-menu" ,]]  "general:checkoverself", "general:checktargetstates",  "general:keysgive",  "general:emotes",  "general:checkvehicle", "general:apartgivekey", "general:aparttakekey"  }
     },
     {
         id = "police-action",
@@ -310,6 +310,11 @@ newSubMenus = {
         icon = "#general-id-card",
         functionName = "jsfour-idcard:open-menu"
     },
+    -- ['general:wear-menu'] = {
+    --     title = "Wear Menu",
+    --     icon = "#general-shirt-menu",
+    --     functionName = "esx_accessories:st-wear"
+    -- },
     ['animations:brave'] = {
         title = "Brave",
         icon = "#animation-brave",
