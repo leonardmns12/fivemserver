@@ -38,10 +38,12 @@ AddEventHandler('esx_taxijob:success', function()
 		xPlayer.addMoney(playerMoney)
 		societyAccount.addMoney(societyMoney)
 
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('comp_earned', societyMoney, playerMoney))
+		--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('comp_earned', societyMoney, playerMoney))
+		TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'inform', text = '- Perusahaan mendapat pemasukkan Rp ' ..societyMoney.. '\n- Kamu mendapatkan Rp ' ..playerMoney, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	else
 		xPlayer.addMoney(total)
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_earned', total))
+		--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_earned', total))
+		TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'inform', text = 'Kamu mendapatkan Rp ' ..total, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 	end
 
 end)
@@ -64,14 +66,17 @@ AddEventHandler('esx_taxijob:getStockItem', function(itemName, count)
 		
 			-- can the player carry the said amount of x item?
 			if  (sourceItem.count + count) > 99999999 then
-				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('player_cannot_hold'))
+				--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('player_cannot_hold'))
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'error', text = 'Inventori kamu penuh!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			else
 				inventory.removeItem(itemName, count)
 				xPlayer.addInventoryItem(itemName, count)
-				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_withdrawn', count, item.label))
+				--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_withdrawn', count, item.label))
+				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu mengambil ' ..count.. ' ' ..item.label, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			end
 		else
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'error', text = 'Jumlah invalid', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 	end)
 end)
@@ -97,9 +102,11 @@ AddEventHandler('esx_taxijob:putStockItems', function(itemName, count)
 		if item.count >= 0 then
 			xPlayer.removeInventoryItem(itemName, count)
 			inventory.addItem(itemName, count)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_deposited', count, item.label))
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_deposited', count, item.label))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu menaruh '..count..' '..item.label, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
+			--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
+			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'error', text = 'Jumlah invalid', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		end
 
 	end)

@@ -208,7 +208,10 @@ files {
   "html/img/items/licenseB.png",
   "html/img/items/lithium.png",
   "html/img/items/batteryacid.png",
-  "html/img/items/psuedoephedrine.png"
+  "html/img/items/psuedoephedrine.png",
+  "html/img/items/turtle.png",
+  "html/img/items/turtlebait.png",
+  "html/img/items/shark.png"
 }
 
 dependencies {

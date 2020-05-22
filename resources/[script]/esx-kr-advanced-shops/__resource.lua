@@ -26,6 +26,7 @@ files({
   'html/img/weabox.png',
   'html/img/weaclip.png',
 	'html/img/carticon.png',
+	'html/img/turtlebait.png',
 })
 
 client_scripts {

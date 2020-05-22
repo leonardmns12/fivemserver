@@ -158,7 +158,8 @@ function OpenVehicleSpawnerMenu()
 				elements = elements
 			}, function(data, menu)
 				if not ESX.Game.IsSpawnPointClear(Config.Zones.VehicleSpawnPoint.Pos, 5.0) then
-					ESX.ShowNotification(_U('spawnpoint_blocked'))
+					--ESX.ShowNotification(_U('spawnpoint_blocked'))
+					exports['mythic_notify']:DoHudText('error', 'Ada objek yang menghalangi spawn point!')
 					return
 				end
 
@@ -191,7 +192,8 @@ function OpenVehicleSpawnerMenu()
 			elements	= Config.AuthorizedVehicles
 		}, function(data, menu)
 			if not ESX.Game.IsSpawnPointClear(Config.Zones.VehicleSpawnPoint.Pos, 5.0) then
-				ESX.ShowNotification(_U('spawnpoint_blocked'))
+				--ESX.ShowNotification(_U('spawnpoint_blocked'))
+				exports['mythic_notify']:DoHudText('error', 'Ada objek yang menghalangi spawn point!')
 				return
 			end
 
@@ -225,7 +227,8 @@ function DeleteJobVehicle()
 				TriggerServerEvent('esx_service:disableService', 'taxi')
 			end
 		else
-			ESX.ShowNotification(_U('only_taxi'))
+			--ESX.ShowNotification(_U('only_taxi'))
+			exports['mythic_notify']:DoHudText('error', 'Kamu hanya dapat menyimpan mobil taksi')
 		end
 	end
 end
@@ -243,7 +246,7 @@ function OpenTaxiActionsMenu()
 	ESX.UI.Menu.CloseAll()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'taxi_actions', {
-		title    = 'Taxi',
+		title    = 'Taksi',
 		align    = 'top-left',
 		elements = elements
 	}, function(data, menu)
@@ -271,7 +274,7 @@ function OpenMobileTaxiActionsMenu()
 	ESX.UI.Menu.CloseAll()
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'mobile_taxi_actions', {
-		title    = 'Taxi',
+		title    = 'Taksi',
 		align    = 'top-left',
 		elements = {
 			{label = _U('billing'),   value = 'billing'},
@@ -285,15 +288,18 @@ function OpenMobileTaxiActionsMenu()
 
 				local amount = tonumber(data.value)
 				if amount == nil then
-					ESX.ShowNotification(_U('amount_invalid'))
+					--ESX.ShowNotification(_U('amount_invalid'))
+					exports['mythic_notify']:DoHudText('error', 'Jumlah invalid')
 				else
 					menu.close()
 					local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 					if closestPlayer == -1 or closestDistance > 3.0 then
-						ESX.ShowNotification(_U('no_players_near'))
+						--ESX.ShowNotification(_U('no_players_near'))
+						exports['mythic_notify']:DoHudText('error', 'Tidak ada orang disekitar!')
 					else
 						TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_taxi', 'Taxi', amount)
-						ESX.ShowNotification(_U('billing_sent'))
+						--ESX.ShowNotification(_U('billing_sent'))
+						exports['mythic_notify']:DoHudText('success', 'Tagihan telah terkirim!')
 					end
 
 				end
@@ -317,14 +323,17 @@ function OpenMobileTaxiActionsMenu()
 							if IsInAuthorizedVehicle() then
 								StartTaxiJob()
 							else
-								ESX.ShowNotification(_U('must_in_taxi'))
+								--ESX.ShowNotification(_U('must_in_taxi'))
+								exports['mythic_notify']:DoHudText('error', 'Kamu harus didalam taksi untuk memulai misi')
 							end
 						end
 					else
 						if tonumber(ESX.PlayerData.job.grade) >= 3 then
-							ESX.ShowNotification(_U('must_in_vehicle'))
+							--ESX.ShowNotification(_U('must_in_vehicle'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu harus didalam kendaraan untuk memulai misi')
 						else
-							ESX.ShowNotification(_U('must_in_taxi'))
+							--ESX.ShowNotification(_U('must_in_taxi'))
+							exports['mythic_notify']:DoHudText('error', 'Kamu harus didalam taksi untuk memulai misi')
 						end
 					end
 				end
@@ -359,7 +368,7 @@ function OpenGetStocksMenu()
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stocks_menu', {
-			title    = 'Taxi Stock',
+			title    = 'Stok Taksi',
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
@@ -371,7 +380,8 @@ function OpenGetStocksMenu()
 				local count = tonumber(data2.value)
 
 				if count == nil then
-					ESX.ShowNotification(_U('quantity_invalid'))
+					--ESX.ShowNotification(_U('quantity_invalid'))
+					exports['mythic_notify']:DoHudText('error', 'Jumlah invalid')
 				else
 					menu2.close()
 					menu.close()
@@ -420,7 +430,8 @@ function OpenPutStocksMenu()
 				local count = tonumber(data2.value)
 
 				if count == nil then
-					ESX.ShowNotification(_U('quantity_invalid'))
+					--ESX.ShowNotification(_U('quantity_invalid'))
+					exports['mythic_notify']:DoHudText('error', 'Jumlah invalid')
 				else
 					menu2.close()
 					menu.close()
@@ -581,13 +592,15 @@ Citizen.CreateThread(function()
 							local standTime = GetRandomIntInRange(60000, 180000)
 							TaskStandStill(CurrentCustomer, standTime)
 
-							ESX.ShowNotification(_U('customer_found'))
+							--ESX.ShowNotification(_U('customer_found'))
+							exports['mythic_notify']:DoHudText('success', 'Kamu mendapat order, segera jemput pelanggan tersebut!')
 						end
 					end
 				end
 			else
 				if IsPedFatallyInjured(CurrentCustomer) then
-					ESX.ShowNotification(_U('client_unconcious'))
+					--ESX.ShowNotification(_U('client_unconcious'))
+					exports['mythic_notify']:DoHudText('error', 'Tidak dapat mengambil klien ini, cari klien lain!')
 
 					if DoesBlipExist(CurrentCustomerBlip) then
 						RemoveBlip(CurrentCustomerBlip)
@@ -615,7 +628,8 @@ Citizen.CreateThread(function()
 							if targetDistance <= 10.0 then
 								TaskLeaveVehicle(CurrentCustomer, vehicle, 0)
 
-								ESX.ShowNotification(_U('arrive_dest'))
+								--ESX.ShowNotification(_U('arrive_dest'))
+								exports['mythic_notify']:DoHudText('success', 'Kamu telah sampai di tempat tujuan')
 
 								TaskGoStraightToCoord(CurrentCustomer, targetCoords.x, targetCoords.y, targetCoords.z, 1.0, -1, 0.0, 0.0)
 								SetEntityAsMissionEntity(CurrentCustomer, false, true)
@@ -675,7 +689,8 @@ Citizen.CreateThread(function()
 							if customerDistance <= 40.0 then
 
 								if not IsNearCustomer then
-									ESX.ShowNotification(_U('close_to_client'))
+									--ESX.ShowNotification(_U('close_to_client'))
+									exports['mythic_notify']:DoHudText('error', 'Kamu terlalu jauh dari klien, coba lebih dekat lagi')
 									IsNearCustomer = true
 								end
 

@@ -18,6 +18,7 @@ Config.Items = {
     [6] = {label = "Bullet-Proof Vest",      item = "bulletproof",       price = 25000},
     [7] = {label = "Umpan ikan",      item = "fishbait",       price = 50},
     [8] = {label = "Pancingan",      item = "fishingrod",       price = 50},
+    [9] = {label = "Turtle bait",      item = "turtlebait",       price = 150},
 }
 
 Config.Images = {
@@ -35,6 +36,7 @@ Config.Images = {
   [12] = {item = "advancedlockpick",   src = "img/advancedlockpick.png"},
   [13] = {item = "weabox",   src = "img/weabox.png"},
   [14] = {item = "weaclip",   src = "img/weaclip.png"},
+  [15] = {item = "turtlebait",   src = "img/turtlebait.png"},
 }
 
 Config.Zones = {
