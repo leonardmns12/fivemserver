@@ -19,6 +19,8 @@ Config.Items = {
     [7] = {label = "Umpan ikan",      item = "fishbait",       price = 50},
     [8] = {label = "Pancingan",      item = "fishingrod",       price = 50},
     [9] = {label = "Turtle bait",      item = "turtlebait",       price = 150},
+    [10] = {label = "Coca cola",      item = "cocacola",       price = 50},
+    [11] = {label = "sandwich",      item = "sandwich",       price = 50},
 }
 
 Config.Images = {
@@ -37,6 +39,8 @@ Config.Images = {
   [13] = {item = "weabox",   src = "img/weabox.png"},
   [14] = {item = "weaclip",   src = "img/weaclip.png"},
   [15] = {item = "turtlebait",   src = "img/turtlebait.png"},
+  [16] = {item = "cocacola",   src = "img/cocacola.png"},
+  [17] = {item = "sandwich",   src = "img/sandwich.png"},
 }
 
 Config.Zones = {
