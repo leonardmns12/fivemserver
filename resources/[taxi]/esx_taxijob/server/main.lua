@@ -1,5 +1,10 @@
 ESX = nil
 
+local logs = "https://discordapp.com/api/webhooks/713628484043407391/vjFkwmXs_tEMbI-yAjRvXOXX5WBchmIip2xF7fcO6nm7o0u46APQaRjp9nqY2eFMa1kZ"
+local communityname = "INDOFOLKS ROLEPLAY"
+local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
+
+
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 if Config.MaxInService ~= -1 then
@@ -51,7 +56,8 @@ end)
 RegisterServerEvent('esx_taxijob:getStockItem')
 AddEventHandler('esx_taxijob:getStockItem', function(itemName, count)
 	local xPlayer = ESX.GetPlayerFromId(source)
-
+	local name = GetPlayerName(source)
+  	local steamhex = GetPlayerIdentifier(source)
 	if xPlayer.job.name ~= 'taxi' then
 		print(('esx_taxijob: %s attempted to trigger getStockItem!'):format(xPlayer.identifier))
 		return
@@ -71,6 +77,19 @@ AddEventHandler('esx_taxijob:getStockItem', function(itemName, count)
 			else
 				inventory.removeItem(itemName, count)
 				xPlayer.addInventoryItem(itemName, count)
+				local connect = {
+					{
+						["color"] = "14886454",
+						["title"] = "Gocek mengambil barang dari kantor!",
+						["description"] = "Player: **"..name.."**\nBarang: **" ..itemName.. "**\nJumblah: **"..count.."**\nSteam Hex: **"..steamhex.."**",
+					  	["footer"] = {
+							["text"] = communityname,
+							["icon_url"] = communtiylogo,
+						},
+					}
+				}																								
+				PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
+
 				--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_withdrawn', count, item.label))
 				TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu mengambil ' ..count.. ' ' ..item.label, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 			end
@@ -90,7 +109,8 @@ end)
 RegisterServerEvent('esx_taxijob:putStockItems')
 AddEventHandler('esx_taxijob:putStockItems', function(itemName, count)
 	local xPlayer = ESX.GetPlayerFromId(source)
-
+	local name = GetPlayerName(source)
+	local steamhex = GetPlayerIdentifier(source)
 	if xPlayer.job.name ~= 'taxi' then
 		print(('esx_taxijob: %s attempted to trigger putStockItems!'):format(xPlayer.identifier))
 		return
@@ -102,6 +122,18 @@ AddEventHandler('esx_taxijob:putStockItems', function(itemName, count)
 		if item.count >= 0 then
 			xPlayer.removeInventoryItem(itemName, count)
 			inventory.addItem(itemName, count)
+				local connect = {
+					{
+						["color"] = "14886454",
+						["title"] = "Gocek menyimpan barang dari kantor!",
+						["description"] = "Player: **"..name.."**\nBarang: **" ..itemName.. "**\nJumblah: **"..count.."**\nSteam Hex: **"..steamhex.."**",
+					  	["footer"] = {
+							["text"] = communityname,
+							["icon_url"] = communtiylogo,
+						},
+					}
+				}																								
+				PerformHttpRequest(logs, function(err, text, headers) end, 'POST', json.encode({username = "Indofolks Server Logger", embeds = connect}), { ['Content-Type'] = 'application/json' })
 			--TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_deposited', count, item.label))
 			TriggerClientEvent('mythic_notify:client:SendAlert', xPlayer.source, { type = 'success', text = 'Kamu menaruh '..count..' '..item.label, length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
 		else

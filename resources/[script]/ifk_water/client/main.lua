@@ -1,28 +1,41 @@
 ESX = nil
-local IsAnimated = false
 
-Citizen.CreateThread(function()
+Citizen.CreateThread(function ()
     while ESX == nil do
-        TriggerEvent('esx_getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
+          TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+          Citizen.Wait(0)
     end
-
 end)
+
+-- Citizen.CreateThread(function ()
+--     while ESX == nil do
+--         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+--         Citizen.Wait(0)
+--     end
+-- end)
 
 Citizen.CreateThread(function()
     while true do
-    	Citizen.Wait(0)
-    	-- print('ea')
-        --if ESX ~= nil then
-        	-- print('ea')
-            local pos = GetEntityCoords(GetPlayerPed(-1) , true)
-                    if GetDistanceBetweenCoords(pos.x , pos.y , pos.z, 437.33 , -978.9, 30.90 , true) < 2.5 then
-                        DrawText3D(437.33 , -978.9, 30.90 , "[~g~E~w~] untuk minum")
+		Citizen.Wait(0)
+		local pos = GetEntityCoords(GetPlayerPed(-1) , true)
+		if ESX ~= nil and Water.location ~= nil then
+			    for i=1, #Water.location , 1 do
+                    if GetDistanceBetweenCoords(pos.x , pos.y , pos.z, Water.location[i].x, Water.location[i].y, Water.location[i].z , true) < 2.5 then
+                        DrawText3D(Water.location[i].x, Water.location[i].y, Water.location[i].z , '[~g~E~w~] untuk minum')
                         if IsControlJustReleased(0 , 38) then
                             openWater(source)
                         end
-                    end
-        --end
+					end
+				end	
+				for i=1, #Water.location2 , 1 do
+                    if GetDistanceBetweenCoords(pos.x , pos.y , pos.z, Water.location2[i].x, Water.location2[i].y, Water.location2[i].z , true) < 2.5 then
+                        DrawText3D(Water.location2[i].x, Water.location2[i].y, Water.location2[i].z , '[~g~E~w~] untuk makan')
+                        if IsControlJustReleased(0 , 38) then
+                            openWater2(source)
+                        end
+					end
+				end	
+        end
     end
 end)
 
@@ -32,6 +45,12 @@ end)
 function openWater(source)
 
 	TriggerServerEvent('ifk_water:drinkSuccess')
+end
+
+
+function openWater2(source)
+
+	TriggerServerEvent('ifk_water:eatSuccess')
 end
 
 

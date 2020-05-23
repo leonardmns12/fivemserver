@@ -2,10 +2,10 @@ Config              = {}
 
 
 Config.Zones = {
-	CokeFarm =			{x = 1361.1,	y = 3603.41,	    z = 34.95},
+	CokeFarm =			{x = 1389.33,	y = 3604.73,	    z = 38.94},
 	-- CokeTreatment =		{x = 1393.51,	y= 3602.06,		    z = 38.94},
 	-- CokeResell =		{x = 959.93,	y = -122.02,		z = 74.35},
-	MethFarm =			{x = 2310.54,	y = 4884.84,		z = 41.81}
+	MethFarm =			{x = 2434.31,	y = 4963.86,		z = 42.35}
 	-- MethTreatment =		{x = 1378.43,	y = 2172.47,		z = 97.72}
 	-- MethResell =		{x = -241.03,	y = 6354.96,		z = 30.6},
 	-- WeedFarm =			{x = 2233.6,	y = 5577.64,		z = 53.01},
@@ -40,9 +40,9 @@ Config.Zones2 = {
 
 
 Config.Blips = {
-    {name = "Coke Farm", 		 color=37, scale=0.8, id=501,	     x = 1361.1,	y= 3603.41,	    z = 34.95},
+    {name = "Coke Farm", 		 color=37, scale=0.8, id=501,	    x = 1389.33,	y = 3604.73,	    z = 38.94},
 
-	{name = "Meth Farm",       color=77, scale=0.8, id=499,	         x = 2310.54,	y = 4884.84,		z = 41.81},
+	{name = "Meth Farm",       color=77, scale=0.8, id=499,	         x = 2434.31,	y = 4963.86,		z = 42.35},
 
 	{name = "Farmasi",       color=69, scale=0.8, id=475,	         x = 243.02,	y = -1376.61,		z = 39.53},
 

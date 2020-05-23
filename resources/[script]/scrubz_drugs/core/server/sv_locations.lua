@@ -13,11 +13,11 @@ AddEventHandler('scrubz_drugs_sv:getDoors', function()
 		[7] = {pos = vector3(-74.91, -1803.15, 27.88), teleport = nil, id = 'cokeTheft', enter = nil,  text = 'Press ~r~[E]~w~ steal some coke'},
 	}
 	local drugPackaging = {  --[[ 1 = Coke Packaging, 2 = Meth Packaging, 3 = Crack Packaging, 4 = Meth Cooking, 5 = Crack Cooking ]]
-		[1] = {pos = vector3(1092.45, -3196.61, -39.98), id = 'pCoke', text = 'Press ~r~[E]~w~ to bag up some coke'},
-		[2] = {pos = vector3(1013.34, -3194.89, -39.78), id = 'pMeth', text = 'Press ~r~[E]~w~ to bag up some meth'},
+		[1] = {pos = vector3(1389.33, 3604.73, 38.94), id = 'pCoke', text = 'Press ~r~[E]~w~ to bag up some coke'},
+		[2] = {pos = vector3(2434.31, 4963.86, 42.35), id = 'pMeth', text = 'Press ~r~[E]~w~ to bag up some meth'},
 		[3] = {pos = vector3(1101.71, -3193.77, -39.81), id = 'pCrack', text = 'Press ~r~[E]~w~ to bag up some crack'},
-		[4] = {pos = vector3(1005.74, -3200.37, -39.35), id = 'cMeth', text = 'Press ~r~[E]~w~ to cook some meth'},
-		[5] = {pos = vector3(1100.81, -3198.83, -39.81), id = 'cCrack', text = 'Press ~r~[E]~w~ to cook some crack'},
+		[4] = {pos = vector3(2433.78, 4969.1, 42.35), id = 'cMeth', text = 'Press ~r~[E]~w~ to cook some meth'},
+		[5] = {pos = vector3(1013.34, -3194.89, -39.78), id = 'cCrack', text = 'Press ~r~[E]~w~ to cook some crack'},
 	}
 	local mRaidWarning = vector3(245.13, -1373.29, 29.12)
 	local mRaidMarker = vector3(243.02, -1376.61, 39.53)

@@ -797,10 +797,19 @@ Config.DoorList = {
 	},
 -- biker 
 	{
-		objName = 'v_ilev_lostdoor',
-		objCoords  = {x = 981.745, y = -102.808, z = 74.849},
-		textCoords = {x = 981.745, y = -102.808, z = 74.849},
-		authorizedJobs = { 'biker' },
+		objName = 'v_ilev_store_door',
+		objCoords  = {x = 889.24, y = -159.81670, z = 76.94},
+		textCoords = {x = 889.24, y = -159.81670, z = 76.94},
+		authorizedJobs = { 'taxi' },
+		locked = true,
+		distance = 1.4,
+		size = 0.5
+	},
+	{
+		objName = 'v_ilev_rc_door2',
+		objCoords  = {x = 889.80, y = -169.11, z = 77.19},
+		textCoords = {x = 889.80, y = -169.11, z = 77.19},
+		authorizedJobs = { 'taxi' },
 		locked = true,
 		distance = 1.4,
 		size = 0.5

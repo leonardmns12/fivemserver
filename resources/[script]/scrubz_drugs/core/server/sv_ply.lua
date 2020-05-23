@@ -170,10 +170,10 @@ RegisterServerEvent('scrubz_drugs_sv:raidReward')
 AddEventHandler('scrubz_drugs_sv:raidReward', function(level)
     local xPlayer = ESX.GetPlayerFromId(source)
     if level == class1 then
-        local amount = math.random(15, 30)
+        local amount = math.random(1, 10)
         xPlayer.addInventoryItem(Config.Reward1, amount)
     elseif level == class2 then
-        local amount = math.random(40, 70)
+        local amount = math.random(1, 10)
         xPlayer.addInventoryItem(Config.Reward1, amount)
     end
 end)

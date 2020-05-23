@@ -211,3 +211,8 @@ input:focus {
 .chat-message.mecano {
   background-color: rgba(123, 63, 0,0.75);
 }
+
+.chat-message.gocek {
+  background-color: rgba(194, 187, 0, 0.81);
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
