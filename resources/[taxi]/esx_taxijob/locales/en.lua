@@ -44,6 +44,6 @@ Locales['en'] = {
   ['have_withdrawn'] = 'Kamu mengambil ~y~x%s~s~ ~b~%s~s~',
   ['have_deposited'] = 'Kamu menaruh ~y~x%s~s~ ~b~%s~s~',
   ['player_cannot_hold'] = 'Inventori kamu penuh!',
-  ['blip_taxi'] = 'Taksi #IFR Corp.',
-  ['phone_taxi'] = 'Taksi #IFR Corp.',
+  ['blip_taxi'] = 'Kantor GOCEK.',
+  ['phone_taxi'] = 'Kantor GOCEK.',
 }

@@ -123,8 +123,9 @@
       }]
     },
     {
-      "display": "Taxi",
+      "display": "Gocek",
       "backgroundColor": "yellow",
+      "icon": "/html/static/img/icons_app/gojek.png",
       "subMenu": [{
         "title": "Send a message",
         "eventName": "esx_addons_gcphone:call",
@@ -136,6 +137,7 @@
      {
       "display": "Mekanik",
       "backgroundColor": "yellow",
+      "icon": "/html/static/img/icons_app/mecano.png",
       "subMenu": [{
         "title": "Send a message",
         "eventName": "esx_addons_gcphone:call",
