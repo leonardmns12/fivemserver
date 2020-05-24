@@ -79,7 +79,7 @@ function applyPingColor() {
 			} else {
 				var color = 'green';
 
-				if (ping > 50 && ping < 80) {
+				if (ping > 100 && ping < 200) {
 					color = 'orange';
 				} else if (ping >= 80) {
 					color = 'red';
