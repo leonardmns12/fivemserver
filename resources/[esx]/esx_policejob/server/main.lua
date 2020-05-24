@@ -4,7 +4,7 @@ local logs = "https://discordapp.com/api/webhooks/707887222254207006/9asab0Vgy3x
 local logs1 = "https://discordapp.com/api/webhooks/707887776942653443/TSBaLKOyVrSkWjmhd3QKw-0L5SV14r3Z_UbeHt0QgiCOk3ljanhvEXKLdE4fQvcsQ4Q3"
 
 local communityname = "INDOFOLKS ROLEPLAY"
-local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
+local communtiylogo = "https://i.imgur.com/XkJXytt.png" 
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 

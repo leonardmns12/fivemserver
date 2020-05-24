@@ -9,7 +9,7 @@ PlayersCrafting3   = {}
 local logs = "https://discordapp.com/api/webhooks/710035680402735144/emN96EtOFBAzjsaaCa6_s_ssaSHFhk0B6DJXK3nqpJqQRIZ-l8Mtr2o5-D9Wy_BMTJ99"
 
 local communityname = "INDOFOLKS ROLEPLAY"
-local communtiylogo = "https://i.imgur.com/fZZWZ5l.png" 
+local communtiylogo = "https://i.imgur.com/XkJXytt.png" 
 
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
