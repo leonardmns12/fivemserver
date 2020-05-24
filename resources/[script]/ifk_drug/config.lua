@@ -48,10 +48,10 @@ Config.Blips = {
 
 	{name = "Berburu",       color=21, scale=0.8, id=141,	         x = -769.23773193359,	y = 5595.6215820313,		z = 31.475671768188},
 
-	-- {name = "Hunting sell",       color=49, scale=0.8, id=272,	         x = 969.16375732422,	y = -2107.9033203125,		z = 33.48571395874},
-	-- {name = "Crafting 1",       color=46, scale=0.8, id=402,	         x = 1015.003,	y = -3158.878,		z = -38.907},
-	-- {name = "Crafting 2",       color=46, scale=0.8, id=402,	         x = 1175.433,	y = 2635.81,		z = 37.755},
-	-- {name = "Crafting 3",       color=46, scale=0.8, id=402,	         x = -1154.895,	y = -2022.624,		z = 13.176},
+	{name = "Hunting sell",       color=49, scale=0.8, id=272,	         x = 969.16375732422,	y = -2107.9033203125,		z = 33.48571395874},
+	{name = "Crafting 1",       color=46, scale=0.8, id=402,	         x = 1015.003,	y = -3158.878,		z = -38.907},
+	{name = "Crafting 2",       color=46, scale=0.8, id=402,	         x = 1175.433,	y = 2635.81,		z = 37.755},
+	{name = "Crafting 3",       color=46, scale=0.8, id=402,	         x = -1154.895,	y = -2022.624,		z = 13.176},
 
 	 {name = "House",       color=2, scale=0.8, id=40,	         x = 1341.33,	y = -597.43,		z = 74.7},
 	{name = "House",       color=2, scale=0.8, id=40,	         x = 1323.47,	y = -582.9,			z = 73.25},

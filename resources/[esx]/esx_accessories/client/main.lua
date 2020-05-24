@@ -224,7 +224,7 @@ Citizen.CreateThread(function()
 		end
 
 		if Config.EnableControls then
-			if IsControlJustReleased(0, 311) and IsInputDisabled(0) and not isDead then
+			if IsControlJustReleased(0, 311) and IsInputDisabled(0) then
 				OpenAccessoryMenu()
 			end
 		end

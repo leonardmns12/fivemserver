@@ -141,7 +141,7 @@ HandleControls = function(safeEntity)
 					if #safeLocks == 1 then
 						local x, y, z = table.unpack(GetEntityCoords(PlayerPedId()))
 
-						TriggerServerEvent("esx_phone:send", "police", "GPSيـوجد سـطو على بقالة تم رصد المكان عن طريق ال!", true, { ["x"] = x, ["y"] = y, ["z"] = z })
+						TriggerServerEvent("esx_phone:send", "police", "GPS Terjadi pembobolan brangkas di ", true, { ["x"] = x, ["y"] = y, ["z"] = z })
 					end
 
 					if #safeLocks < Config.TotalLocks then

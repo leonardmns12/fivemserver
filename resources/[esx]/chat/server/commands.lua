@@ -74,7 +74,7 @@ RegisterCommand('pol', function(source, args, rawCommand) --merah
 end, false)
 
 RegisterCommand('gocek', function(source, args, rawCommand) --orange
-	local msg = rawCommand:sub(5)
+	local msg = rawCommand:sub(6)
 	local xplayer = ESX.GetPlayerFromId(source)
     local identifier = xplayer.identifier
     local name = getIdentity(source,identifier)
