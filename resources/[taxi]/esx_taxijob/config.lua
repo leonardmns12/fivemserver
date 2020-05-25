@@ -2,7 +2,7 @@ Config                            = {}
 
 Config.DrawDistance               = 100.0
 
-Config.NPCJobEarnings             = {min = 5000, max = 10000}
+Config.NPCJobEarnings             = {min = 15000, max = 30000}
 Config.MinimumDistance            = 3000 
 
 Config.MaxInService               = -1

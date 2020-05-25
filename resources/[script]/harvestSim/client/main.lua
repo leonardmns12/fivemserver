@@ -18,6 +18,7 @@ Citizen.CreateThread(function ()
            DrawText3D(455.28, -999.7, 35.93, 'Tekan [~g~E~w~] untuk membuat SIM')
                 if IsControlJustReleased(0, 38) then
                 OpenLicenseHarvestMenu()
+                
                 end
             end
         end

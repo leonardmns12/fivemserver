@@ -60,7 +60,7 @@ Crafting.Items = {
     ["weapon_pistol"] = {
         label = "Pistol",
         needs = {
-            ["weaclip"] = {label = "Ammo clip", count = 5},
+            ["weaclip"] = {label = "Ammo clip", count = 2},
             ["gold"] = {label = "Emas", count = 20},
         },
         threshold = 0,
@@ -68,7 +68,7 @@ Crafting.Items = {
     ["weapon_pistol50"] = {
         label = "Pistol 50",
         needs = {
-            ["weaclip"] = {label = "Ammo clip", count = 10},
+            ["weaclip"] = {label = "Ammo clip", count = 4},
             ["gold"] = {label = "Emas", count = 40},
         },
         threshold = 0,
@@ -76,7 +76,7 @@ Crafting.Items = {
     ["weaclip"] = {
         label = "Ammo clip",
         needs = {
-            ["leather"] = {label = "Kulit", count = 10},
+            ["leather"] = {label = "Kulit", count = 2},
             ["baggie"] = {label = "Plastik Bag", count = 5},
         },
         threshold = 0,
@@ -84,7 +84,7 @@ Crafting.Items = {
     ["weabox"] = {
         label = "Ammo box",
         needs = {
-            ["leather"] = {label = "Kulit", count = 25},
+            ["leather"] = {label = "Kulit", count = 6},
             ["baggie"] = {label = "Plastik Bag", count = 20},
         },
         threshold = 0,
@@ -115,7 +115,7 @@ Crafting.Items = {
             ["copper"] = {label = "Tembaga", count = 15},
             ["highrim"] = {label = "Iron", count = 2},
             ["rolex"] = {label = "Rolex", count = 1},
-            ["battery"] = {label = "Battery Acid", count = 3},
+            ["batteryacid"] = {label = "Battery Acid", count = 3},
         },
         threshold = 0,
     },

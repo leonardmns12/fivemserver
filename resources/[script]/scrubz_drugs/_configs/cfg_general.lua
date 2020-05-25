@@ -3,8 +3,8 @@
 ---------------------------
 Config = {}
 
-Config.PoliceRequired = 1  -- Set to 0 to disable
-Config.UseVisualDispatch = true
+Config.PoliceRequired = 0  -- Set to 0 to disable
+Config.UseVisualDispatch = false
 Config.UseChatAlert = false
 Config.CustomAlert = false
 Config.UseProgressBars = true
