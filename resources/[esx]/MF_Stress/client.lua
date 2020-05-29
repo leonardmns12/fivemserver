@@ -39,12 +39,12 @@ function MFS:Update(...)
           self.DoRelax = math.min((self.DoRelax or 0) + (self.StaticRelief * 10000),1000000)
           Citizen.Wait(1000)
         elseif speed > self.StressAtSpeed then
-          TriggerEvent('esx_status:add','stress',(self.StaticAdder * 10000)*multiplier)
+          TriggerEvent('esx_status:add','stress',(self.StaticAdder * 1000)*multiplier)
           Citizen.Wait(1000)
         end
       else
         if speed > self.StressAtSpeed then
-          TriggerEvent('esx_status:add','stress',(self.StaticAdder * 10000)*multiplier)
+          TriggerEvent('esx_status:add','stress',(self.StaticAdder * 1000)*multiplier)
           Citizen.Wait(1000)
         end
       end

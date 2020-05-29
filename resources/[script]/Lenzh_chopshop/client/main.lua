@@ -121,27 +121,33 @@ function ChopVehicle()
     elseif
         GetGameTimer() - lastTested > Config.CooldownMinutes * 0 then
         lastTested = GetGameTimer()
-        ESX.TriggerServerCallback('Lenzh_chopshop:anycops', function(cops)
-            if cops >= Config.CopsRequired then
-                if Config.CallCops then
-                    local randomReport = math.random(1, Config.CallCopsPercent)
-
-                    if randomReport == Config.CallCopsPercent then
-                        TriggerServerEvent('chopNotify')
+        ESX.TriggerServerCallback('Lenzh_chopshop:getjobs', function(job)
+            if job == 'mecano' then
+                ESX.TriggerServerCallback('Lenzh_chopshop:anycops', function(cops)
+                    if cops >= Config.CopsRequired then
+                        if Config.CallCops then
+                            local randomReport = math.random(1, Config.CallCopsPercent)
+        
+                            if randomReport == Config.CallCopsPercent then
+                                TriggerServerEvent('chopNotify')
+                            end
+                        end
+                        local ped = PlayerPedId()
+                        local vehicle = GetVehiclePedIsIn( ped, false )
+                        ChoppingInProgress        = true
+                        VehiclePartsRemoval()
+                        if not HasAlreadyEnteredMarker then
+                            HasAlreadyEnteredMarker =  true
+                            ChoppingInProgress        = false
+                            TriggerEvent('chat:addMessage', { args = { '[^1Chopshop^0]: You Left The Zone. No Rewards For You' } })
+                            SetVehicleAlarmTimeLeft(vehicle, 60000)
+                        end
+                    else
+                        ESX.ShowNotification(_U('not_enough_cops'))
                     end
-                end
-                local ped = PlayerPedId()
-                local vehicle = GetVehiclePedIsIn( ped, false )
-                ChoppingInProgress        = true
-                VehiclePartsRemoval()
-                if not HasAlreadyEnteredMarker then
-                    HasAlreadyEnteredMarker =  true
-                    ChoppingInProgress        = false
-                    TriggerEvent('chat:addMessage', { args = { '[^1Chopshop^0]: You Left The Zone. No Rewards For You' } })
-                    SetVehicleAlarmTimeLeft(vehicle, 60000)
-                end
+                end)
             else
-                ESX.ShowNotification(_U('not_enough_cops'))
+                exports['mythic_notify']:DoHudText('error', 'Kamu bukan MEKANIK!')
             end
         end)
     else

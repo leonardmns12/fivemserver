@@ -4,7 +4,7 @@ Config.DrawDistance               = 100.0
 
 Config.Marker                     = { type = 1, x = 2, y = 2, z = 2, r = 102, g = 0, b = 102, rotate = true } -- pillbox
 
-Config.ReviveReward               = 15000  -- revive reward, set to 0 if you don't want it enabled
+Config.ReviveReward               = 5000  -- revive reward, set to 0 if you don't want it enabled
 Config.AntiCombatLog              = true -- enable anti-combat logging?
 Config.LoadIpl                    = false -- disable if you're using fivem-ipl or other IPL loaders
 

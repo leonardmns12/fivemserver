@@ -227,9 +227,9 @@ AddEventHandler('esx_ambulancejob:removeItem', function(item)
 	xPlayer.removeInventoryItem(item, 1)
 
 	if item == 'bandage' then
-		TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
+		-- TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 	elseif item == 'medikit' then
-		TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+		-- TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 	end
 end)
 
@@ -284,7 +284,7 @@ ESX.RegisterUsableItem('medikit', function(source)
 	xPlayer.removeInventoryItem('medikit', 1)
 
 	TriggerClientEvent('esx_ambulancejob:heal', _source, 'big')
-	TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+	-- TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 end)
 
 ESX.RegisterUsableItem('bandage', function(source)
@@ -293,7 +293,7 @@ ESX.RegisterUsableItem('bandage', function(source)
 	xPlayer.removeInventoryItem('bandage', 1)
 
 	TriggerClientEvent('esx_ambulancejob:heal', _source, 'small')
-	TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
+	-- TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 end)
 
 ESX.RegisterUsableItem('bandage2', function(source)

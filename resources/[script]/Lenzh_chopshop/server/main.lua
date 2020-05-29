@@ -18,6 +18,11 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
         cb(cops)
     end)
 
+    ESX.RegisterServerCallback('Lenzh_chopshop:getjobs',function(source, cb)
+        local xPlayer = ESX.GetPlayerFromId(source)
+        cb(xPlayer.job.name)
+    end)
+
     RegisterServerEvent("lenzh_chopshop:rewards")
     AddEventHandler("lenzh_chopshop:rewards", function(rewards)
         --Rewards()

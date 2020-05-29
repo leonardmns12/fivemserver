@@ -1,13 +1,9 @@
-local isPaused, isDead, pickups = false, false, {}
+local isPaused, isDead, isFirstSpawn, pickups = false, false, true, {}
 
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-
-		if NetworkIsPlayerActive(PlayerId()) then
-			TriggerServerEvent('esx:onPlayerJoined')
-			break
-		end
+RegisterNetEvent('esx:kashloaded')
+AddEventHandler('esx:kashloaded', function()
+	if isFirstSpawn then
+		TriggerServerEvent('esx:onPlayerJoined')
 	end
 end)
 
@@ -71,10 +67,10 @@ AddEventHandler('esx:playerLoaded', function(playerData)
 		TriggerEvent('playerSpawned') -- compatibility with old scripts, will be removed soon
 		TriggerEvent('esx:restoreLoadout')
 
-		Citizen.Wait(3000)
-		ShutdownLoadingScreen()
+		-- Citizen.Wait(3000)
+		-- ShutdownLoadingScreen()
 		FreezeEntityPosition(PlayerPedId(), false)
-		DoScreenFadeIn(10000)
+		-- DoScreenFadeIn(10000)
 		StartServerSyncLoops()
 	end)
 end)

@@ -32,7 +32,11 @@ end
 RegisterNetEvent('esx_policejob:st-search')
 AddEventHandler('esx_policejob:st-search', function()
 	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-	OpenBodySearchMenu(closestPlayer)
+	if closestPlayer == -1 or closestDistance > 3.0 then
+		exports['mythic_notify']:DoHudText('error', 'Tidak ada player terdekat')
+	else
+		OpenBodySearchMenu(closestPlayer)
+	end
 end)
 
 RegisterNetEvent('esx_policejob:st-escort')

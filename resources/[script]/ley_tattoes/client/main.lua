@@ -16,6 +16,7 @@ Citizen.CreateThread(function()
                     if GetDistanceBetweenCoords(pos.x , pos.y , pos.z, 324.19, -572.48, 43.80 , true) < 2.5 then
                         DrawText3D(324.19, -572.48, 43.80 , '[~g~E~w~] untuk reset tato')
                         if IsControlJustReleased(0 , 38) then
+                            print(ESX.PlayerData.job)
                             resetTattoes()
                             print('sss')
                         end
@@ -25,8 +26,8 @@ Citizen.CreateThread(function()
 end)
 
 function resetTattoes()
-   
-    if ESX.PlayerData.job then
+   print(ESX.PlayerData.job)
+    -- if ESX.PlayerData.job then
         print('sa')
         local elements = {
             {label = 'Hapus tato',  value = 'reset_tattoes'}
@@ -51,7 +52,9 @@ function resetTattoes()
                 menu.close()
     
         end)
-    end
+    -- else
+    --     print('hai')
+    -- end
 
 end
 

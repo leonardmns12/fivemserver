@@ -113,7 +113,7 @@ Crafting.Items = {
         label = "Raspberry",
         needs = {
             ["copper"] = {label = "Tembaga", count = 15},
-            ["highrim"] = {label = "Iron", count = 2},
+            ["highrim"] = {label = "High rim", count = 2},
             ["rolex"] = {label = "Rolex", count = 1},
             ["batteryacid"] = {label = "Battery Acid", count = 3},
         },
