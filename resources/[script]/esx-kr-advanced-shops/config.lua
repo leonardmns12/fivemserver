@@ -15,7 +15,7 @@ Config.Items = {
     [3] = {label = "Rokok",      item = "cigarette",       price = 500},
     [4] = {label = "Handphone",      item = "phone",       price = 7500},
     [5] = {label = "Bir",      item = "beer",       price = 2000},
-    [6] = {label = "Bullet-Proof Vest",      item = "bulletproof",       price = 25000},
+    [6] = {label = "Bullet-Proof Vest",      item = "bulletproof",       price = 60000},
     [7] = {label = "Umpan ikan",      item = "fishbait",       price = 50},
     [8] = {label = "Pancingan",      item = "fishingrod",       price = 50},
     [9] = {label = "Turtle bait",      item = "turtlebait",       price = 150},
