@@ -22,12 +22,12 @@ TokoVoipConfig = {
 		-- TeamSpeak channel name used by the voip
 		-- If the TSChannelWait is enabled, players who are currently in TSChannelWait will be automatically moved
 		-- to the TSChannel once everything is running
-		TSChannel = "In Game",
+		TSChannel = "FiveM",
 		TSPassword = "gurame442", -- TeamSpeak channel password (can be empty)
 
 		-- Optional: TeamSpeak waiting channel name, players wait in this channel and will be moved to the TSChannel automatically
 		-- If the TSChannel is public and people can join directly, you can leave this empty and not use the auto-move
-		TSChannelWait = "Lobby",
+		TSChannelWait = "Lobby FiveM",
 
 		-- Blocking screen informations
 		TSServer = "server.indofolks.com", -- TeamSpeak server address to be displayed on blocking screen

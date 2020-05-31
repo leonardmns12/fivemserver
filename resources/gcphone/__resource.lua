@@ -53,6 +53,7 @@ files {
 	'html/static/img/icons_app/borrado.png',
 	'html/static/img/icons_app/gojek.png',
 	'html/static/img/icons_app/mecano.png',
+	'html/static/img/icons_app/cardealer.png',
 	'html/static/img/app_bank/fleeca_tar.png',
 	'html/static/img/app_bank/tarjetas.png',
 

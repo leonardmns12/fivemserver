@@ -145,6 +145,18 @@
           "number": "mecano"
         }
       }]
+    },
+ {
+      "display": "Dealer Kendaraan",
+      "backgroundColor": "yellow",
+      "icon": "/html/static/img/icons_app/cardealer.png",
+      "subMenu": [{
+        "title": "Send a message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "cardealer"
+        }
+      }]
     }
   ],
 
@@ -171,6 +183,12 @@
       "display": "Mekanik",
       "backgroundColor": "yellow",
       "icon": "/html/static/img/icons_app/mecano.png"
+    },
+     {
+      "number": "cardealer",
+      "display": "Dealer Kendaraan",
+      "backgroundColor": "yellow",
+      "icon": "/html/static/img/icons_app/cardealer.png"
     }
   ],
 
