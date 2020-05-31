@@ -23,9 +23,9 @@ Config.Zones = {
 	},
 
 	ShopInside = {
-		Pos     = vector3(-47.5, -1097.2, 25.4),
+		Pos     = vector3(-50.86, -1113.59, 26.44),
 		Size    = {x = 1.5, y = 1.5, z = 1.0},
-		Heading = -20.0,
+		Heading = 94.8,
 		Type    = -1
 	},
 

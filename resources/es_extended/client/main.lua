@@ -56,15 +56,27 @@ AddEventHandler('esx:playerLoaded', function(playerData)
 		})
 	end
 
-	ESX.Game.Teleport(PlayerPedId(), {
-		x = playerData.coords.x,
-		y = playerData.coords.y,
-		z = playerData.coords.z + 0.25,
-		heading = playerData.coords.heading
-	}, function()
-		TriggerServerEvent('esx:onPlayerSpawn')
+	-- ESX.Game.Teleport(PlayerPedId(), {
+	-- 	x = playerData.coords.x,
+	-- 	y = playerData.coords.y,
+	-- 	z = playerData.coords.z + 0.25,
+	-- 	heading = playerData.coords.heading
+	-- }, function()
+	-- 	TriggerServerEvent('esx:onPlayerSpawn')
+	-- 	TriggerEvent('esx:onPlayerSpawn')
+	-- 	TriggerEvent('playerSpawned') -- compatibility with old scripts, will be removed soon
+	-- 	TriggerEvent('esx:restoreLoadout')
+
+	-- 	-- Citizen.Wait(3000)
+	-- 	-- ShutdownLoadingScreen()
+	-- 	FreezeEntityPosition(PlayerPedId(), false)
+	-- 	-- DoScreenFadeIn(10000)
+	-- 	StartServerSyncLoops()
+	-- end)
+
+	TriggerServerEvent('esx:onPlayerSpawn')
 		TriggerEvent('esx:onPlayerSpawn')
-		TriggerEvent('playerSpawned') -- compatibility with old scripts, will be removed soon
+		-- TriggerEvent('playerSpawned') -- compatibility with old scripts, will be removed soon
 		TriggerEvent('esx:restoreLoadout')
 
 		-- Citizen.Wait(3000)
@@ -72,7 +84,6 @@ AddEventHandler('esx:playerLoaded', function(playerData)
 		FreezeEntityPosition(PlayerPedId(), false)
 		-- DoScreenFadeIn(10000)
 		StartServerSyncLoops()
-	end)
 end)
 
 RegisterNetEvent('esx:setMaxWeight')

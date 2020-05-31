@@ -182,7 +182,7 @@ function OpenShopMenu()
 				firstVehicleData = vehicle
 			end
 
-			table.insert(options, ('%s <span style="color:green;">%s</span>'):format(vehicle.name, _U('generic_shopitem', ESX.Math.GroupDigits(vehicle.price))))
+			table.insert(options, ('%s <span style="color:green;">%s</span>'):format(vehicle.name, _U('generic_shopitem', ESX.Math.GroupDigits(math.floor( vehicle.price + (vehicle.price * 30 / 100)) ))))
 		end
 
 		table.sort(options)
@@ -208,8 +208,7 @@ function OpenShopMenu()
 			title = _U('buy_vehicle_shop', vehicleData.name, ESX.Math.GroupDigits(vehicleData.price)),
 			align = 'top-left',
 			elements = {
-				{label = _U('no'),  value = 'no'},
-				{label = _U('yes'), value = 'yes'}
+				{label = "Hubungi car dealer",  value = 'no'}
 		}}, function(data2, menu2)
 			if data2.current.value == 'yes' then
 				if Config.EnablePlayerManagement then
@@ -257,6 +256,7 @@ function OpenShopMenu()
 					end, vehicleData.model, generatedPlate)
 				end
 			else
+				exports['mythic_notify']:DoHudText('inform', 'Hubungi car dealer!')
 				menu2.close()
 			end
 		end, function(data2, menu2)
@@ -767,18 +767,18 @@ if Config.EnablePlayerManagement then
 end
 
 -- Create Blips
-Citizen.CreateThread(function()
-	local blip = AddBlipForCoord(Config.Zones.ShopEntering.Pos)
+-- Citizen.CreateThread(function()
+-- 	local blip = AddBlipForCoord(Config.Zones.ShopEntering.Pos)
 
-	SetBlipSprite (blip, 326)
-	SetBlipDisplay(blip, 4)
-	SetBlipScale  (blip, 1.0)
-	SetBlipAsShortRange(blip, true)
+-- 	SetBlipSprite (blip, 326)
+-- 	SetBlipDisplay(blip, 4)
+-- 	SetBlipScale  (blip, 1.0)
+-- 	SetBlipAsShortRange(blip, true)
 
-	BeginTextCommandSetBlipName('STRING')
-	AddTextComponentSubstringPlayerName(_U('car_dealer'))
-	EndTextCommandSetBlipName(blip)
-end)
+-- 	BeginTextCommandSetBlipName('STRING')
+-- 	AddTextComponentSubstringPlayerName(_U('car_dealer'))
+-- 	EndTextCommandSetBlipName(blip)
+-- end)
 
 -- Enter / Exit marker events & Draw Markers
 Citizen.CreateThread(function()

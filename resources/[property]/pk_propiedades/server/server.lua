@@ -138,7 +138,7 @@ local canbuy = 0
 	
 	Citizen.Wait(10)
 	if canbuy == 1 then
-		if sourceXPlayer.get('money') >= precio then
+		if sourceXPlayer.getAccount('money').money >= precio then
 			sourceXPlayer.removeMoney(precio)
 			MySQL.Sync.execute("UPDATE pk_casas SET estado = @estado, propietarioID = @propietarioID, propietarioNombre = @propietarioNombre WHERE propiedad = @propiedad", {
 				['@estado'] = estado, 
@@ -191,7 +191,7 @@ local dinero = 'dinero'
 local comprado = 1
 
 
-	if xPlayer.get('money') >= precio then
+	if xPlayer.getAccount('money').money >= precio then
 		xPlayer.removeMoney(precio)
 		if tipo == armas then
 			MySQL.Sync.execute("UPDATE pk_casas SET ArmarioArmas = @ArmarioArmas WHERE propiedad = @propiedad", {['@ArmarioArmas'] = comprado,['@propiedad'] = nombrecasa})
