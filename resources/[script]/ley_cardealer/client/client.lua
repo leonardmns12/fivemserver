@@ -502,7 +502,7 @@ function OpenShopMainMenu()
 		local DealerCount = DealerOnline
 		
 		local elements = {
-			{ label = _U('billing_btn'), value = "open_billing_menu" },
+			-- { label = _U('billing_btn'), value = "open_billing_menu" },
 			{ label = _U('sell_veh_btn'), value = "open_sell_veh_menu" },
 		}
 				

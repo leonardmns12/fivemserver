@@ -21,7 +21,7 @@ Config.ShopMenu = {{
 	
 }}
 
-Config.SellPercent = 25					-- Set commission taken by shop, when player sells a vehicle
+Config.SellPercent = 50					-- Set commission taken by shop, when player sells a vehicle
 Config.ReceiveBankMoney = true			-- Set this to false, in order to receive money in hand when selling a vehicle to PDM
 Config.CarInsuranceScript = false		-- Set to false if you don't own this script
 Config.BuyVehWhenNoDealers = true		-- Set to true to enable players being able to buy vehicles through shop menu, when no dealer online
@@ -48,7 +48,7 @@ Config.VehLoadDistance 		= 20.0								-- Distance from player coords to DealerP
 Config.CarDealerJobLabel 	= "cardealer"						-- Car Dealer Job Label from Database under table jobs
 Config.BoughtVehSpawn 		= {-31.06, -1090.79, 26.42}			-- Spawn Position of successfully purchased vehicle
 Config.PayWithCash 			= true								-- Purchase vehicles with bank money, set to true to purchase vehicle with cash instead.
-Config.MinCommission		= (-10)
+Config.MinCommission		= (-30)
 Config.MaxCommission		= 50
 Config.WarpPlayerIntoVeh	= true								-- Set to true if player should be warped into purchased vehicle
 Config.WarpPlyIntoTestVeh 	= true								-- Set to true if player should be warped into test drive vehicle

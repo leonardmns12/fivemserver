@@ -1,6 +1,6 @@
 CREATE TABLE `owned_vehicles` (
 	`owner` varchar(22) NOT NULL,
-	`state` BOOLEAN NOT NULL DEFAULT FALSE,
+	`state` BOOLEAN NOT NULL DEFAULT FALSE, 
 	`plate` varchar(12) NOT NULL,
 	`vehicle` longtext,
 	`type` VARCHAR(20) NOT NULL DEFAULT 'car',
@@ -9,8 +9,8 @@ CREATE TABLE `owned_vehicles` (
 	`date` varchar(255) DEFAULT NULL,
 	`paidprice` int(11) NOT NULL DEFAULT '0',
 	`finance` INT(32) NOT NULL DEFAULT '0',
-	`model` varchar(60) NOT NULL,
-	`repaytime` INT(32) NOT NULL DEFAULT '0',
+	`model` varchar(60) NOT NULL, 
+	`repaytime` INT(32) NOT NULL DEFAULT '0', 
 	PRIMARY KEY (`plate`)
 );
 
