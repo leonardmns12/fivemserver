@@ -34,6 +34,12 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 	end)
 end)
 
+
+RegisterNetEvent('esx_propery:loadroom')
+AddEventHandler('esx_property:loadroom', function(CurrentActionData.property , CurrentActionData.owner)
+	OpenRoomMenu(CurrentActionData.property , CurrentAction.owner)
+end)	
+
 -- only used when script is restarting mid-session
 RegisterNetEvent('esx_property:sendProperties')
 AddEventHandler('esx_property:sendProperties', function(properties)

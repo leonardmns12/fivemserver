@@ -924,6 +924,7 @@ Citizen.CreateThread(function()
 						if IsControlJustPressed(1, 38) then
 							TriggerServerEvent('pk_casas:checkcasa',j.armario.nom)
 							AbrirMenuArmario(j.armario.nom)
+			
 						end
 					end
 				end
@@ -935,6 +936,10 @@ Citizen.CreateThread(function()
 	end
 end)
 
+-- RegisterNetEvent('esx_propery:loadroom')
+-- AddEventHandler('esx_property:loadroom', function(CurrentActionData.property , CurrentActionData.owner)
+-- 	OpenRoomMenu(CurrentActionData.property , CurrentAction.owner)
+-- end)
 ----------------------------------------- ARMARIO ----------------------------------------------
 RegisterNetEvent('pk_casas:freezePlayer1')
 AddEventHandler('pk_casas:freezePlayer1', function(freeze)

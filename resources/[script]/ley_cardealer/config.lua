@@ -9,7 +9,7 @@ Config.Locale 				= 'en'
 
 -- [[ SHOP MENU ]] --
 Config.ShopMenu = {{
-	Pos = {-56.79,-1096.93,26.42},
+	Pos = {-56.79,-1096.93,-1.42},
 	Key = 38,
 	Marker = {
 		Enable = true,
@@ -24,7 +24,7 @@ Config.ShopMenu = {{
 Config.SellPercent = 50					-- Set commission taken by shop, when player sells a vehicle
 Config.ReceiveBankMoney = true			-- Set this to false, in order to receive money in hand when selling a vehicle to PDM
 Config.CarInsuranceScript = false		-- Set to false if you don't own this script
-Config.BuyVehWhenNoDealers = true		-- Set to true to enable players being able to buy vehicles through shop menu, when no dealer online
+Config.BuyVehWhenNoDealers = false		-- Set to true to enable players being able to buy vehicles through shop menu, when no dealer online
 
 -- [[ BOSS MENU ]] -- 100% Working Version Leaked By FivemLeak.com  --
 Config.BossMenu = {{

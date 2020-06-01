@@ -11,7 +11,7 @@ local IdentifierTables = {
     {table = "owned_properties", column = "owner"},
     {table = "rented_vehicles", column = "owner"},
     {table = "users", column = "identifier"},
-    {table = "user_licenses", column = "owner"},
+    -- {table = "user_licenses", column = "owner"},
 }
 
 RegisterServerEvent("kashactersS:SetupCharacters")
