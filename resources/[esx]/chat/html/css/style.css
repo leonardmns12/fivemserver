@@ -216,3 +216,7 @@ input:focus {
   background-color: rgba(194, 187, 0, 0.81);
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
+
+.chat-message.cardealer {
+  background-color: rgba(0, 77, 179, 0.75);
+}

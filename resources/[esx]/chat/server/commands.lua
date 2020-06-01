@@ -89,6 +89,22 @@ RegisterCommand('gocek', function(source, args, rawCommand) --orange
     end
 end, false)
 
+RegisterCommand('cardealer', function(source, args, rawCommand) --cardealer
+	local msg = rawCommand:sub(10)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local name = getIdentity(source,identifier)
+    if name.job == "cardealer" then 
+        fal = name.firstname .. "  " .. name.lastname
+            TriggerClientEvent('chat:addMessage', -1, {
+            template = '<div class="chat-message cardealer"><i class="fas fa-car"></i> <b> [CAR DEALER] {0}:</b> {1}</div>',
+            args = { fal, msg }
+        })
+    else
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu bukan Car dealer!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    end
+end, false)
+
 RegisterCommand('mech', function(source, args, rawCommand) --coklat
 	local msg = rawCommand:sub(5)
 	local xplayer = ESX.GetPlayerFromId(source)
