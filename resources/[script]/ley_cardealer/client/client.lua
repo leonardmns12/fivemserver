@@ -446,7 +446,7 @@ function OpenReplaceMainMenu(currentID)
 				table.insert(elements,{ label = v.label, name = v.name})
 			end
 		else
-			if v.name == "coupes" or v.name == "muscle" or v.name == "sedans" or v.name == "sports" or v.name == "sportsclassics" or v.name == "super" then
+			if v.name == "coupes" or v.name == "muscle" or v.name == "sedans" or v.name == "sports" or v.name == "sportsclassics" or v.name == "super" or v.name == "utility" or v.name == "offroad" or v.name == "vans" then
 				table.insert(elements,{ label = v.label, name = v.name})
 			end
 		end

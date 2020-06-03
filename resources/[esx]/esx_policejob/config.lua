@@ -123,27 +123,38 @@ Config.AuthorizedVehicles = {
 	car = {
 		recruit = {
 			{model = 'fbi2', price = 60000},
-			{model = 'rmodpolice', price = 60000}
+			{model = 'policeb', price = 60000}
 		},
 
 		officer = {
 			{model = 'fbi2', price = 60000},
-			{model = 'rmodpolice', price = 60000}
+			{model = 'rmodpolice', price = 60000},
+			{model = 'policeb', price = 60000}
 		},
 
 		sergeant = {
 			{model = 'fbi2', price = 60000},
-			{model = 'rmodpolice', price = 60000}
+			{model = 'rmodpolice', price = 60000},
+			{model = 'policeb', price = 60000},
+			{model = 'riot', price = 60000}
 		},
 
 		lieutenant = {
 			{model = 'fbi2', price = 60000},
-			{model = 'rmodpolice', price = 60000}
+			{model = 'rmodpolice', price = 60000},
+			{model = 'policeb', price = 60000},
+			{model = 'police4', price = 60000},
+			{model = 'riot', price = 60000}
 		},
 
 		boss = {
 			{model = 'fbi2', price = 60000},
-			{model = 'rmodpolice', price = 60000}
+			{model = 'rmodpolice', price = 60000},
+			{model = 'policeb', price = 60000},
+			{model = 'riot', price = 60000},
+			{model = 'police4', price = 60000}
+		}
+
 		}
 	},
 
