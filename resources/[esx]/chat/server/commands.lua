@@ -125,12 +125,13 @@ RegisterCommand('twt', function(source, args, rawCommand)
 	local msg = rawCommand:sub(4)
 	local xplayer = ESX.GetPlayerFromId(source)
     local identifier = xplayer.identifier
-	local name = getIdentity(source,identifier)
-	fal = name.firstname .. "  " .. name.lastname
-        TriggerClientEvent('chat:addMessage', -1, {
-        template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> Twitter @{0}:</b> {1}</div>',
-        args = { fal, msg }
-    })
+    local name = getIdentity(source,identifier)
+    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Silahkan menggunakan twitter di Hp!', length = 4500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+	-- fal = name.firstname .. "  " .. name.lastname
+    --     TriggerClientEvent('chat:addMessage', -1, {
+    --     template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> Twitter @{0}:</b> {1}</div>',
+    --     args = { fal, msg }
+    -- })
 end, false)
 
 RegisterCommand('anontwt', function(source, args, rawCommand)
