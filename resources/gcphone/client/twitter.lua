@@ -7,6 +7,10 @@ AddEventHandler("gcPhone:twitter_getTweets", function(tweets)
   SendNUIMessage({event = 'twitter_tweets', tweets = tweets})
 end)
 
+function PlaySoundJS (sound, volume)
+  SendNUIMessage({ event = 'playSound', sound = sound, volume = volume })
+end
+
 RegisterNetEvent("gcPhone:twitter_getFavoriteTweets")
 AddEventHandler("gcPhone:twitter_getFavoriteTweets", function(tweets)
   SendNUIMessage({event = 'twitter_favoritetweets', tweets = tweets})
@@ -15,6 +19,7 @@ end)
 RegisterNetEvent("gcPhone:twitter_newTweets")
 AddEventHandler("gcPhone:twitter_newTweets", function(tweet)
   SendNUIMessage({event = 'twitter_newTweet', tweet = tweet})
+  -- PlaySoundJS('Twitter_Sound_Effect-viejo.ogg', 5)
 end)
 
 RegisterNetEvent("gcPhone:twitter_updateTweetLikes")

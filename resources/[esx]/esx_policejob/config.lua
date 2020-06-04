@@ -155,7 +155,7 @@ Config.AuthorizedVehicles = {
 			{model = 'police4', price = 60000}
 		}
 
-		}
+		
 	},
 
 	helicopter = {

@@ -1,6 +1,46 @@
 --====================================================================================
 -- #Author: Jonathan D @ Gannon
 --====================================================================================
+local ESX = nil
+TriggerEvent('esx:getSharedObject', function(obj) 
+    ESX = obj 
+    ESX.RegisterServerCallback('gcphone:getItemAmount', function(source, cb, item)
+        print('gcphone:getItemAmount call item : ' .. item)
+        local xPlayer = ESX.GetPlayerFromId(source)
+        local items = xPlayer.getInventoryItem(item)
+        if items == nil then
+            cb(0)
+        else
+            cb(items.count)
+        end
+    end)
+end)
+
+function getIdentity(source , identifier)
+ -- Fix identifier
+    -- local identifier = GetPlayerIdentifiers(source)[1]
+    -- local xplayer = ESX.GetPlayerFromId(source)
+    -- local identifier = xplayer.identifier
+	local result = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
+    if result[1] ~= nil then
+		local identity = result[1]
+
+		return {
+			identifier = identity['identifier'],
+			name = identity['name'],
+			firstname = identity['firstname'],
+			lastname = identity['lastname'],
+			dateofbirth = identity['dateofbirth'],
+			sex = identity['sex'],
+			height = identity['height'],
+			job = identity['job'],
+			group = identity['group']
+		}
+	else
+		return nil
+	end
+end
+
 
 function TwitterGetTweets (accountId, cb)
   if accountId == nil then
@@ -157,6 +197,15 @@ function TwitterShowSuccess (sourcePlayer, title, message)
   TriggerClientEvent('gcPhone:twitter_showSuccess', sourcePlayer, title, message)
 end
 
+function getPlayerID(source)
+    -- local identifiers = GetPlayerIdentifiers(source)
+    -- local player = getIdentifiant(identifiers)
+    -- return player
+    local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    return identifier
+end
+
 RegisterServerEvent('gcPhone:twitter_login')
 AddEventHandler('gcPhone:twitter_login', function(username, password)
   local sourcePlayer = tonumber(source)
@@ -246,6 +295,13 @@ AddEventHandler('gcPhone:twitter_postTweets', function(username, password, messa
   local sourcePlayer = tonumber(source)
   local srcIdentifier = getPlayerID(source)
   TwitterPostTweet(username, password, message, sourcePlayer, srcIdentifier)
+  local name = getIdentity(source,srcIdentifier)
+  fal = name.firstname .. "  " .. name.lastname
+
+	 TriggerClientEvent('chat:addMessage', -1, {
+        template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> New tweet from @{0}</b></div>',
+        args = { fal }
+    })
 end)
 
 RegisterServerEvent('gcPhone:twitter_toogleLikeTweet')
