@@ -134,17 +134,17 @@ RegisterCommand('twt', function(source, args, rawCommand)
     -- })
 end, false)
 
-RegisterCommand('anontwt', function(source, args, rawCommand)
-	local msg = rawCommand:sub(8)
-	local xplayer = ESX.GetPlayerFromId(source)
-    local identifier = xplayer.identifier
-	local name = getIdentity(source,identifier)
-	fal = "Anonymous"
-        TriggerClientEvent('chat:addMessage', -1, {
-        template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> Twitter @{0}:</b> {1}</div>',
-        args = { fal, msg }
-    })
-end, false)
+-- RegisterCommand('anontwt', function(source, args, rawCommand)
+-- 	local msg = rawCommand:sub(8)
+-- 	local xplayer = ESX.GetPlayerFromId(source)
+--     local identifier = xplayer.identifier
+-- 	local name = getIdentity(source,identifier)
+-- 	fal = "Anonymous"
+--         TriggerClientEvent('chat:addMessage', -1, {
+--         template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> Twitter @{0}:</b> {1}</div>',
+--         args = { fal, msg }
+--     })
+-- end, false)
 
 RegisterCommand('ads', function(source, args, rawCommand)
 	local msg = rawCommand:sub(4)

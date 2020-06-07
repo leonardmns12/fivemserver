@@ -97,14 +97,14 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 
-		--if IsControlJustReleased(0, 303) and IsInputDisabled(0) then
-			--ToggleVehicleLock()
-			--Citizen.Wait(300)
+		if IsControlJustReleased(0, 303) and IsInputDisabled(0) then
+			ToggleVehicleLock()
+			Citizen.Wait(300)
 	
 		-- D-pad down on controllers works, too!
-		--elseif IsControlJustReleased(0, 173) and not IsInputDisabled(0) then
-			--ToggleVehicleLock()
-			--Citizen.Wait(300)
-		--end
+		elseif IsControlJustReleased(0, 173) and not IsInputDisabled(0) then
+			ToggleVehicleLock()
+			Citizen.Wait(300)
+		end
 	end
 end)

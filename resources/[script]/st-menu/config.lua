@@ -33,7 +33,7 @@ rootMenuConfig =  {
         fuck = false
             return not fuck
         end,
-        subMenus = {"general:flipvehicle", --[["general:wear-menu" ,]]  "general:checkoverself", "general:checktargetstates",  "general:keysgive",  "general:emotes",  "general:checkvehicle", "general:apartgivekey", "general:aparttakekey"  }
+        subMenus = {"general:flipvehicle", --[["general:wear-menu" ,]]  "general:checkoverself", "general:checktargetstates",  --[["general:keysgive",]]  "general:emotes",  "general:checkvehicle", "general:apartgivekey", "general:aparttakekey"  }
     },
     {
         id = "police-action",
@@ -265,11 +265,11 @@ newSubMenus = {
         functionName = "carcontrol:open"
         --esx_accessories:st-wear
     },    
-    ['general:keysgive'] = {
-        title = "Lock/Unlock car",
-        icon = "#general-keys-give",
-        functionName = "esx_vehiclelock:lockveh"
-    },
+    -- ['general:keysgive'] = {
+    --     title = "Lock/Unlock car",
+    --     icon = "#general-keys-give",
+    --     functionName = "esx_vehiclelock:lockveh"
+    -- },
     ['general:apartgivekey'] = {
         title = "Radio",
         icon = "#general-broadcast-tower",
