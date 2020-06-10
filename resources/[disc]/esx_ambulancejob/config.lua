@@ -133,19 +133,23 @@ Config.Hospitals = {
 Config.AuthorizedVehicles = {
 
     ambulance = {
-		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 },
+		{ model = 'ambulance', label = 'Ambulance Van', price = 20000 }
     },
 
 	doctor = {
-		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 },
+		{ model = 'ambulance', label = 'Ambulance', price = 20000 }
 	},
 
 	chief_doctor = {
-		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 },
+		{ model = 'ambulance', label = 'Ambulance', price = 20000 }
 	},
 
 	boss = {
-		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 }
+		{ model = 'dodgesamu', label = 'Ambulance', price = 20000 },
+		{ model = 'ambulance', label = 'Ambulance', price = 20000 }
 	},
 
 }
