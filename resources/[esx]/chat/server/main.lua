@@ -52,11 +52,27 @@ end)
 
 RegisterServerEvent('911')
 AddEventHandler('911', function(source, caller, msg)
+    print('id = ' .. source)
 	local xplayer = ESX.GetPlayerFromId(source)
     local identifier = xplayer.identifier
     local name = getIdentity(source,identifier)
     fal = name.firstname  .. '  ' .. name.lastname
     TriggerClientEvent('chat:EmergencySend911', -1, source, fal, msg)
+end)
+
+RegisterServerEvent('chat:resetpos')
+AddEventHandler('chat:resetpos', function(source)
+	local xplayer = ESX.GetPlayerFromId(source)
+    local identifier = xplayer.identifier
+    local result = MySQL.Async.fetchAll("SELECT last_property FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
+    local property = nil
+    if(result ~= nil) then
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak berada di apartemen', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+    else
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Lokasi di reset!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+        local apt = MySQL.Sync.fetchAll("UPDATE users SET last_property = @property WHERE identifier = @identifier", {['@identifier'] = identifier , ['@property'] = property})
+        TriggerClientEvent('chat:resetplayers', source)
+    end
 end)
 
 RegisterServerEvent('311')

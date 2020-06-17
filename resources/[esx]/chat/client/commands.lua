@@ -37,8 +37,14 @@ RegisterCommand('311', function(source, args, rawCommand)
     local name = GetPlayerName(PlayerId())
     local caller = GetPlayerServerId(PlayerId())
     local msg = rawCommand:sub(4)
+    
     TriggerServerEvent(('chat:server:311source'), source, caller, msg)
     TriggerServerEvent('311', source, caller, msg)
+end, false)
+
+RegisterCommand('resetloc', function(source, args, rawCommand)
+    local source = GetPlayerServerId(PlayerId())
+    TriggerServerEvent('chat:resetpos', source)
 end, false)
 
 RegisterCommand('report', function(source, args, rawCommand)
@@ -52,6 +58,20 @@ RegisterCommand('report', function(source, args, rawCommand)
         });
 end, false)
 
+
+
+
+RegisterNetEvent('chat:resetplayers')
+AddEventHandler('chat:resetplayers', function(source)
+    print('resetah')
+    local ped = PlayerPedId()
+    local currentPos = GetEntityCoords(ped)
+    print(currentPos)
+
+    SetEntityCoords(ped, -285.48, -889.52, 31.08, false, false, false, true)
+    currentPos = GetEntityCoords(ped)
+    print(currentPos) -- changed!
+end)
 
 RegisterNetEvent('chat:EmergencySend911r')
 AddEventHandler('chat:EmergencySend911r', function(fal, caller, msg)
