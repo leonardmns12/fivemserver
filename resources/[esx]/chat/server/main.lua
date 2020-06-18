@@ -67,9 +67,9 @@ AddEventHandler('chat:resetpos', function(source)
     local result = MySQL.Async.fetchAll("SELECT last_property FROM users WHERE identifier = @identifier", {['@identifier'] = identifier})
     local property = nil
     if(result ~= nil) then
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak berada di apartemen', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Kamu tidak berada di apartemen', length = 3500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
     else
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Lokasi di reset!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'inform', text = 'Lokasi di reset!', length = 2500, style = { ['background-color'] = '#2f5c73f', ['color'] = '#ffffff' } })
         local apt = MySQL.Sync.fetchAll("UPDATE users SET last_property = @property WHERE identifier = @identifier", {['@identifier'] = identifier , ['@property'] = property})
         TriggerClientEvent('chat:resetplayers', source)
     end

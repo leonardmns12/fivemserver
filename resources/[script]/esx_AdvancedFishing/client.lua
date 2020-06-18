@@ -290,12 +290,12 @@ function OpenBoatsMenu(x, y , z)
 	local elements = {}
 	
 	
-		table.insert(elements, {label = '<span style="color:green;">Dinghy</span> <span style="color:red;">2500$</span>', value = 'boat'})
-		table.insert(elements, {label = '<span style="color:green;">Suntrap</span> <span style="color:red;">3500$</span>', value = 'boat6'}) 
-		table.insert(elements, {label = '<span style="color:green;">Jetmax</span> <span style="color:red;">4500$</span>', value = 'boat5'}) 	
-		table.insert(elements, {label = '<span style="color:green;">Toro</span> <span style="color:red;">5500$</span>', value = 'boat2'}) 
-		table.insert(elements, {label = '<span style="color:green;">Marquis</span> <span style="color:red;">6000$</span>', value = 'boat3'}) 
-		table.insert(elements, {label = '<span style="color:green;">Tug boat</span> <span style="color:red;">7500$</span>', value = 'boat4'})
+		table.insert(elements, {label = '<span style="color:green;">Dinghy</span> <span style="color:red;">9500$</span>', value = 'boat'})
+		table.insert(elements, {label = '<span style="color:green;">Suntrap</span> <span style="color:red;">10500$</span>', value = 'boat6'}) 
+		table.insert(elements, {label = '<span style="color:green;">Jetmax</span> <span style="color:red;">11500$</span>', value = 'boat5'}) 	
+		table.insert(elements, {label = '<span style="color:green;">Toro</span> <span style="color:red;">12500$</span>', value = 'boat2'}) 
+		table.insert(elements, {label = '<span style="color:green;">Marquis</span> <span style="color:red;">13000$</span>', value = 'boat3'}) 
+		table.insert(elements, {label = '<span style="color:green;">Tug boat</span> <span style="color:red;">14500$</span>', value = 'boat4'})
 		
 	--If user has police job they will be able to get free Police Predator boat
 	if PlayerData.job.name == "police" then
@@ -318,8 +318,8 @@ function OpenBoatsMenu(x, y , z)
 	if data.current.value == 'boat' then
 		ESX.UI.Menu.CloseAll()
 
-		TriggerServerEvent("fishing:lowmoney", 2500) 
-		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 2500)
+		TriggerServerEvent("fishing:lowmoney", 9500) 
+		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 9500)
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "dinghy4")
 	end
@@ -327,8 +327,8 @@ function OpenBoatsMenu(x, y , z)
 	if data.current.value == 'boat2' then
 		ESX.UI.Menu.CloseAll()
 
-		TriggerServerEvent("fishing:lowmoney", 5500) 
-		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 5500)
+		TriggerServerEvent("fishing:lowmoney", 12500) 
+		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 12500)
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "TORO")
 	end
@@ -336,8 +336,8 @@ function OpenBoatsMenu(x, y , z)
 	if data.current.value == 'boat3' then
 		ESX.UI.Menu.CloseAll()
 
-		TriggerServerEvent("fishing:lowmoney", 6000) 
-		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 6000)
+		TriggerServerEvent("fishing:lowmoney", 13000) 
+		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 13000)
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "MARQUIS")
 	end
@@ -345,8 +345,8 @@ function OpenBoatsMenu(x, y , z)
 	if data.current.value == 'boat4' then
 		ESX.UI.Menu.CloseAll()
 
-		TriggerServerEvent("fishing:lowmoney", 7500) 
-		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 7500)
+		TriggerServerEvent("fishing:lowmoney", 14500) 
+		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 14500)
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "tug")
 	end
@@ -354,8 +354,8 @@ function OpenBoatsMenu(x, y , z)
 	if data.current.value == 'boat5' then
 		ESX.UI.Menu.CloseAll()
 
-		TriggerServerEvent("fishing:lowmoney", 4500) 
-		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 4500)
+		TriggerServerEvent("fishing:lowmoney", 11500) 
+		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 11500)
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "jetmax")
 	end
@@ -363,8 +363,8 @@ function OpenBoatsMenu(x, y , z)
 	if data.current.value == 'boat6' then
 		ESX.UI.Menu.CloseAll()
 
-		TriggerServerEvent("fishing:lowmoney", 3500) 
-		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 3500)
+		TriggerServerEvent("fishing:lowmoney", 10500) 
+		TriggerEvent("chatMessage", 'You rented a boat for', {255,0,255}, '$' .. 10500)
 		SetPedCoordsKeepVehicle(ped, x, y , z)
 		TriggerEvent('esx:spawnVehicle', "suntrap")
 	end
