@@ -42,7 +42,7 @@ RegisterCommand('311', function(source, args, rawCommand)
     TriggerServerEvent('311', source, caller, msg)
 end, false)
 
-RegisterCommand('resetloc', function(source, args, rawCommand)
+RegisterCommand('resetpos', function(source, args, rawCommand)
     local source = GetPlayerServerId(PlayerId())
     TriggerServerEvent('chat:resetpos', source)
 end, false)
