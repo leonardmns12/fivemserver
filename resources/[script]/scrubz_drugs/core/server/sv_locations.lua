@@ -54,11 +54,11 @@ end)
 RegisterServerEvent('scrubz_drugs_sv:packageCocaine')
 AddEventHandler('scrubz_drugs_sv:packageCocaine', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local rawcoke = xPlayer.getInventoryItem('rawcoke').count
+	local rawcoke = xPlayer.getInventoryItem('lithium').count
 	local baggies = xPlayer.getInventoryItem('baggie').count
 	if rawcoke >= 5 then
 		if baggies >= 1 then
-			xPlayer.removeInventoryItem('rawcoke', 5)
+			xPlayer.removeInventoryItem('lithium', 5)
 			xPlayer.removeInventoryItem('baggie', 1)
 			TriggerClientEvent('scrubz_drugs_cl:packageCocaine', source, true)
 			Citizen.Wait(6000)
