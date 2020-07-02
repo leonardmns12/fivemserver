@@ -299,7 +299,7 @@ AddEventHandler('gcPhone:twitter_postTweets', function(username, password, messa
   fal = name.firstname .. "  " .. name.lastname
 
 	 TriggerClientEvent('chat:addMessage', -1, {
-        template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> New tweet from @{0}</b></div>',
+        template = '<div class="chat-message twitter"><i class="fab fa-twitter"></i><b> You have new tweet!</b></div>',
         args = { fal }
     })
 end)

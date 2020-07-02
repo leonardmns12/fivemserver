@@ -46,7 +46,7 @@ Config.DealerPos 			= {-45.25,-1098.05,26.42}			-- Center Pos of the dealer, onl
 Config.DrawTxtDist 			= 3.0								-- Distance to see draw text on display vehicles
 Config.VehLoadDistance 		= 20.0								-- Distance from player coords to DealerPos, before display features are loaded. Don't set below 40.0, unless u move cardealer.
 Config.CarDealerJobLabel 	= "cardealer"						-- Car Dealer Job Label from Database under table jobs
-Config.BoughtVehSpawn 		= {-31.06, -1090.79, 26.42}			-- Spawn Position of successfully purchased vehicle
+Config.BoughtVehSpawn 		= {-19.29,-1103.96,26.67}			-- Spawn Position of successfully purchased vehicle
 Config.PayWithCash 			= true								-- Purchase vehicles with bank money, set to true to purchase vehicle with cash instead.
 Config.MinCommission		= (-30)
 Config.MaxCommission		= 50
@@ -56,7 +56,7 @@ Config.WarpPlyIntoTestVeh 	= true								-- Set to true if player should be warp
 Config.OwnedVehTable		= 'owned_vehicles'					-- change this if you name your owned_vehicles table something else. Make sure to change all entries in server.lua, as this only changes for the protection.lua
 
 Config.PurchasedVehSpawn = {{									-- Position & heading for purchased vehicle. 
-	Pos = {-31.7,-1090.72,26.42},
+	Pos = {-19.29,-1103.96,26.67},
 	H = 333.28,
 }}
 

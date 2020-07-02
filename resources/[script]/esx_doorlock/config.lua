@@ -211,25 +211,25 @@ Config.DoorList = {
 
 	-- RIBJAIL
 	-- START
-	{
-		objName = 'prop_gate_prison_01',
-		objCoords  = {x=1222.352,y=3052.288,z=39.52278},
-		textCoords = {x=1221.340,y=3055.270,z=42.52278},
-		authorizedJobs = { 'police' },
-		distance = 10,
-		size = 1.7,
-		locked = true,
-	},
+	-- {
+	-- 	objName = 'prop_gate_prison_01',
+	-- 	objCoords  = {x=1222.352,y=3052.288,z=39.52278},
+	-- 	textCoords = {x=1221.340,y=3055.270,z=42.52278},
+	-- 	authorizedJobs = { 'police' },
+	-- 	distance = 10,
+	-- 	size = 1.7,
+	-- 	locked = true,
+	-- },
 	
-	{
-		objName = 'prop_gate_prison_01',
-		objCoords  = {x=1224.082,y=3045.098,z=39.52388}, 
-		textCoords = {x=1223.070,y=3047.080,z=42.52388}, 
-		authorizedJobs = { 'police' },
-		distance = 10,
-		size = 1.7,
-		locked = true,
-	},
+	-- {
+	-- 	objName = 'prop_gate_prison_01',
+	-- 	objCoords  = {x=1224.082,y=3045.098,z=39.52388}, 
+	-- 	textCoords = {x=1223.070,y=3047.080,z=42.52388}, 
+	-- 	authorizedJobs = { 'police' },
+	-- 	distance = 10,
+	-- 	size = 1.7,
+	-- 	locked = true,
+	-- },
 	
 	{
 		objName = 'prop_gate_prison_01',

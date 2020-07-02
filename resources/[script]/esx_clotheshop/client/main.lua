@@ -10,6 +10,12 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('esx_clothes:openwardrobe')
+AddEventHandler('esx_clothes:openwardrobe', function(source)
+	OpenShopMenu()
+	-- ESX.UI.Menu.CloseAll()
+end)
+
 function OpenShopMenu()
 	hasPaid = false
 

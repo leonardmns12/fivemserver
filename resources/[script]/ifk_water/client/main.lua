@@ -34,12 +34,23 @@ Citizen.CreateThread(function()
                             openWater2(source)
                         end
 					end
+				end
+				for i=1, #Water.location3 , 1 do
+                    if GetDistanceBetweenCoords(pos.x , pos.y , pos.z, Water.location3[i].x, Water.location3[i].y, Water.location3[i].z , true) < 2.5 then
+                        DrawText3D(Water.location3[i].x, Water.location3[i].y, Water.location3[i].z , '[~g~E~w~] untuk wardrobe')
+                        if IsControlJustReleased(0 , 38) then
+                            openwardrobe(source)
+                        end
+					end
 				end	
         end
     end
 end)
 
+function openwardrobe(source)
+	TriggerEvent('esx_clothes:openwardrobe')
 
+end
 
 
 function openWater(source)
