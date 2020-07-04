@@ -86,6 +86,7 @@ Citizen.CreateThread(function()
 			EnableControlAction(0, Keys['G'], true)
 			EnableControlAction(0, Keys['T'], true)
 			EnableControlAction(0, Keys['E'], true)
+			EnableControlAction(0, Keys['F'], true)
 			DisableControlAction(0,249,true) -- disable N stop speaking
 			DisableControlAction(0, Keys['LEFTSHIFT'],true) -- disable push vehicle
 			DisableControlAction(0, Keys['W'],true) -- disable push vehicle
@@ -102,10 +103,13 @@ function OnPlayerDeath()
 	StartDeathTimer()
 	StartDistressSignal()
 
+	
+
 	while IsDead do
 		Wait(0)
-		if IsEntityDead(GetPlayerPed(-1)) then
-		
+		local isCarried = IsEntityAttachedToAnyPed(GetPlayerPed(-1))
+		if IsEntityDead(GetPlayerPed(-1)) and isCarried == false then
+			print(isCarried)
 			Wait(5000)
 		
 			TriggerEvent('ragdoll')
@@ -118,8 +122,10 @@ function OnPlayerDeath()
 			plyPos = GetEntityCoords(GetPlayerPed(-1))
 		
 			Wait(60000)
+		elseif isCarried == true then
+			print(isCarried)
 		end
-		end
+	end
 
 	StartScreenEffect('DeathFailOut', 0, false)
 end

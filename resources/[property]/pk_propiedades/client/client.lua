@@ -666,8 +666,8 @@ local TeleportFromTo = {
 	["Imagination Court 5"] = {
 		positionFrom = { ['x'] = 8.43, ['y'] = 539.95, ['z'] = 176.03 , nom = "Imagination Court 5", precio = 3000000},
 		positionTo = { ['x'] = 8.43, ['y'] = 539.95, ['z'] = 999.03 , nom = "Imagination Court 5", precio = 3000000},
-		GuardarVehiculo = { ['x'] = 22.43, ['y'] = 544.39, ['z'] = 176.10 , nom = "Imagination Court 5"},
-		SpawnVehicle = { ['x'] = 23.48, ['y'] = 544.49, ['z'] = 176.20 , nom = "Imagination Court 5"},
+		GuardarVehiculo = { ['x'] = 13.11, ['y'] = 548.44, ['z'] = 175.49 , nom = "Imagination Court 5"},
+		SpawnVehicle = { ['x'] = 13.11, ['y'] = 548.44, ['z'] = 175.49 , nom = "Imagination Court 5"},
 		menu = { ['x'] = 0.19, ['y'] = 526.77, ['z'] = 170.80 , nom = "Imagination Court 5", 
 		garageprecio = 10000, 
 		armasprecio = 15000,
