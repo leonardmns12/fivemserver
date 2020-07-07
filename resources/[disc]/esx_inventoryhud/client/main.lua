@@ -75,7 +75,7 @@ local Keys = {
     ["N8"] = 61,
     ["N9"] = 118
 }
-
+local holstered = true
 local trunkData = nil
 local isInInventory = false
 ESX = nil
@@ -723,48 +723,123 @@ Citizen.CreateThread(
     function()
 		while true do
             Citizen.Wait(0)
+            loadAnimDict("reaction@intimidation@1h")
+            loadAnimDict("weapons@pistol_1h@gang")
+            local ped = PlayerPedId()
             if IsDisabledControlJustReleased(1, Keys["1"]) then
                 if fastWeapons[1] ~= nil then
-					if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[1]) then
-						SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
-					else
-						SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[1],true)
-					end
-				end
+                    if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[1]) then
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "outro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(1500)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        end
+                    else
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "intro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(2000)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[1],true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[1],true)
+                        end
+                        
+                    end
+                end
             end
+            
 			if IsDisabledControlJustReleased(1, Keys["2"]) then
                 if fastWeapons[2] ~= nil then
-					if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[2]) then
-						SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
-					else
-						SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[2],true)
+                    if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[2]) then
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "outro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(1500)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        end
+                    else
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "intro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(2000)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[2],true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[2],true)
+                        end
 					end
 				end
             end
 			if IsDisabledControlJustReleased(1, Keys["3"]) then
                 if fastWeapons[3] ~= nil then
-					if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[3]) then
-						SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                    if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[3]) then
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "outro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(1500)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        end
 					else
-						SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[3],true)
+						if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "intro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(2000)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[3],true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[3],true)
+                        end
 					end
 				end
             end
             if IsDisabledControlJustReleased(1, Keys["4"]) then
                 if fastWeapons[4] ~= nil then
-					if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[4]) then
-						SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
-					else
-						SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[4],true)
+                    if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[4]) then
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "outro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(1500)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        end
+                    else
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "intro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(2000)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[4],true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[4],true)
+                        end
 					end
 				end
             end
             if IsDisabledControlJustReleased(1, Keys["5"]) then
                 if fastWeapons[5] ~= nil then
-					if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[5]) then
-						SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
-					else
-						SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[5],true)
+                    if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(fastWeapons[5]) then
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "outro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(1500)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), "WEAPON_UNARMED",true)
+                        end
+                    else
+                        if not IsPedInAnyVehicle(PlayerPedId(), true) and GetPedParachuteState(PlayerPedId()) == -1 or GetPedParachuteState(PlayerPedId()) == 0 and GetPedParachuteState(PlayerPedId()) == 1 and GetPedParachuteState(PlayerPedId()) == 2 then
+                            TaskPlayAnim(ped, "reaction@intimidation@1h", "intro", 8.0, 2.0, -1, 48, 2, 0, 0, 0 )
+                            Citizen.Wait(2000)
+                            ClearPedTasks(ped)
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[5],true)
+                        else
+                            SetCurrentPedWeapon(GetPlayerPed(-1), fastWeapons[5],true)
+                        end
 					end
 				end
             end
@@ -772,6 +847,12 @@ Citizen.CreateThread(
     end
 )
 
+function loadAnimDict(dict)
+	while ( not HasAnimDictLoaded(dict)) do
+		RequestAnimDict(dict)
+		Citizen.Wait(0)
+	end
+end
 
 --Add Items--
 
