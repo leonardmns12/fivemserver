@@ -103,8 +103,6 @@ function OnPlayerDeath()
 	StartDeathTimer()
 	StartDistressSignal()
 
-	
-
 	while IsDead do
 		Wait(0)
 		local isCarried = IsEntityAttachedToAnyPed(GetPlayerPed(-1))
@@ -122,7 +120,7 @@ function OnPlayerDeath()
 			plyPos = GetEntityCoords(GetPlayerPed(-1))
 		
 			Wait(60000)
-		elseif isCarried == true then
+		elseif isCarried == 1 then
 			print(isCarried)
 		end
 	end
