@@ -99,28 +99,28 @@ AddEventHandler('scrubz_drugs_sv:endSale', function(drugType)
         local amount = calc(plyMax)
         xPlayer.removeInventoryItem(drugType, amount)
         local cash = amount * price
-        xPlayer.addMoney(cash)
+        xPlayer.addAccountMoney("black_money",cash)
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'You sold ' .. amount .. ' bags of weed for $' .. cash, length = 3500 })
     elseif drugType == Config.CokeItemName then
         local price = Config.CokeItemPrice
         local amount = calc(plyMax)
         xPlayer.removeInventoryItem(drugType, amount)
         local cash = amount * price
-        xPlayer.addMoney(cash)
+        xPlayer.addAccountMoney("black_money",cash)
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'You sold ' .. amount .. ' grams of coke for $' .. cash, length = 3500 })
     elseif drugType == Config.MethItemName then
         local price = Config.MethItemPrice
         local amount = calc(plyMax)
         xPlayer.removeInventoryItem(drugType, amount)
         local cash = amount * price
-        xPlayer.addMoney(cash)
+        xPlayer.addAccountMoney("black_money",cash)
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'You sold ' .. amount .. ' grams of meth for $' .. cash, length = 3500 })
     elseif drugType == Config.CrackItemName then
         local price = Config.CrackItemPrice
         local amount = calc(plyMax)
         xPlayer.removeInventoryItem(drugType, amount)
         local cash = amount * price
-        xPlayer.addMoney(cash)
+        xPlayer.addAccountMoney("black_money",cash)
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = 'You sold ' .. amount .. ' bags of crack for $' .. cash, length = 3500 })
     end
 end)

@@ -50,17 +50,17 @@ Citizen.CreateThread(function()
                     Citizen.Wait(2000)
                 end
             end
-            if IsInWeaponShopZone(coords) then
-                if IsControlJustReleased(0, Keys["E"]) then
-                    if Licenses['weapon'] ~= nil then
-                        OpenShopInv("weaponshop")
-                        TriggerScreenblurFadeIn(0)
-                        Citizen.Wait(2000)
-                    else
-                        exports['mythic_notify']:SendAlert('error', 'You need a Fire Arms license before you can buy weapons')
-                    end
-                end
-            end
+            -- if IsInWeaponShopZone(coords) then
+            --     if IsControlJustReleased(0, Keys["E"]) then
+            --         if Licenses['weapon'] ~= nil then
+            --             OpenShopInv("weaponshop")
+            --             TriggerScreenblurFadeIn(0)
+            --             Citizen.Wait(2000)
+            --         else
+            --             exports['mythic_notify']:SendAlert('error', 'You need a Fire Arms license before you can buy weapons')
+            --         end
+            --     end
+            -- end
         end
     end
 end)
@@ -274,9 +274,9 @@ Citizen.CreateThread(function()
         CreateBlip(vector3(Config.Shops.PrisonShop.Locations[k].x, Config.Shops.PrisonShop.Locations[k].y, Config.Shops.PrisonShop.Locations[k].z), "Prison Commissary", 3.0, Config.Color, Config.PrisonShopBlipID)
     end
 
-    for k, v in pairs(Config.Shops.WeaponShop.Locations) do
-        CreateBlip(vector3(Config.Shops.WeaponShop.Locations[k].x, Config.Shops.WeaponShop.Locations[k].y, Config.Shops.WeaponShop.Locations[k].z), "Ammunation", 3.0, Config.WeaponColor, Config.WeaponShopBlipID)
-    end
+    -- for k, v in pairs(Config.Shops.WeaponShop.Locations) do
+    --     CreateBlip(vector3(Config.Shops.WeaponShop.Locations[k].x, Config.Shops.WeaponShop.Locations[k].y, Config.Shops.WeaponShop.Locations[k].z), "Ammunation", 3.0, Config.WeaponColor, Config.WeaponShopBlipID)
+    -- end
 
     CreateBlip(vector3(-755.79, 5596.07, 41.67), "Cablecart", 3.0, 4, 36)
 end)
@@ -311,11 +311,11 @@ Citizen.CreateThread(function()
             end
         end
 
-        for k, v in pairs(Config.Shops.WeaponShop.Locations) do
-            if GetDistanceBetweenCoords(coords, Config.Shops.WeaponShop.Locations[k].x, Config.Shops.WeaponShop.Locations[k].y, Config.Shops.WeaponShop.Locations[k].z, true) < 3.0 then
-                ESX.Game.Utils.DrawText3D(vector3(Config.Shops.WeaponShop.Locations[k].x, Config.Shops.WeaponShop.Locations[k].y, Config.Shops.WeaponShop.Locations[k].z + 1.0), "Press ~r~[E]~s~ to open shop", 0.6)
-            end
-        end
+        -- for k, v in pairs(Config.Shops.WeaponShop.Locations) do
+        --     if GetDistanceBetweenCoords(coords, Config.Shops.WeaponShop.Locations[k].x, Config.Shops.WeaponShop.Locations[k].y, Config.Shops.WeaponShop.Locations[k].z, true) < 3.0 then
+        --         ESX.Game.Utils.DrawText3D(vector3(Config.Shops.WeaponShop.Locations[k].x, Config.Shops.WeaponShop.Locations[k].y, Config.Shops.WeaponShop.Locations[k].z + 1.0), "Press ~r~[E]~s~ to open shop", 0.6)
+        --     end
+        -- end
     end
 end)
 

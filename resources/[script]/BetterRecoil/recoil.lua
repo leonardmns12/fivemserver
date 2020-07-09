@@ -2,7 +2,7 @@ local recoils = {
 	[453432689] = 0.8, -- PISTOL
 	[3219281620] = 0.3, -- PISTOL MK2
 	[1593441988] = 0.2, -- COMBAT PISTOL
-	[584646201] = 0.9, -- AP PISTOL
+	[584646201] = 1.0, -- AP PISTOL
 	[-1716589765] = 0.7, -- PISTOL .50
 	[324215364] = 0.2, -- MICRO SMG
 	[736523883] = 0.1, -- SMG
@@ -69,12 +69,48 @@ Citizen.CreateThread(function()
 			if recoils[wep] and recoils[wep] ~= 0 then
 				tv = 0
 				if GetFollowPedCamViewMode() ~= 4 then
-					repeat 
-						Wait(0)
-						p = GetGameplayCamRelativePitch()
-						SetGameplayCamRelativePitch(p+0.1, 0.2)
-						tv = tv+0.1
-					until tv >= recoils[wep]
+					TriggerEvent('esx_status:getStatus','stress', function(stress)
+						if stress.val < 250000.0 then
+							repeat 
+								Wait(0)
+								p = GetGameplayCamRelativePitch()
+								SetGameplayCamRelativePitch(p+0.1, 0.2)
+								tv = tv+0.1
+							until tv >= recoils[wep]
+						elseif stress.val > 250000.0 and stress.val < 450000.0 then
+							repeat 
+								Wait(0)
+								p = GetGameplayCamRelativePitch()
+								SetGameplayCamRelativePitch(p+0.4, 0.2)
+								tv = tv+0.1
+							until tv >= recoils[wep] * 2
+						elseif stress.val > 450000.0 and stress.val < 750000.0 then
+							repeat 
+								Wait(0)
+								p = GetGameplayCamRelativePitch()
+								SetGameplayCamRelativePitch(p+0.6, 0.2)
+								tv = tv+0.1
+								print(tv)
+							until tv >= recoils[wep] * 3
+						elseif stress.val > 750000.0 then
+							repeat 
+								Wait(0)
+								p = GetGameplayCamRelativePitch()
+								SetGameplayCamRelativePitch(p+0.8, 0.2)
+								tv = tv+0.1
+								print(tv)
+							until tv >= recoils[wep] * 4
+						end
+					end)
+					-- repeat 
+					-- 	Wait(0)
+					-- 	p = GetGameplayCamRelativePitch()
+					-- 	print(p)
+					-- 	SetGameplayCamRelativePitch(p+0.1, 0.2)
+					-- 	print(SetGameplayCamRelativePitch(p+0.1, 0.2))
+					-- 	tv = tv+0.1
+					-- 	print(tv)
+					-- until tv >= recoils[wep]
 				else
 					repeat 
 						Wait(0)

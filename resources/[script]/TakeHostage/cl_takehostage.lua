@@ -5,6 +5,9 @@
 local hostageAllowedWeapons = {
 	"WEAPON_PISTOL",
 	"WEAPON_COMBATPISTOL",
+	"WEAPON_APPISTOL",
+	"WEAPON_PISTOL50",
+	"WEAPON_DOUBLEACTION",
 	--etc add guns you want
 }
 
