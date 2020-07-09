@@ -90,7 +90,6 @@ Citizen.CreateThread(function()
 								p = GetGameplayCamRelativePitch()
 								SetGameplayCamRelativePitch(p+0.6, 0.2)
 								tv = tv+0.1
-								print(tv)
 							until tv >= recoils[wep] * 3
 						elseif stress.val > 750000.0 then
 							repeat 
@@ -98,7 +97,6 @@ Citizen.CreateThread(function()
 								p = GetGameplayCamRelativePitch()
 								SetGameplayCamRelativePitch(p+0.8, 0.2)
 								tv = tv+0.1
-								print(tv)
 							until tv >= recoils[wep] * 4
 						end
 					end)
