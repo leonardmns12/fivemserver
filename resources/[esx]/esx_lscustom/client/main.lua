@@ -60,7 +60,7 @@ function OpenLSMenu(elems, menuName, menuTitle, parent)
 		local isRimMod, found = false, false
 		local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 
-		if data.current.modType == "modFrontWheels" then
+		if data.current.modType == "modFrontWheels" or data.current.modType == "modBackWheels" then
 			isRimMod = true
 		end
 
@@ -279,6 +279,7 @@ function GetAction(data)
 
 					props['wheels'] = v.wheelType
 					ESX.Game.SetVehicleProperties(vehicle, props)
+					SetVehicleMod()
 
 					local modCount = GetNumVehicleMods(vehicle, v.modType)
 					for j = 0, modCount, 1 do
@@ -292,6 +293,26 @@ function GetAction(data)
 								_label = GetLabelText(modName) .. ' - <span style="color:green;">$' .. price .. ' </span>'
 							end
 							table.insert(elements, {label = _label, modType = 'modFrontWheels', modNum = j, wheelType = v.wheelType, price = v.price})
+						end
+					end
+				elseif v.modType == 24 then -- REAR WHEELS TYPES
+					local props = {}
+
+					props['wheels'] = v.wheelType
+					ESX.Game.SetVehicleProperties(vehicle, props)
+
+					local modCount = GetNumVehicleMods(vehicle, v.modType)
+					for j = 0, modCount, 1 do
+						local modName = GetModTextLabel(vehicle, v.modType, j)
+						if modName ~= nil then
+							local _label = ''
+							if j == currentMods.modBackWheels then
+								_label = GetLabelText(modName) .. ' - <span style="color:cornflowerblue;">'.. _U('installed') ..'</span>'
+							else
+								price = math.floor(vehiclePrice * v.price / 100)
+								_label = GetLabelText(modName) .. ' - <span style="color:green;">$' .. price .. ' </span>'
+							end
+							table.insert(elements, {label = _label, modType = 'modBackWheels', modNum = j, wheelType = v.wheelType, price = v.price})
 						end
 					end
 				elseif v.modType == 11 or v.modType == 12 or v.modType == 13 or v.modType == 15 or v.modType == 16 then

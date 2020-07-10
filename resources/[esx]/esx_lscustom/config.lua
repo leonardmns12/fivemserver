@@ -636,7 +636,76 @@ Config.Menus = {
 		parent = 'cosmetics',
 		modFrontWheelsTypes = _U('wheel_type'),
 		modFrontWheelsColor = _U('wheel_color'),
+		modRearWheelsTypes = "Wheel rear type (Motorcycle Only)",
 		tyreSmokeColor = _U('tiresmoke')
+	},
+	modRearWheelsTypes = {
+		label				= _U('wheel_type'),
+		parent				= 'wheels',
+		modRearWheelsType0	= _U('sport'),
+		modRearWheelsType1	= _U('muscle'),
+		modRearWheelsType2	= _U('lowrider'),
+		modRearWheelsType3	= _U('suv'),
+		modRearWheelsType4	= _U('allterrain'),
+		modRearWheelsType5	= _U('tuning'),
+		modRearWheelsType6	= _U('motorcycle'),
+		modRearWheelsType7	= _U('highend')
+	},
+	modRearWheelsType0 = {
+		label = _U('sport'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 0,
+		price = 2.65
+	},
+	modRearWheelsType1 = {
+		label = _U('muscle'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 1,
+		price = 2.19
+	},
+	modRearWheelsType2 = {
+		label = _U('lowrider'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 2,
+		price = 2.65
+	},
+	modRearWheelsType3 = {
+		label = _U('suv'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 3,
+		price = 2.19
+	},
+	modRearWheelsType4 = {
+		label = _U('allterrain'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 4,
+		price = 2.19
+	},
+	modRearWheelsType5 = {
+		label = _U('tuning'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 5,
+		price = 2.12
+	},
+	modRearWheelsType6 = {
+		label = _U('motorcycle'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 6,
+		price = 1.26
+	},
+	modRearWheelsType7 = {
+		label = _U('highend'),
+		parent = 'modRearWheelsTypes',
+		modType = 24,
+		wheelType = 7,
+		price = 1.12
 	},
 	modFrontWheelsTypes = {
 		label				= _U('wheel_type'),
